@@ -1,5 +1,8 @@
 # Android-Help
 A Simple Repository To Help With Android Tweaking
-!~
-! Hi
-~ Hi
+
+
+#ITEMS IN REPOSITORY
+- Debloaters
+- Flashers
+- Guides
