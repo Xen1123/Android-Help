@@ -87,7 +87,7 @@ adb reboot recovery
 ;;
 "End The Script")
 exit
-::
+;;
 *)
 echo "Invalid Option: $REPLY"
 ;;
