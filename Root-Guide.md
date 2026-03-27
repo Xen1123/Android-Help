@@ -1,5 +1,5 @@
 # How To Root Any Android Phone
-- Download Magisk APK At https://github.com/topjohnwu/Magisk/releases
+- Download Magisk APK At [Magisk Releases](https://github.com/topjohnwu/Magisk/releases)
 - Find The Stock Firmware For Your Device And Pull boot.img Or init_boot.img
 - Install The Magisk App
 - Patch Your .img File
