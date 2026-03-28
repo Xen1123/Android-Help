@@ -17,9 +17,9 @@
 - For Above, If In OrangeFox, Click The Menu Button, Select Toolbox, Select 'ADB Sideload', And Then Confirm.
 
 # Linux Guide (Copy & Paste Into Terminal)
-    - Do NOT Follow This Method Unless You Have Your Stock Firmware.
 - Please make sure you have wget, adb+fastboot, and the mtp tool so you can transfer files from the phone, the package name varies between distros (gvfs-mtp
 , mtp-tools, etc.)
+      - Do NOT Follow This Method Unless You Have Your Stock Firmware.
 ```
 wget https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk
 ```
