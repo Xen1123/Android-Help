@@ -25,25 +25,50 @@ fastboot flash vendor vendor.img
 fastboot flash vendor_dlkm vendor_dlkm.img
 fastboot flash product product.img
 clear
+
+PS3="Would You Like To Disable Verification So The Device Will Boot Modified Android Versions? (May Prevent Booting Android/Recovery Mode On Some Phones, But Works On Most)."
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+  case $opt in
+    "Yes")
+      fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
+      fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img || echo "vbmeta_vendor not found, skipping..."
+      fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img || echo "vbmeta_system not found, skipping..."
+      fastboot -w
+      break
+    ;;
+    "No")
+      break
+    ;;
+    *)
+      echo "Invalid Option: $REPLY"
+    ;;
+    esac
+  done
+
 PS3="What Now?"
 options=("Reboot To System" "Reboot To Recovery" "Reboot To Bootloader" "Exit Script For Extended Flashing")
 select opt in "${options[@]}"
 do
-case $opt in
-"Reboot To System")
-fastboot reboot
-;;
-"Reboot To Recovery")
-fastboot reboot recovery
-;;
-"Reboot To Bootloader")
-fastboot reboot bootloader
-;;
-"Exit Script For Extended Flashing")
-exit
-;;
-*)
-echo "Invalid Option: $REPLY"
-;;
-esac
+  case $opt in
+    "Reboot To System")
+      fastboot reboot
+      exit
+    ;;
+    "Reboot To Recovery")
+      fastboot reboot recovery
+      exit
+    ;;
+    "Reboot To Bootloader")
+      fastboot reboot bootloader
+      exit
+    ;;
+    "Exit Script For Extended Flashing")
+      exit
+    ;;
+    *)
+      echo "Invalid Option: $REPLY"
+    ;;
+  esac
 done
