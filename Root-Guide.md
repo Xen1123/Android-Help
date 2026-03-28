@@ -19,25 +19,25 @@
 ## Linux Guide (Copy + Paste Into Terminal)
 - Please make sure you have wget, adb+fastboot, and the mtp tool so you can transfer files from the phone, the package name varies between distros (gvfs-mtp
 , mtp-tools, etc.)
-```
+```bash
 wget https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk
 ```
-```
+```bash
 adb install ~/Downloads/Magisk-v30.7.apk
 ```
-```
+```bash
 adb push /path/to/init_boot.img /sdcard/Download
 ```
 **Go Into Magisk And Patch The File, Then Continue**
-```
+```bash
 adb shell "ls /sdcard/Download/magisk_patched*.img" | xargs -I {} adb pull "{}" ~/Downloads
 ```
-```
+```bash
 adb reboot fastboot
 ```
-```
+```bash
 mv magisk_patched* root_init_boot.img
 ```
-```
+```bash
 fastboot flash init_boot root_init_boot.img && fastboot reboot
 ```
