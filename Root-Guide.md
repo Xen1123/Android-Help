@@ -28,7 +28,7 @@ adb install ~/Downloads/Magisk-v30.7.apk
 ```
 adb push /path/to/init_boot.img /sdcard/Download
 ```
-                                                                **Go Into Magisk And Patch The File, Then Continue**
+**Go Into Magisk And Patch The File, Then Continue**
 ```
 adb shell "ls /sdcard/Download/magisk_patched*.img" | xargs -I {} adb pull "{}" ~/Downloads
 ```
