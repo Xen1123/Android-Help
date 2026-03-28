@@ -55,14 +55,12 @@ com.google.android.apps.wallpaper.pixel
 com.android.adservices.api
 com.android.backupconfirm
 com.google.audio.hearing.visualization.accessibility.scribe
-com.google.android.safetycore
 com.google.android.accessibility.soundamplifier
 com.google.android.apps.accessibility.voiceaccess
 com.android.companiondevicemanager
 com.android.providers.telephony.auto_generated_characteristics_rro
 com.android.providers.settings.auto_generated_rro_vendor__
 com.google.android.apps.weather
-org.fossify.gallery
 com.google.android.apps.diagnosticstool
 )
 for app in "${apps[@]}"; do
