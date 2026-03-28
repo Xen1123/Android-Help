@@ -26,9 +26,18 @@ wget https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.ap
 adb install ~/Downloads/Magisk-v30.7.apk
 ```
 ```
-adb push /path/to/.img/file /sdcard/Download
+adb push /path/to/init_boot.img /sdcard/Download
 ```
 **Go Into Magisk And Patch The File, Then Continue**
 ```
-adb pull /sdcard/Download/magisk-patched*.img ~/Downloads
+adb shell "ls /sdcard/Download/magisk_patched*.img" | xargs -I {} adb pull "{}" ~/Downloads
+```
+```
+adb reboot fastboot
+```
+```
+mv magisk_patched* root_init_boot.img
+```
+```
+fastboot flash root_init_boot.img init_boot && fastboot reboot
 ```
