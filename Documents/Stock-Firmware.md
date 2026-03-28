@@ -18,4 +18,3 @@
 
 ## Xiaomi Devices
 - **[Xiaomi Device Firmware](https://mifirm.net/)**
-  - 
