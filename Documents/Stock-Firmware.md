@@ -21,4 +21,3 @@
 
 ## Motorola Phones
 - [Motorola Firmware](https://firmware.center/firmware/Motorola/)
-  - 
