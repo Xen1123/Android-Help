@@ -39,5 +39,5 @@ adb reboot fastboot
 mv magisk_patched* root_init_boot.img
 ```
 ```
-fastboot flash root_init_boot.img init_boot && fastboot reboot
+fastboot flash init_boot root_init_boot.img && fastboot reboot
 ```
