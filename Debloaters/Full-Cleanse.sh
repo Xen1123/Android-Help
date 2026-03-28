@@ -10,7 +10,6 @@ com.google.android.odad
 io.chaldeaprjkt.gamespace
 com.google.android.apps.betterbug
 com.android.yadayada
-com.google.android.safetycore
 com.google.android.contactkeys
 org.lineageos.glimpse
 com.android.dialer
@@ -30,7 +29,6 @@ com.google.android.apps.wellbeing
 com.google.android.apps.tips
 com.google.android.apps.tachyon
 com.google.android.apps.chromecast.app
-org.fossify.gallery
 com.google.android.videos
 com.google.android.apps.subscriptions.red
 com.google.android.apps.magazines
