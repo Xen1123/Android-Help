@@ -18,3 +18,7 @@
 
 ## Xiaomi Devices
 - **[Xiaomi Device Firmware](https://mifirm.net/)**
+
+## Motorola Phones
+- [Motorola Firmware](https://firmware.center/firmware/Motorola/)
+  - 
