@@ -80,12 +80,15 @@ do
 case $opt in
 "Reboot Now")
 adb reboot
+exit
 ;;
 "Reboot To Bootloader")
 adb reboot bootloader
+exit
 ;;
 "Reboot To Recovery")
 adb reboot recovery
+exit
 ;;
 "End The Script")
 exit
