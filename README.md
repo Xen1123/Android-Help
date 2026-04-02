@@ -1,5 +1,5 @@
 <h1 align=center>Android-Help<h1>
-A Simple Repository To Help With Android Tweaking
+<h3 align=center>A Simple Repository To Help With Android Tweaking<h3>
 
 # THIS REPOSITORY IS LINUX ONLY
 Although there are currently only Linux scripts, I may translate these to batch if I have the time.
