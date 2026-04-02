@@ -1,4 +1,4 @@
-<h1 align="center">Android-Help<h1>
+<h1 align="center">Android-Help</h1>
 <h3 align="center">A Simple Repository To Help With Android Tweaking<h3>
 
 ## THIS REPOSITORY IS LINUX ONLY
