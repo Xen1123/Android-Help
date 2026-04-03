@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 echo "This script debloats your android phone with a long list of applications, standard adb is used instead of root so a factory reset can resolve any issues, or you can restore the apps if you're brave with the terminal!"
-#sleep 10
+sleep 10
 apps=(
 com.microsoft.appmanager
 com.microsoft.skydrive
