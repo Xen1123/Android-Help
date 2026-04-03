@@ -3,6 +3,24 @@ clear
 echo "This script debloats your android phone with a long list of applications, standard adb is used instead of root so a factory reset can resolve any issues, or you can restore the apps if you're brave with the terminal!"
 #sleep 10
 apps=(
+com.microsoft.appmanager
+com.microsoft.skydrive
+com.samsung.android.beaconmanager
+com.samsung.android.app.omcagent
+com.samsung.android.app.reminder
+com.sec.android.app.billing
+com.samsung.android.app.spage
+com.sec.android.app.sbrowser
+com.samsung.android.samsungpass
+com.sec.spp.push
+com.android.stk
+com.samsung.android.stickercenter
+com.google.android.apps.accessibility.voiceaccess
+com.google.android.game.gamehome
+com.samsung.android.game.gametools
+com.samsung.android.aremoji
+com.samsung.android.samsungpassautofill
+com.sec.android.mimage.avatarstickers
 io.chaldeaprjkt.gamespace
 com.google.android.apps.betterbug
 com.android.yadayada
