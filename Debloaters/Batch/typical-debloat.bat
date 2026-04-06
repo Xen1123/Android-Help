@@ -6,7 +6,7 @@ set "apps=com.microsoft.appmanager com.microsoft.skydrive com.samsung.android.be
 
 for %%a in (%apps%) do (
     echo Uninstalling: %%a
-    adb shell pm uninstall --user 0 %%a
+    adb shell pm uninstall --user 0 %%a >nul 2>&1
 )
 pause
 cls
