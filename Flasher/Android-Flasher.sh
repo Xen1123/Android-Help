@@ -1,8 +1,8 @@
 #!/bin/bash
 clear
 echo "This script flashes everything Android related, this includes boot, recovery, system, product, etc. This script skips bootloader components, which means it is completely
-safe, unable to hard brick your device, but depending on the device, you may NEED to flash bootloader images for Android to boot."
-sleep 18
+safe, unable to hard brick your device, but depending on the device, you may NEED to flash bootloader images for Android to boot. Press any key to continue."
+read -n 1 -s
 adb start-server
 adb reboot bootloader
 fastboot reboot bootloader
