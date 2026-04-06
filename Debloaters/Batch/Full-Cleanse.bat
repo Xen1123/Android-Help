@@ -6,7 +6,7 @@ set "apps=com.google.android.gms com.android.vending com.google.android.odad com
 
 for %%a in (%apps%) do (
     echo Uninstalling: %%a
-    adb shell pm uninstall --user 0 %%a >nul
+    adb shell pm uninstall --user 0 %%a >nul 2>&1
 )
 pause
 cls
