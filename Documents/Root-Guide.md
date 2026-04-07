@@ -44,7 +44,7 @@ adb push ~/Downloads/init_boot.img /sdcard/Download
 
 **Windows**
 ```bash
-adb push C:\Users\%USERPROFILE%\Downloads\init_boot.img /sdcard/Download
+adb push "%USERPROFILE%\Downloads\init_boot.img" /sdcard/Download
 ```
 - Patch the image in Magisk, then pull it back to your computer
 
@@ -55,7 +55,7 @@ adb pull /sdcard/Download/magisk-patched* ~/Downloads/root_init_boot.img
 
 **Windows**
 ```bash
-adb pull /sdcard/Download/magisk-patched* C:\Users\%USERPROFILE%\Downloads\root_init_boot.img
+adb pull /sdcard/Download/magisk-patched* "\%USERPROFILE%\Downloads\root_init_boot.img"
 ```
 
 <h2 align=center>The Finale</h2>
