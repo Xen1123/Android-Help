@@ -52,3 +52,8 @@ adb push C:\Users\%USERPROFILE%\Downloads\init_boot.img /sdcard/Download
 ```bash
 adb pull /sdcard/Download/magisk-patched* ~/Downloads/root_init_boot.img
 ```
+
+**Windows**
+```bash
+adb pull /sdcard/Download/magisk-patched* C:\Users\%USERPROFILE%\Downloads\root_init_boot.img
+```
