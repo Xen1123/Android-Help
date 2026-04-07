@@ -57,3 +57,19 @@ adb pull /sdcard/Download/magisk-patched* ~/Downloads/root_init_boot.img
 ```bash
 adb pull /sdcard/Download/magisk-patched* C:\Users\%USERPROFILE%\Downloads\root_init_boot.img
 ```
+
+<h2 align=center>The Finale</h2>
+
+- It Is Now Time To Unlock Your Bootloader, Please Make Sure You Enabled OEM Unlocking Earlier
+- Reboot Into Your Bootloader Interface And Proceed With The Unlock, Confirming On Your Device With Volume Buttons & Power Key
+
+```bash
+adb reboot bootloader && fastboot flashing unlock
+```
+- If This Did Not Activate The Prompt But OEM Unlocking Is Enabled And You're In Fastboot, Try This
+
+```bash
+fastboot flashing oem unlock
+```
+
+- If This Failed, You May Be Missing Fastboot Drivers, Does Your Device Show Up When You Type 'fastboot devices'?
