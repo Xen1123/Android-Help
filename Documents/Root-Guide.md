@@ -72,4 +72,19 @@ adb reboot bootloader && fastboot flashing unlock
 fastboot flashing oem unlock
 ```
 
-- If This Failed, You May Be Missing Fastboot Drivers, Does Your Device Show Up When You Type 'fastboot devices'?
+- If This Failed, Stop Here, You May Be Missing Fastboot Drivers, Does Your Device Show Up When You Type `fastboot devices`?
+
+- Once Your Bootloader Is Unlocked, The Phone Will Factory Reset And Boot Into Android Setup, You're Close! Turn Off The Phone And Hold The Power Button With The Volume Key Until You Boot Back Into The Bootloader (Key Combination May Be Different On Select Devices)
+- Flash Your Patched Image
+
+```bash
+fastboot flash init_boot root_init_boot.img && fastboot reboot
+```
+- Congratulations! You're Done! You're Semi-Rooted And Free To Do Anything On Android Now! When You Setup Your Phone, There Will Be A System App For Magisk In Your App Drawer, This Is Called A Stub, Once You Try To Open It, It Will Install The Full Magisk App And Then Fully Patch Your Device To Give You Full Root Access!
+
+<h2 align=center>Post Root Help</h2>
+
+- These Are Just Some Things You Can Use After Rooting To Make Your Android Experience With Root Worth It!
+  - [Android Debloat Scripts](../Debloaters) (Be Careful! The Full-Cleanse Will Delete Google Play Store And Play Services, The Typical Debloat Keeps Those In Tact, Though)
+  - LSPosed/Vector Is A Very Good Implementation of Xposed, Which Uses Root To Allow The User To Hook Apps Into System Processes, Download It [Here!](https://github.com/JingMatrix/Vector/releases/download/v2.0/Vector-v2.0-3021-Release.zip)
+  - [Droidify](https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk) Is An App Store Of A Collection Of Free And Open Source (FOSS) Apps That You Can Download, Some Apps Available In Droidify Are Directly Reliant On LSPosed/Vector
