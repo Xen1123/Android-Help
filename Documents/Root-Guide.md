@@ -47,6 +47,7 @@ adb push ~/Downloads/init_boot.img /sdcard/Download
 adb push C:\Users\%USERPROFILE%\Downloads\init_boot.img /sdcard/Download
 ```
 - Patch the image in Magisk, then pull it back to your computer
+
 **Linux / MacOS**
 ```bash
 adb pull /sdcard/Download/magisk-patched* ~/Downloads/root_init_boot.img
