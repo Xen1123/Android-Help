@@ -30,8 +30,13 @@
         brew install --cask android-platform-tools
         ```
       
-<h2 align=center>###Getting To The Root of The Topic###</h2>
+<h2 align=center>### Getting To The Root of The Topic ###</h2>
 
 - First, Find The Stock Firmware For Your Device [Here](./Stock-Firmware.md)
+  - Find the `init_boot.img` and pull it to the Downloads folder
 - Second, Download [Magisk](https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk)
-- 
+- `adb install Magisk-v30.7.apk`
+**Linux / MacOS**
+  ```bash
+  adb push ~/Downloads/init_boot.img /sdcard/
+  ```
