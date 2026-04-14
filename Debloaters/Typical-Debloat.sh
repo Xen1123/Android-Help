@@ -83,7 +83,7 @@ com.google.android.apps.diagnosticstool
 )
 for app in "${apps[@]}"; do
 echo "Uninstalling: $app"
-adb shell pm uninstall --user 0 "$app"
+adb shell pm disbale-user --user 0 "$app"
 done
 clear
 echo "Would You Like To Reboot Your Phone?"
