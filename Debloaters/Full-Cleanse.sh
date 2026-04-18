@@ -1,8 +1,12 @@
 #!/bin/bash
 clear
-echo "This script debloats your android phone with a long list of applications, GApps are removed to save as much power as possible, standard adb is used instead of root so a factory reset can resolve any issues, or you can restore the apps if you're brave with the terminal! Press any key to continue."
-read -n 1 -s
+echo "This script debloats your android phone with a long list of applications, standard adb is used instead of root so a factory reset can resolve any issues, or you can restore the apps if you're brave with the terminal! Press any key to continue."
+read -r -n 1 -s
 apps=(
+com.google.android.gms
+com.google.ar.core
+com.android.vending
+com.google.android.googlequicksearchbox
 com.microsoft.appmanager
 com.microsoft.skydrive
 com.samsung.android.beaconmanager
@@ -15,19 +19,15 @@ com.samsung.android.samsungpass
 com.sec.spp.push
 com.android.stk
 com.samsung.android.stickercenter
-com.google.android.apps.accessibility.voiceaccess
 com.google.android.game.gamehome
 com.samsung.android.game.gametools
 com.samsung.android.aremoji
 com.samsung.android.samsungpassautofill
 com.sec.android.mimage.avatarstickers
-com.google.android.gms
-com.android.vending
-com.google.ar.core
-com.google.android.odad
 io.chaldeaprjkt.gamespace
 com.google.android.apps.betterbug
 com.android.yadayada
+com.google.android.safetycore
 com.google.android.contactkeys
 org.lineageos.glimpse
 com.android.dialer
@@ -47,6 +47,7 @@ com.google.android.apps.wellbeing
 com.google.android.apps.tips
 com.google.android.apps.tachyon
 com.google.android.apps.chromecast.app
+org.fossify.gallery
 com.google.android.videos
 com.google.android.apps.subscriptions.red
 com.google.android.apps.magazines
@@ -58,7 +59,6 @@ com.chiller3.bcr
 com.google.android.calculator
 com.google.android.apps.work.clouddpc
 com.google.android.apps.wearables.maestro.companion
-com.google.android.apps.calendar
 com.google.android.apps.recorder
 com.google.android.apps.safetyhub
 com.google.android.projection.gearhead
@@ -75,24 +75,23 @@ com.google.android.apps.wallpaper.pixel
 com.android.adservices.api
 com.android.backupconfirm
 com.google.audio.hearing.visualization.accessibility.scribe
-com.google.android.safetycore
 com.google.android.accessibility.soundamplifier
 com.google.android.apps.accessibility.voiceaccess
 com.android.companiondevicemanager
 com.android.providers.telephony.auto_generated_characteristics_rro
 com.android.providers.settings.auto_generated_rro_vendor__
 com.google.android.apps.weather
-org.fossify.gallery
 com.google.android.apps.diagnosticstool
 )
 for app in "${apps[@]}"; do
 echo "Uninstalling: $app"
-adb shell pm uninstall --user 0 "$app"
+adb shell pm uninstall -k --user 0 "$app" >/dev/null 2>&1 || echo "Failed To Remove $app"
 done
 clear
 echo "Would You Like To Reboot Your Phone?"
-PS3='Please Select Your Choice: '
-options=("Reboot Now" "Reboot To Bootloader" "Reboot To Recovery" "End The Script")
+PS3='Please Select Your Choice: 
+'
+options=("Reboot Now" "Reboot To Bootloader" "Reboot To Recovery" "Reboot To Fastboot" "End The Script")
 select opt in "${options[@]}"
 do
 case $opt in
@@ -106,6 +105,10 @@ exit
 ;;
 "Reboot To Recovery")
 adb reboot recovery
+exit
+;;
+"Reboot To Fastboot")
+adb reboot fastboot
 exit
 ;;
 "End The Script")
