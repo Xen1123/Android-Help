@@ -18,10 +18,14 @@ if ! command -v adb >/dev/null 2>&1 && ! command -v fastboot >/dev/null 2>&1; th
 fi
 
 echo "Please Make Sure You Have Your Images In The Same Folder You're Running The Script From! (Press Any Key To Continue)"
-read -n 1 -s
+read -r -n 1 -s
 adb reboot fastboot >/dev/null 2>&1
 timeout 2s fastboot reboot fastboot >/dev/null 2>&1
 clear
+until fastboot devices | grep -q "fastboot"; do
+    echo "Waiting for device in fastbootd..."
+    sleep 2
+done
 PS3="Did You Unlock The Critical Partitions For Your Bootloader?
 "
 options=("Yes" "No")
@@ -29,6 +33,7 @@ select opt in "${options[@]}"
 do
 case $opt in
     "Yes")
+        fastboot set_active a
         images=(
             abl
             aop
@@ -81,7 +86,10 @@ case $opt in
         exit
         ;;
     "No")
-        exit
+        adb reboot bootloader
+        timeout 2s fastboot reboot bootloader
+        fastboot flashing unlock_critical || exit
+        echo "Your Phone Is Now Ready For This Script! Re-Run The Script To Continue!"
         ;;
     esac
 done
