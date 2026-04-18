@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 echo "This script debloats your android phone with a long list of applications, standard adb is used instead of root so a factory reset can resolve any issues, or you can restore the apps if you're brave with the terminal! Press any key to continue."
-read -n 1 -s
+read -r -n 1 -s
 apps=(
 com.microsoft.appmanager
 com.microsoft.skydrive
@@ -15,7 +15,6 @@ com.samsung.android.samsungpass
 com.sec.spp.push
 com.android.stk
 com.samsung.android.stickercenter
-com.google.android.apps.accessibility.voiceaccess
 com.google.android.game.gamehome
 com.samsung.android.game.gametools
 com.samsung.android.aremoji
@@ -56,7 +55,6 @@ com.chiller3.bcr
 com.google.android.calculator
 com.google.android.apps.work.clouddpc
 com.google.android.apps.wearables.maestro.companion
-com.google.android.apps.calendar
 com.google.android.apps.recorder
 com.google.android.apps.safetyhub
 com.google.android.projection.gearhead
@@ -83,12 +81,13 @@ com.google.android.apps.diagnosticstool
 )
 for app in "${apps[@]}"; do
 echo "Uninstalling: $app"
-adb shell pm disbale-user --user 0 "$app"
+adb shell pm uninstall -k --user 0 "$app" >/dev/null 2>&1 || echo "Failed To Remove $app"
 done
 clear
 echo "Would You Like To Reboot Your Phone?"
-PS3='Please Select Your Choice: '
-options=("Reboot Now" "Reboot To Bootloader" "Reboot To Recovery" "End The Script")
+PS3='Please Select Your Choice: 
+'
+options=("Reboot Now" "Reboot To Bootloader" "Reboot To Recovery" "Reboot To Fastboot" "End The Script")
 select opt in "${options[@]}"
 do
 case $opt in
@@ -102,6 +101,10 @@ exit
 ;;
 "Reboot To Recovery")
 adb reboot recovery
+exit
+;;
+"Reboot To Fastboot")
+adb reboot fastboot
 exit
 ;;
 "End The Script")
