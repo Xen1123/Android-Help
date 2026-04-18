@@ -27,4 +27,4 @@ I am actually currently working on translating my bash scripts to batch, they're
 - [x] Create Guides For Rooting Android Phones
 - [x] Create Firmware Finder For Select Devices
 - [ ] Make Firmware Finder Support More Devices
-- [ ] Make Debloat & Flasher Scripts Support More Devices
+- [x] Make Debloat & Flasher Scripts Support More Devices
