@@ -3,9 +3,6 @@
 
 <img src="https://github.com/Xen1123/Android-Help/blob/main/Android-Logo.png" width="192">
 
-## THIS REPOSITORY IS LINUX ONLY FOR SCRIPTS (kinda)
-I am actually currently working on translating my bash scripts to batch, they're converted, just not perfected to my liking, unlike the bash scripts.
-
 ## ITEMS IN REPOSITORY
 - **Debloaters**
 - **Flashers**
