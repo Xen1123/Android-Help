@@ -6,7 +6,7 @@
 - **Nexus** [Nexus Official Releases](https://developers.google.com/android/images#angler)
   - [LineageOS Google](https://wiki.lineageos.org/devices/#google)  
 
-## Nothing Devices - CMF By Nothing
+## Nothing Phones - CMF By Nothing
 - [Nothing Archive](https://spike0en.github.io/nothing_archive/docs/firmware/)
   - [Official Applications](https://spike0en.github.io/nothing_archive/docs/official/)
   - [Community Applications](https://spike0en.github.io/nothing_archive/docs/apps/)
@@ -27,4 +27,6 @@
 - [Motorola Firmware](https://firmware.center/firmware/Motorola/)
   - [LineageOS Motorola](https://wiki.lineageos.org/devices/#motorola)
 
-## 
+## OnePlus Devices
+- [OnePlus Firmware](https://github.com/spike0en/oneplus_archive)
+  - [LineageOS OnePlus](https://wiki.lineageos.org/devices/#oneplus)
