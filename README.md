@@ -1,6 +1,8 @@
 <h1 align="center">Android-Help</h1>
 <h3 align="center">A Simple Repository To Help With Android Tweaking<h3>
 
+<img src="
+
 ## THIS REPOSITORY IS LINUX ONLY FOR SCRIPTS (kinda)
 I am actually currently working on translating my bash scripts to batch, they're converted, just not perfected to my liking, unlike the bash scripts.
 
