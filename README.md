@@ -11,7 +11,7 @@
 ## Tools That Can Assist You
 - [How To Flash Custom ROM](https://www.youtube.com/watch?v=gSRxThnfY8M)
 - [How To Root Your Android Phone](https://www.youtube.com/watch?v=qkuXl6m6Ghs)
-- [Text-Based Copy/Paste Guide By Me For Rooting](./Documents/Root-Guide.md)
+- [EZ Root Guide](./Documents/Root-Guide.md)
 
 # Prerequisites
 - `adb` and `fastboot` Installed
@@ -25,5 +25,5 @@
 ## TO-DO:
 - [x] Create Guides For Rooting Android Phones
 - [x] Create Firmware Finder For Select Devices
-- [ ] Make Firmware Finder Support More Devices
+- [x] Make Firmware Finder Support More Devices
 - [x] Make Debloat & Flasher Scripts Support More Devices
