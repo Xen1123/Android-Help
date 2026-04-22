@@ -1,7 +1,7 @@
 <h1 align="center">Android-Help</h1>
 <h3 align="center">A Simple Repository To Help With Android Tweaking<h3>
 
-<img src="https://github.com/Xen1123/Android-Help/blob/main/Android-Logo.png" width="192">
+<img src="https://github.com/Xen1123/Android-Help/blob/main/Android-Logo.png" width="384">
 
 ## ITEMS IN REPOSITORY
 - **Debloaters**
