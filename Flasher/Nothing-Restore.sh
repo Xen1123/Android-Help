@@ -76,6 +76,10 @@ for log in "${logical[@]}"; do
 done
 
 fastboot reboot bootloader
+echo "*--------------------------------*"
+echo "*  Your Device Bootloader Needs  *"
+echo "*     To Be Locked To Finish!    *"
+echo "*--------------------------------*"
 
 read -p "Type 'LOCK' to confirm: " confirm
 if [ "$confirm" == "LOCK" ]; then
