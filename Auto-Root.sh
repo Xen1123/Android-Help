@@ -60,7 +60,7 @@ do
             ;;
         *)
             echo "Invalid Option: $REPLY"
-            ;;
+            ;;g
         esac
     done
 
