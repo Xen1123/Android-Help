@@ -5,6 +5,9 @@ read -r -n 1 -s
 mv bootloader* bootloader.img >/dev/null 2>&1 || true
 mv radio* radio.img >/dev/null 2>&1 || true
 
+adb reboot bootloader >/dev/null 2>&1 || true
+timeout 2s fastboot reboot bootloader >/dev/null 2>&1 || true
+
 PS3='Just Android Images Or The Full Firmware Flash?
 '
 options=("Android" "Full Factory")
