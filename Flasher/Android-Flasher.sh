@@ -5,25 +5,38 @@ safe, unable to hard brick your device, but depending on the device, you may NEE
 read -n 1 -s
 adb start-server
 adb reboot bootloader
-fastboot reboot bootloader
-fastboot flash recovery recovery.img
-fastboot flash dtbo dtbo.img
-fastboot flash vendor_boot vendor_boot.img
-fastboot flash boot boot.img
-fastboot flash vbmeta vbmeta.img
-fastboot flash vbmeta_system vbmeta_system.img
-fastboot flash vbmeta_vendor vbmeta_vendor.img
+timeout 2s fastboot reboot bootloader
+images=(
+  recovery
+  dtbo
+  vendor_boot
+  boot
+  vbmeta
+  vbmeta_system
+  vbmeta_vendor
+  odm
+)
+
+for img in "${images[@]}"; do
+  echo "Flashing $img"
+  fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
+done
 clear
-echo "Rebooting Into Userspace Fastboot! (FASTBOOTD)"
-sleep 3
-fastboot reboot fastboot
-fastboot flash system system.img
-fastboot flash system_ext system_ext.img
-fastboot flash system_dlkm system_dlkm.img
-fastboot flash odm odm.img
-fastboot flash vendor vendor.img
-fastboot flash vendor_dlkm vendor_dlkm.img
-fastboot flash product product.img
+echo "Flashed Android Images, Rebooting To FastbootD (Userspace Fastboot)
+timeout 2s fastboot reboot fastboot >/dev/null 2>&1 || { clear; echo "Failed To Reboot To FastbootD, Please Reboot To FastbootD Manually And Rerun The Script To Flash System Images!"; exit 1; }
+
+images=(
+  system
+  system_ext
+  system_dlkm
+  vendor
+  vendor_dlkm
+  product{ clear; echo "Failed To Reboot To FastbootD, Please Reboot To FastbootD Manually And Rerun The Script To Flash System Images!"; exit 1; }
+)
+for img in "${images[@]}"; do
+  echo "Flashing $img"
+  fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
+done
 clear
 
 PS3="Would You Like To Disable Verification So The Device Will Boot Modified Android Versions? (May Prevent Booting Android/Recovery Mode On Some Phones, But Works On Most)."
@@ -32,9 +45,9 @@ select opt in "${options[@]}"
 do
   case $opt in
     "Yes")
-      fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
-      fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img || echo "vbmeta_vendor not found, skipping..."
-      fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img || echo "vbmeta_system not found, skipping..."
+      fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img >/dev/null 2>&1 || echo "vbmeta not found, skipping..."
+      fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img >/dev/null 2>&1 || echo "vbmeta_vendor not found, skipping..."
+      fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img >/dev/null 2>&1 || echo "vbmeta_system not found, skipping..."
       fastboot -w
       break
     ;;
