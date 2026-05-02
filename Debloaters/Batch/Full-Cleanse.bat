@@ -84,7 +84,7 @@ com.google.android.apps.diagnosticstool"
 
 for %%a in (%apps%) do (
     echo Uninstalling: %%a
-    adb shell pm uninstall --user 0 %%a >nul 2>&1
+    adb shell pm disable-user --user 0 %%a >nul 2>&1
 )
 pause
 cls
