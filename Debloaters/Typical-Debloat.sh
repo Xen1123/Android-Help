@@ -111,7 +111,7 @@ exit
 adb reboot recovery
 exit
 ;;
-"Reboot To Fastboot")
+"Reboot To Fastbootd")
 adb reboot fastboot
 exit
 ;;
@@ -231,7 +231,7 @@ exit
 adb reboot recovery
 exit
 ;;
-"Reboot To Fastboot")
+"Reboot To Fastbootd")
 adb reboot fastboot
 exit
 ;;
