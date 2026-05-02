@@ -75,7 +75,11 @@ do
                 timeout 2s fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
             done
             fastboot reboot fastboot
-
+            echo "Waiting For FastbootD to be fully active on the Pixel!"
+            until fastboot devices | grep -q "fastboot"; do
+                echo "Waiting for device in fastbootd..."
+                sleep 2
+            done
             logical=(
                 system
                 product
@@ -83,6 +87,7 @@ do
                 system_other
                 vendor
                 vendor_dlkm
+                gsa
             )
 
             for logic in "${logical[@]}"; do
