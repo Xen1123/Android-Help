@@ -46,7 +46,7 @@ pbl
 tzsw
 )
 for image in "${img[@]}"; do
-fastboot flash "$image" "$image.img"
+timeout 2s fastboot flash "$image" "$image.img"
 done
 fastboot reboot fastboot
 android=(
@@ -59,7 +59,7 @@ system_ext
 system_other
 )
 for image in "${android[@]}"; do
-fastboot flash "$image" "$image.img"
+timeout 2s fastboot flash "$image" "$image.img"
 done
 
 clear
@@ -70,10 +70,10 @@ select opt in "${options[@]}"
 do
   case $opt in
     "Yes")
-      fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
-      fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img || echo "vbmeta_vendor not found, skipping..."
-      fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img || echo "vbmeta_system not found, skipping..."
-      fastboot -w
+      timeout 2s fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img || echo "vbmeta not found, skipping..."
+      timeout 2s fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img || echo "vbmeta_vendor not found, skipping..."
+      timeout 2s fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img || echo "vbmeta_system not found, skipping..."
+      timeout 2s fastboot -w
       break
     ;;
     "No")

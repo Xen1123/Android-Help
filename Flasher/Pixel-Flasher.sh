@@ -26,7 +26,7 @@ do
 
             for img in "${images[@]}"; do
                 echo "Flashing $img"
-                fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
+                timeout 2s fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
             done
             fastboot reboot fastboot
             
@@ -42,7 +42,7 @@ do
 
             for logic in "${logical[@]}"; do
                 echo "Flashing $logic"
-                fastboot flash "$logic" "$logic.img" >/dev/null 2>&1 || echo "Failed To Flash $logic"
+                timeout 2s fastboot flash "$logic" "$logic.img" >/dev/null 2>&1 || echo "Failed To Flash $logic"
             done
             break
             ;;
@@ -69,7 +69,7 @@ do
 
             for img in "${images[@]}"; do
                 echo "Flashing $img"
-                fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
+                timeout 2s fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
             done
             fastboot reboot fastboot
 
@@ -84,7 +84,7 @@ do
 
             for logic in "${logical[@]}"; do
                 echo "Flashing $logic"
-                fastboot flash "$logic" "$logic.img" >/dev/null 2>&1 || echo "Failed To Flash $logic"
+                timeout 2s fastboot flash "$logic" "$logic.img" >/dev/null 2>&1 || echo "Failed To Flash $logic"
             done
             break
             ;;

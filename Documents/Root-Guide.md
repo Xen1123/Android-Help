@@ -37,23 +37,23 @@
 - Second, Download [Magisk](https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk)
 - `adb install Magisk-v30.7.apk`
 
-**Linux / MacOS**
+**Linux🐧 / MacOS**🍎
 ```bash
 adb push ~/Downloads/init_boot.img /sdcard/Download
 ```
 
-**Windows**
+**Windows**🪟
 ```bash
 adb push "%USERPROFILE%\Downloads\init_boot.img" /sdcard/Download
 ```
 - Patch the image in Magisk, then pull it back to your computer
 
-**Linux / MacOS**
+**Linux🐧 / MacOS**🍎
 ```bash
 adb pull /sdcard/Download/magisk-patched* ~/Downloads/root_init_boot.img
 ```
 
-**Windows**
+**Windows**🪟
 ```bash
 adb pull /sdcard/Download/magisk-patched* "\%USERPROFILE%\Downloads\root_init_boot.img"
 ```

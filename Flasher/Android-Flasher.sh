@@ -19,7 +19,7 @@ images=(
 
 for img in "${images[@]}"; do
   echo "Flashing $img"
-  fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
+  timeout 2s fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
 done
 clear
 echo "Flashed Android Images, Rebooting To FastbootD (Userspace Fastboot)"
@@ -35,7 +35,7 @@ images=(
 )
 for img in "${images[@]}"; do
   echo "Flashing $img"
-  fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
+  timeout 2s fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
 done
 clear
 
@@ -45,10 +45,10 @@ select opt in "${options[@]}"
 do
   case $opt in
     "Yes")
-      fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img >/dev/null 2>&1 || echo "vbmeta not found, skipping..."
-      fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img >/dev/null 2>&1 || echo "vbmeta_vendor not found, skipping..."
-      fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img >/dev/null 2>&1 || echo "vbmeta_system not found, skipping..."
-      fastboot -w
+      timeout 2s fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img >/dev/null 2>&1 || echo "vbmeta not found, skipping..."
+      timeout 2s fastboot --disable-verity --disable-verification flash vbmeta_vendor vbmeta_vendor.img >/dev/null 2>&1 || echo "vbmeta_vendor not found, skipping..."
+      timeout 2s fastboot --disable-verity --disable-verification flash vbmeta_system vbmeta_system.img >/dev/null 2>&1 || echo "vbmeta_system not found, skipping..."
+      timeout 2s fastboot -w
       break
     ;;
     "No")

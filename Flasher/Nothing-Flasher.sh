@@ -77,7 +77,7 @@ case $opt in
 
         for img in "${images[@]}"; do
             if [[ -f "$img.img" ]]; then
-                fastboot flash "$img" "$img.img"
+                timeout 2s fastboot flash "$img" "$img.img"
             else
                 echo "Skipping $img: Image File Not Found."
             fi
