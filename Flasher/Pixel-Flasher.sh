@@ -51,6 +51,7 @@ do
             timeout 2s fastboot reboot-bootloader >/dev/null 2>&1 || { clear; echo "Failed To Reboot To Bootloader. Not Vital, But Still Not Great!"; }
             fastboot flash radio radio.img >/dev/null 2>&1 || { clear; echo "Radio image not found, cannot continue!"; exit 1; }
             timeout 2s fastboot reboot-bootloader >/dev/null 2>&1 || { clear; echo "Failed To Reboot To Bootloader. Not Vital, But Still Not Great!"; }
+            sleep 6
             images=(
                 boot
                 dtbo
