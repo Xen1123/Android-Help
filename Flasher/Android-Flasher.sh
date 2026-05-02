@@ -22,8 +22,8 @@ for img in "${images[@]}"; do
   fastboot flash "$img" "$img.img" >/dev/null 2>&1 || echo "Failed To Flash $img"
 done
 clear
-echo "Flashed Android Images, Rebooting To FastbootD (Userspace Fastboot)
-timeout 2s fastboot reboot fastboot >/dev/null 2>&1 || { clear; echo "Failed To Reboot To FastbootD, Please Reboot To FastbootD Manually And Rerun The Script To Flash System Images!"; exit 1; }
+echo "Flashed Android Images, Rebooting To FastbootD (Userspace Fastboot)"
+timeout 2s fastboot reboot fastboot >/dev/null 2>&1 || { clear; echo "Failed To Reboot To FastbootD, Please Reboot Manually And Rerun The Script!"; exit 1; }
 
 images=(
   system
@@ -31,7 +31,7 @@ images=(
   system_dlkm
   vendor
   vendor_dlkm
-  product{ clear; echo "Failed To Reboot To FastbootD, Please Reboot To FastbootD Manually And Rerun The Script To Flash System Images!"; exit 1; }
+  product
 )
 for img in "${images[@]}"; do
   echo "Flashing $img"
