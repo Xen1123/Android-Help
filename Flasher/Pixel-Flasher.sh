@@ -53,8 +53,8 @@ do
             timeout 2s fastboot reboot-bootloader >/dev/null 2>&1 || { clear; echo "Failed To Reboot To Bootloader. Not Vital, But Still Not Great!"; }
             sleep 6
             images=(
-                boot
                 dtbo
+                boot
                 vendor_boot
                 vbmeta_system
                 vbmeta
