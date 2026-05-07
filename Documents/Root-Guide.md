@@ -90,7 +90,7 @@ fastboot flash init_boot root_init_boot.img && fastboot reboot
   - [Droidify](https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk) Is An App Store Of A Collection Of Free And Open Source (FOSS) Apps That You Can Download, Some Apps Available In Droidify Are Directly Reliant On LSPosed/Vector
   - Play Integrity
     - When you unlock an Android bootloader, root the device, or flash a custom ROM, your device is considered "bad" to Google's servers. Apps that rely on Play Integrity, this is device dependent, Google Pixels are typically very good at Play Integrity, even with unlocked, modded devices. Although Pixels are typically safe, other phones tend to have broken integrity just from unlocking the bootloader - Magisk modules do exist to help you, though, but on select devices, you'll need to flash all of these.
-      - [Strong Play Integrity Fix](https://github.com/sarhan00/Strong-Integrity-Fix/releases/download/v10.0.21/Play.Integrity.Fix.-.Strong.Integrity.-v10.0.21.zip)
+      - [Strong Play Integrity Fix](https://github.com/sarhan00/Strong-Integrity-Fix/releases/download/v10.0.22/Play.Integrity.Fix.-.Strong.Integrity.-v10.0.22.zip)
       - [Rezygisk (Use Instead of Magisk Zygisk)](https://github.com/PerformanC/ReZygisk/releases/download/v1.0.0-rc.7/ReZygisk-v1.0.0-rc.7-release.zip)
       - [Tricky Store](https://github.com/5ec1cff/TrickyStore/releases/download/1.4.1/Tricky-Store-v1.4.1-245-72b2e84-release.zip)
       - [YuriKey Manager](https://github.com/Yurii0307/yurikey/releases/download/v3.0.4/Yurikey-v3.0.4.signed.zip)
