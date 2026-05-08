@@ -4,6 +4,7 @@ import subprocess
 import sys
 import platform
 import os
+import time
 print("This is an Android Flasher script.")
 print("Please make sure you have the necessary tools installed, such as ADB and Fastboot.")
 input("Make Sure You Are Operating In The Directory Of Your Images, Press Enter To Continue")
@@ -34,7 +35,9 @@ for part in partitions:
         print(f"Flashing {part}. . . ")
         subprocess.run([
             "fastboot", "flash", "part", "file_path"
-        ])
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        print(f"{part} Not Found . . .")
 
 if os.name == 'nt':
     os.system('cls')

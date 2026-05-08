@@ -15,6 +15,9 @@ if not adb_path:
 else:
     print(f"ADB found at: {adb_path}")
     apps = [
+        "com.google.android.googlequicksearchbox",
+        "com.google.android.youtube",
+        "com.google.android.odad",
         "com.microsoft.appmanager",
         "com.microsoft.skydrive",
         "com.samsung.android.beaconmanager",
@@ -92,7 +95,7 @@ for app in apps:
     print(f"Removing {app}")
     subprocess.run([
         "adb", "shell", "pm", "disable-user", "--user", "0", app
-    ])
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 if os.name == 'nt':
     os.system('cls')
