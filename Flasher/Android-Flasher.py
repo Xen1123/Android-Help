@@ -3,6 +3,8 @@ import shutil
 import subprocess
 import time
 import sys
+import platform
+import os
 print("This is an Android Flasher script.")
 print("Please make sure you have the necessary tools installed, such as ADB and Fastboot.")
 input("Make Sure You Are Operating In The Directory Of Your Images, Press Enter To Continue")
@@ -155,6 +157,11 @@ if file_path.is_file():
     ])
 else:
     print("Error: vbmeta_system.img not found.")
+
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
 
 subprocess.run(["fastboot", "reboot"])
 sys.exit()
