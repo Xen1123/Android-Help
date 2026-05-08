@@ -76,14 +76,6 @@ if file_path.is_file():
 else:
     print("Error: odm.img not found.")
 
-file_path = Path("modem.img")
-if file_path.is_file():
-    subprocess.run([
-        "fastboot", "flash", "modem", file_path
-    ])
-else:    
-    print("Error: modem.img not found.")
-
 file_path = Path("system.img")
 if file_path.is_file():
     subprocess.run([
@@ -115,14 +107,6 @@ if file_path.is_file():
     ])
 else:
     print("Error: product.img not found.")
-
-file_path = Path("system_other.img")
-if file_path.is_file():
-    subprocess.run([
-        "fastboot", "flash", "system_other", file_path
-    ])
-else:
-    print("Error: system_other.img not found.")
 
 file_path = Path("system_dlkm.img")
 if file_path.is_file():
