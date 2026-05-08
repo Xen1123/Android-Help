@@ -26,16 +26,16 @@ subprocess.run(["fastboot", "devices"])
 time.sleep(2)
 
 partitions = [
-    "recovery", "vendor_boot", "boot", "dtbo", "vbmeta", "init_boot", "odm", "system", "vendor", "system_ext", "product", "system_dlkm", "vendor_dlkm", "system_ext", "vbmeta_vendor", "vbmeta_system"
+    "recovery", "vendor_boot", "boot", "dtbo", "vbmeta", "init_boot", "odm", "system", "vendor", "product", "system_dlkm", "vendor_dlkm", "system_ext", "vbmeta_vendor", "vbmeta_system"
 ]
 for part in partitions:
     file_path = Path(f"{part}.img")
 
     if file_path.is_file():
-        print(f"Flashing {part}. . . ")
+        print(f"\nFlashing {part}. . . ")
         subprocess.run([
-            "fastboot", "flash", "part", "file_path"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            "fastboot", "flash", part, file_path
+        ])
     else:
         print(f"{part} Not Found . . .")
 
