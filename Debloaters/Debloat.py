@@ -3,6 +3,7 @@ import shutil
 import subprocess
 import time
 import sys
+import platform
 print("This Script Will Debloat Your Android Device!")
 input("Press Enter To Continue...")
 adb_path = shutil.which("adb")
@@ -87,5 +88,35 @@ else:
 
 for app in apps:
     subprocess.run([
+        print(f"Removing {app}")
         "adb", "shell", "pm", "disable-user", "--user", "0", app
     ])
+
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
+def reboot_menu():
+    options = [
+        "Reboot Now",
+        "End The Script"
+    ]
+
+    while True:
+        print("\nPlease Select Your Choice:")
+        for i, opt in enumerate(options, 1):
+            print(f"{i}) {opt}")
+
+        choice = input("\nEnter Choice Number: ")
+
+        if choice == "1":
+            subprocess.run([
+                "adb", "reboot"
+            ])
+            sys.exit()
+        elif choice == "2":
+            sys.exit()
+        else:
+            print(f"Invalid Choice: {choice}")
+reboot_menu()
