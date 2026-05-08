@@ -1,7 +1,6 @@
 from pathlib import Path
 import shutil
 import subprocess
-import time
 import sys
 import platform
 import os
