@@ -34,6 +34,7 @@ for part in partitions:
         print(f"Flashing {part}. . . ")
         subprocess.run([
             "fastboot", "flash", "part", "file_path"
+        ])
 
 if os.name == 'nt':
     os.system('cls')
