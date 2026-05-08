@@ -9,6 +9,7 @@ input("Press Enter To Continue...")
 adb_path = shutil.which("adb")
 if not adb_path:
     print("Error: ADB Not Found. Please Make Sure It Is Installed And In Your PATH.")
+    input("Press Enter To Exit . . .")
     sys.exit()
 else:
     print(f"ADB found at: {adb_path}")
@@ -87,8 +88,8 @@ else:
 ]
 
 for app in apps:
+    print(f"Removing {app}")
     subprocess.run([
-        print(f"Removing {app}")
         "adb", "shell", "pm", "disable-user", "--user", "0", app
     ])
 
