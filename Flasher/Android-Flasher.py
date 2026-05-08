@@ -3,9 +3,9 @@ import shutil
 import subprocess
 import time
 import sys
-print("This is the Android Flasher script.")
+print("This is an Android Flasher script.")
 print("Please make sure you have the necessary tools installed, such as ADB and Fastboot.")
-input("Please Make Sure You Are Operating In The Directory Of Your Images, Press Enter To Continue")
+input("Make Sure You Are Operating In The Directory Of Your Images, Press Enter To Continue")
 fastboot_path = shutil.which("fastboot")
 if not fastboot_path:
     print("Error: Fastboot not found. Please make sure it is installed and in your PATH.")
