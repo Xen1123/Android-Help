@@ -11,6 +11,7 @@ input("Make Sure You Are Operating In The Directory Of Your Images, Press Enter 
 fastboot_path = shutil.which("fastboot")
 if not fastboot_path:
     print("Error: Fastboot not found. Please make sure it is installed and in your PATH.")
+    sys.exit()
 else:
     print(f"Fastboot found at: {fastboot_path}")
 adb_path = shutil.which("adb")
