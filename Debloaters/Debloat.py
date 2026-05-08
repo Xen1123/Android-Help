@@ -4,6 +4,7 @@ import subprocess
 import time
 import sys
 import platform
+import os
 print("This Script Will Debloat Your Android Device!")
 input("Press Enter To Continue...")
 adb_path = shutil.which("adb")
