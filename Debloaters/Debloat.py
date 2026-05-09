@@ -68,6 +68,7 @@ else:
         "com.google.android.apps.work.cloudpc",
         "com.google.android.apps.wearables.maestro.companion",
         "com.google.android.apps.recorder",
+        "org.lineageos.recorder",
         "com.google.android.apps.safetyhub",
         "com.google.android.projection.gearhead",
         "com.google.android.calendae",
