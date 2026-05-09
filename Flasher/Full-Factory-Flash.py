@@ -2,11 +2,15 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-import platform
 import os
-import time
 print("Hello, This Is A Factory Image Flasher Script For Fastboot Androids!")
 print("Please Make Sure Fastboot Is Installed And All Images Are In The Working Directory!")
+print("This Script Has A Chance Of HARD BRICKING Your Device, Meaning That It Is Unable To Be Fixed!")
+confirm = input("Continue? (yes/no): ")
+
+if confirm.lower() != "yes":
+    print("Okay, If You Want To Actually Run This, Just Re-Run And Type `yes`")
+    sys.exit()
 fastboot_path = shutil.which("fastboot")
 if not fastboot_path:
     print("Fastboot Not Found In Your PATH!")
@@ -44,7 +48,7 @@ for part in images:
         print(f"\nFlashing {part} . . .")
         subprocess.run([
             "fastboot", "flash", part, file_path
-        ], stdout=subprocess.DEVNULL, stderr=subprocces.DEVNULL)
+        ], stdout=subprocess.DEVNULL, stderr=subproces.DEVNULL)
     else:
         print(f"{part} Not Found . . .")
 
@@ -62,7 +66,7 @@ for logic in logicals:
         print(f"\nFlashing {logic} . . .")
         subprocess.run([
             "fastboot", "flash", logic, file_path
-        ], stdout=subprocess.DEVNULL, stderr=subprocces.DEVNULL)
+        ], stdout=subprocess.DEVNULL, stderr=subproces.DEVNULL)
     else:
         print(f"{logic} Not Found")
 
