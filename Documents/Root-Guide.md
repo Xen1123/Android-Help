@@ -26,7 +26,7 @@
     - MacOS
       - Open Your Terminal
         ```bash
-        /bin/bash -c "$(curl -fsSL https://githubusercontent.com)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install --cask android-platform-tools
         ```
       
