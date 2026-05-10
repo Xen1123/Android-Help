@@ -40,10 +40,10 @@ elif platform.system() == 'Linux':
         os.system('sudo xbps-install -y android-tools')
         os.system('clear')
         print('ADB & Fastboot Are Now Installed!')
-    elif shutil.which("zyppr")
+    elif shutil.which("zyppr"):
         os.system('sudo zypper install android-tools')
         os.system('clear')
-    elif shutil.which("emerge")
+    elif shutil.which("emerge"):
         os.system('sudo emerge --ask=n dev-util/android-tools')
         os.system('clear')
     else:
