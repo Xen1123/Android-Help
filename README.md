@@ -5,6 +5,8 @@
 
 <h3 align=center>DISCLAIMER: If There Is A Python Variant Of Something Here, Use That Instead, It Is Newer, More Refined, And More Compatible With Other Devices.</h3>
 
+<h4 align=center>Install Python At www.python.org Or Install Via Your Distribution's Package Manager</h4>
+
 ## ITEMS IN REPOSITORY
 - **Debloaters**
 - **Flashers**
