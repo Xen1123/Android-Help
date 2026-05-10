@@ -85,7 +85,7 @@ fastboot flash init_boot root_init_boot.img && fastboot reboot
 <h2 align=center>Post Root Help</h2>
 
 - These Are Just Some Things You Can Use After Rooting To Make Your Android Experience With Root Worth It!
-  - [Android Debloat Scripts](../Debloaters) (Be Careful! The Full-Cleanse Will Delete Google Play Store And Play Services, The Typical Debloat Keeps Those In Tact, Though)
+  - [Android Debloat Script Compatible With MacOS, Linux, Windows, etc.](../Debloaters/Debloat.py) (Apps Are Removed Through Disabling, This Allows The Script To Remove An App Without Root, But It Also Means You Can Go Into Settings And Bring The App Back If You Want!)
   - LSPosed/Vector Is A Very Good Implementation of Xposed, Which Uses Root To Allow The User To Hook Apps Into System Processes, Download It [Here!](https://github.com/JingMatrix/Vector/releases/download/v2.0/Vector-v2.0-3021-Release.zip)
   - [Droidify](https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk) Is An App Store Of A Collection Of Free And Open Source (FOSS) Apps That You Can Download, Some Apps Available In Droidify Are Directly Reliant On LSPosed/Vector
   - Play Integrity
