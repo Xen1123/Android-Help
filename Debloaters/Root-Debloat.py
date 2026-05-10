@@ -99,7 +99,7 @@ else:
     for app in apps:
         print(f"\nRemoving {app}")
         subprocess.run([
-            "adb", "shell", "pm", "uninstall", "-k", "--user", "0", app
+            "adb", "shell", "pm", "uninstall", "--user", "0", app
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     if os.name == 'nt':
