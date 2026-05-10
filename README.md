@@ -12,6 +12,7 @@
 - [How To Flash Custom ROM](https://www.youtube.com/watch?v=gSRxThnfY8M)
 - [How To Root Your Android Phone](https://www.youtube.com/watch?v=qkuXl6m6Ghs)
 - [EZ Root Guide](./Documents/Root-Guide.md)
+- [Stock Firmware Finder w/ Links](./Documents/Stock-Firmware.md)
 
 # Prerequisites
 - `adb` and `fastboot` Installed
