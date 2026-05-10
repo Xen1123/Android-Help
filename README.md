@@ -3,6 +3,8 @@
 
 <img src="https://github.com/Xen1123/Android-Help/blob/main/Android-Logo.png" width="384">
 
+<h3 align=center>DISCLAIMER: If There Is A Python Variant Of Something Here, Use That Instead, It Is Newer, More Refined, And More Compatible With Other Devices.</h3>
+
 ## ITEMS IN REPOSITORY
 - **Debloaters**
 - **Flashers**
