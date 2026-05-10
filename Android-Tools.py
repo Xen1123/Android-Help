@@ -62,7 +62,7 @@ elif 'BSD' in current_os or current_os == 'FreeBSD':
     print(f"{current_os} Detected!")
     if shutil.which("pkg"):
         os.system('sudo pkg install -y android-tools')
-    elif shutil.which("pkg_add")
+    elif shutil.which("pkg_add"):
         os.system("sudo pkg_add android-tools")
 else:
     print("Your OS Is NOT Supported, If You Can't Get Android Tools, How Are You Even Able To Get Python??")
