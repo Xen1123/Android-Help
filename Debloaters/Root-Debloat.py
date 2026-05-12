@@ -97,7 +97,7 @@ else:
     ]
 
     for app in apps:
-        print(f"\nRemoving {app}")
+        print(f"\nDELETING {app}")
         subprocess.run([
             "adb", "shell", "pm", "uninstall", "--user", "0", app
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
