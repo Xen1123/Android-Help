@@ -5,6 +5,7 @@ import time
 import sys
 import platform
 import os
+import urllib.request
 print("This Script Will Debloat Your Android Device!")
 input("Press Enter To Continue...")
 adb_path = shutil.which("adb")
@@ -103,6 +104,68 @@ if os.name == 'nt':
 else:
     os.system('clear')
 
+def install_stuff():
+    options = [
+        "Install Droidfy And Metrolist",
+        "Skip Installing Droidfy And Metrolist",
+        "Install Droidfy Only",
+        "Install Metrolist Only"
+    ]
+
+    while True:
+        print("Please Select Your Choice:")
+        for i, opt in enumerate(options, 1):
+            print(f"{i}) {opt}")
+
+        choice = input("Enter Your Choice: ")
+
+        if choice == "1":
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
+            file_name = "Droidify.apk"
+            urllib.request.urlretrieve(url, file_name)
+
+            url = "https://github.com/MetrolistGroup/Metrolist/releases/download/v13.4.2/Metrolist.apk"
+            file_name = "Metrolist.apk"
+            urllib.request.urlretrieve(url, file_name)
+
+            subprocess.run([
+                "adb", "install", "Droidify.apk"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run([
+                "adb", "install", "Metrolist.apk"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+            break
+        elif choice == "2":
+            break
+        elif choice == "3":
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
+            file_name = "Droidify.apk"
+            urllib.request.urlretrieve(url, file_name)
+            
+            subprocess.run([
+                "adb", "install", "Droidify.apk"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+            break
+        elif choice == "4":
+            url = "https://github.com/MetrolistGroup/Metrolist/releases/download/v13.4.2/Metrolist.apk"
+            file_name = "Metrolist.apk"
+            urllib.request.urlretrieve(url, file_name)
+            subprocess.run([
+                "adb", "install", "Metrolist.apk"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            
+            break
+        else:
+            print(f"Invalid Choice: {choice}")
+install_stuff()
+
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
 def reboot_menu():
     options = [
         "Reboot Now",
@@ -110,7 +173,7 @@ def reboot_menu():
     ]
 
     while True:
-        print("Please Select Your Choice:")
+        print("Please Select Your Choice: ")
         for i, opt in enumerate(options, 1):
             print(f"{i}) {opt}")
 
