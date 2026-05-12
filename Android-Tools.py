@@ -15,7 +15,7 @@ print(r"""
 time.sleep(2)
 if not shutil.which('adb') or not shutil.which('fastboot'):
     if platform.system() == 'Windows':
-        os.system('winget install Google.PlatformTools --silent --accept-source-aggreements --accept-package-agreements')
+        os.system('winget install Google.PlatformTools --silent --accept-source-agreements --accept-package-agreements')
         os.system('cls')
         print("ADB & Fastboot Are Now On Your System! :)")
         input("\nPress Enter To Close The Terminal, ADB & Fastboot Only Really Work After Re-Opening.")
