@@ -159,6 +159,7 @@ def install_stuff():
             break
         else:
             print(f"Invalid Choice: {choice}")
+
 install_stuff()
 
 if os.name == 'nt':
