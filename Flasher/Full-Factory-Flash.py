@@ -3,6 +3,7 @@ import shutil
 import subprocess
 import sys
 import os
+import time
 print("Hello, This Is A Factory Image Flasher Script For Fastboot Androids!")
 print("Please Make Sure Fastboot Is Installed And All Images Are In The Working Directory!")
 print("This Script Has A Chance Of HARD BRICKING Your Device, Meaning That It Is Unable To Be Fixed!")
@@ -25,19 +26,24 @@ if not adb_path:
 else:
     print(f"ADB Found At: {adb_path}")
 
+print("Rebooting To Bootloader Fastboot Mode . . .")
+time.sleep(2)
+
 subprocess.run([
     "adb", "reboot", "fastboot"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 subprocess.run([
-    "fastboot", "reboot", "fastboot"
+    "fastboot", "reboot", "bootloader"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 subprocess.run([
     "fastboot", "devices"
 ])
 
+time.sleep(2)
+
 images = [
-    "boot", "abl", "xbl", "aop", "aop_config", "bluetooth", "modem", "cpucp", "cpucp_dtb", "devcfg", "init_boot", "vendor_boot", "recovery", "vbmeta", 
+    "boot", "abl", "xbl", "aop", "aop_config", "featenabler", "bluetooth", "modem", "cpucp", "cpucp_dtb", "devcfg", "init_boot", "vendor_boot", "recovery", "vbmeta", 
     "vbmeta_vendor", "vbmeta_system", "xbl_ramdump", "xbl_config", "dsp", "dtbo", "keymaster", "imagefv", "tz", "shrm", "pvmfw", "odm", "hyp", "uefi", 
     "uefisecapp", "qupfw", "bootloader", "radio", "bl1", "bl2", "bl31", "gsa", "ldfw", "pbl", "tzsw", "multiimgoem"
 ]
@@ -47,14 +53,19 @@ for part in images:
     if file_path.is_file():
         print(f"\nFlashing {part} . . .")
         subprocess.run([
-            "fastboot", "flash", part, file_path
+            "fastboot", "flash", f"{part}_a", file_path
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run([
+            "fastboot", "flash", f"{part}_b", file_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     else:
-        print(f"{part} Not Found . . .")
+        print(f"{part} Not Found Or Unable To Flash!")
 
 subprocess.run([
     "fastboot", "reboot", "fastboot"
 ])
+
+time.sleep(2)
 
 logicals = [
     "system", "product", "vendor", "vendor_dlkm", "system_dlkm", "system_ext"
@@ -65,18 +76,30 @@ for logic in logicals:
     if file_path.is_file():
         print(f"\nFlashing {logic} . . .")
         subprocess.run([
-            "fastboot", "flash", logic, file_path
+            "fastboot", "flash", f"{logic}_a", file_path
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run([
+            "fastboot", "flash", f"{logic}_b", file_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     else:
         print(f"{logic} Not Found")
 
-confirm = input("Wipe Cache, User Data, & Metadada? (yes/no)")
+confirm = input("Wipe Cache, User Data, & Metadada? (yes/no): ")
 
 if confirm.lower() != "yes":
     print("Okay, Stopping Here!")
     sys.exit()
 subprocess.run([
     "fastboot", "-w"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+subprocess.run([
+    "fastboot", "format:f2fs", "userdata"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+subprocess.run([
+    "fastboot", "erase", "misc"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+subprocess.run([
+    "fastboot", "format:f2fs", "metadata"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 if os.name == 'nt':
@@ -85,5 +108,31 @@ else:
     os.system('clear')
 
 subprocess.run([
+    "fastboot", "flash", "vbmeta_system_a", "vbmeta_system.img"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+subprocess.run([
+    "fastboot", "flash", "vbmeta_vendor_a", "vbmeta_vendor.img"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+subprocess.run([
+    "fastboot", "flash", "vbmeta_a", "vbmeta.img"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+subprocess.run([
+    "fastboot", "flash", "vbmeta_system_b", "vbmeta_system.img"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+subprocess.run([
+    "fastboot", "flash", "vbmeta_vendor_b", "vbmeta_vendor.img"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+subprocess.run([
+    "fastboot", "flash", "vbmeta_b", "vbmeta.img"
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+subprocess.run([
     "fastboot", "reboot", "bootloader"
-])
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+sys.exit(0)
