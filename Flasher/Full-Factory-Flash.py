@@ -51,10 +51,11 @@ for part in images:
     file_path = Path(f"{part}.img")
 
     if file_path.is_file():
-        print(f"\nFlashing {part} . . .")
+        print(f"\nFlashing {part}_a . . .")
         subprocess.run([
             "fastboot", "flash", f"{part}_a", file_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print(f"\nFlashing {part}_b . . .")
         subprocess.run([
             "fastboot", "flash", f"{part}_b", file_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -74,10 +75,11 @@ for logic in logicals:
     file_path = Path(f"{logic}.img")
 
     if file_path.is_file():
-        print(f"\nFlashing {logic} . . .")
+        print(f"\nFlashing {logic}_a . . .")
         subprocess.run([
             "fastboot", "flash", f"{logic}_a", file_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print(f"\nFlashing {logic}_b . . .")
         subprocess.run([
             "fastboot", "flash", f"{logic}_b", file_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
