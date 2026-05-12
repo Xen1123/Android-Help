@@ -92,47 +92,18 @@ if confirm.lower() != "yes":
 subprocess.run([
     "fastboot", "-w"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 subprocess.run([
-    "fastboot", "format:f2fs", "userdata"
+    "fastboot", "erase", "metadata"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 subprocess.run([
     "fastboot", "erase", "misc"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-subprocess.run([
-    "fastboot", "format:f2fs", "metadata"
 ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 if os.name == 'nt':
     os.system('cls')
 else:
     os.system('clear')
-
-subprocess.run([
-    "fastboot", "flash", "vbmeta_system_a", "vbmeta_system.img"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-subprocess.run([
-    "fastboot", "flash", "vbmeta_vendor_a", "vbmeta_vendor.img"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-subprocess.run([
-    "fastboot", "flash", "vbmeta_a", "vbmeta.img"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-subprocess.run([
-    "fastboot", "flash", "vbmeta_system_b", "vbmeta_system.img"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-subprocess.run([
-    "fastboot", "flash", "vbmeta_vendor_b", "vbmeta_vendor.img"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-subprocess.run([
-    "fastboot", "flash", "vbmeta_b", "vbmeta.img"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-subprocess.run([
-    "fastboot", "reboot", "bootloader"
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 sys.exit(0)
