@@ -106,10 +106,10 @@ else:
 
 def install_stuff():
     options = [
-        "Install Droidfy And Metrolist",
-        "Skip Installing Droidfy And Metrolist",
+        "Install Droidfy And Outertune",
+        "Skip Installing Droidfy And Outertune",
         "Install Droidfy Only",
-        "Install Metrolist Only"
+        "Install Outertune Only"
     ]
 
     while True:
@@ -124,15 +124,15 @@ def install_stuff():
             file_name = "Droidify.apk"
             urllib.request.urlretrieve(url, file_name)
 
-            url = "https://github.com/MetrolistGroup/Metrolist/releases/download/v13.4.2/Metrolist.apk"
-            file_name = "Metrolist.apk"
+            url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
+            file_name = "Outertune.apk"
             urllib.request.urlretrieve(url, file_name)
 
             subprocess.run([
                 "adb", "install", "Droidify.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             subprocess.run([
-                "adb", "install", "Metrolist.apk"
+                "adb", "install", "Outertune.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
             break
@@ -149,11 +149,11 @@ def install_stuff():
 
             break
         elif choice == "4":
-            url = "https://github.com/MetrolistGroup/Metrolist/releases/download/v13.4.2/Metrolist.apk"
-            file_name = "Metrolist.apk"
+            url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
+            file_name = "Outertune.apk"
             urllib.request.urlretrieve(url, file_name)
             subprocess.run([
-                "adb", "install", "Metrolist.apk"
+                "adb", "install", "Outertune.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             
             break
