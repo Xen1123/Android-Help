@@ -2,7 +2,8 @@ import shutil
 import subprocess
 import sys
 import os
-
+import urllib.request
+from pathlib import Path
 print("This Script Will Debloat Your Android Device!")
 print("Please Make Sure You Have ROOT Access So Apps Will Actually Be Deleted!")
 input("Press Enter To Continue...")
