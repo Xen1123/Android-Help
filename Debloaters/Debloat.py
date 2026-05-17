@@ -17,7 +17,6 @@ else:
     print(f"ADB found at: {adb_path}")
     apps = [
         "com.google.android.googlequicksearchbox",
-        "com.google.android.youtube",
         "com.google.android.odad",
         "com.microsoft.appmanager",
         "com.microsoft.skydrive",
