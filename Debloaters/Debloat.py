@@ -6,7 +6,16 @@ import sys
 import platform
 import os
 import urllib.request
-print("This Script Will Debloat Your Android Device!")
+print(r"""
+                                                          
+██████╗ ███████╗██████╗ ██╗      ██████╗  █████╗ ████████╗
+██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██╔══██╗╚══██╔══╝
+██║  ██║█████╗  ██████╔╝██║     ██║   ██║███████║   ██║   
+██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██╔══██║   ██║   
+██████╔╝███████╗██████╔╝███████╗╚██████╔╝██║  ██║   ██║   
+╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
+                                                          
+""")
 input("Press Enter To Continue...")
 adb_path = shutil.which("adb")
 if not adb_path:
@@ -14,7 +23,8 @@ if not adb_path:
     input("Press Enter To Exit . . .")
     sys.exit()
 else:
-    print(f"ADB found at: {adb_path}")
+    print(f"\nADB found at: {adb_path}")
+    time.sleep(2)
     apps = [
         "com.google.android.googlequicksearchbox",
         "android.overlay.gms.region.all",
@@ -127,7 +137,7 @@ else:
 ]
 
 for app in apps:
-    print(f"Removing {app}")
+    print(f"\nDisabling {app}")
     subprocess.run([
         "adb", "shell", "pm", "disable-user", "--user", "0", app
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
