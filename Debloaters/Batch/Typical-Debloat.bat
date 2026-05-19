@@ -2,7 +2,8 @@
 title Android Debloat Script
 echo This Script Debloats Your Android Device, Please Make Sure USB Debugging Is Enabled!
 pause
-set "apps=com.microsoft.appmanager
+set "apps=
+com.microsoft.appmanager
 com.microsoft.skydrive
 com.samsung.android.beaconmanager
 com.samsung.android.app.omcagent

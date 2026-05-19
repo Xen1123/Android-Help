@@ -2,7 +2,8 @@
 title Android Debloat Script
 echo This Script Debloats Your Android Device, Please Make Sure USB Debugging Is Enabled!
 pause
-set "apps=com.google.android.gms
+set "apps=
+com.google.android.gms
 com.google.ar.core
 com.android.vending
 com.google.android.googlequicksearchbox
