@@ -5,6 +5,12 @@ import sys
 import platform
 import os
 import time
+
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
 print("This is an Android Flasher script.")
 print("Please make sure you have the necessary tools installed, such as ADB and Fastboot.")
 input("Make Sure You Are Operating In The Directory Of Your Images, Press Enter To Continue")

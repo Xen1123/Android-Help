@@ -4,6 +4,12 @@ import subprocess
 import sys
 import os
 import time
+
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
 print("Hello, This Is A Factory Image Flasher Script For Fastboot Androids!")
 print("Please Make Sure Fastboot Is Installed And All Images Are In The Working Directory!")
 print("This Script Has A Chance Of HARD BRICKING Your Device, Meaning That It Is Unable To Be Fixed!")

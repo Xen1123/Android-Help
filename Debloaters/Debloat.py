@@ -3,9 +3,14 @@ import shutil
 import subprocess
 import time
 import sys
-import platform
 import os
 import urllib.request
+
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
 print(r"""
                                                           
 ██████╗ ███████╗██████╗ ██╗      ██████╗  █████╗ ████████╗
