@@ -179,9 +179,17 @@ def install_stuff():
             subprocess.run([
                 "adb", "install", "Droidify.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            
+            print("Installing Droidify")
+
             subprocess.run([
                 "adb", "install", "Outertune.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+            print("Installing Outertune")
+
+            os.remove("Droidify.apk")
+            os.remove("Outertune.apk")
 
             break
         elif choice == "2":
@@ -195,6 +203,10 @@ def install_stuff():
                 "adb", "install", "Droidify.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+            print("Installing Droidify")
+
+            os.remove("Droidify.apk")
+
             break
         elif choice == "4":
             url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
@@ -204,6 +216,10 @@ def install_stuff():
                 "adb", "install", "Outertune.apk"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             
+            print("Installing Outertune")
+
+            os.remove("Outertune.apk")
+
             break
         else:
             print(f"Invalid Choice: {choice}")
