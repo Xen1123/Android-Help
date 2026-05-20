@@ -22,10 +22,25 @@
 - `adb` and `fastboot` Installed
 - Unlocked Bootloader
 - USB Debugging enabled
-  - ## ADB/Fastboot On The 3 Most Popular Package Managers
-    - Arch/Pacman -  `android-tools`
-    - Debian/ATP - `adb` and `fastboot`
-    - Fedora/DNF - `android-tools`
+  <details>
+  <summary><b>ADB & Fastboot Installation</b></summary>
+  
+  - ## ADB/Fastboot On Your PC
+    - Linux
+      - Arch/Pacman -  `android-tools`
+      - Debian/APT - `adb` and `fastboot`
+      - Fedora/DNF - `android-tools`
+    
+    - Windows
+      ```bash
+      winget install Google.PlatformTools --silent --accept-source-agreements --accept-package-agreements
+      ```
+
+    - MacOS
+      ```bash
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      brew install --cask android-platform-tools
+      ```
 
 ## TO-DO:
 - [x] Create Guides For Rooting Android Phones
