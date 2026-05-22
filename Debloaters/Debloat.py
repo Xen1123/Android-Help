@@ -21,7 +21,10 @@ print(r"""
 ╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
                                                           
 """)
-input("Press Enter To Continue...")
+confirm = input("Continue? (yes/no): ")
+if confirm.lower() != "yes":
+    print("Okay! Exiting Now!")
+    sys.exit(0)
 adb_path = shutil.which("adb")
 if not adb_path:
     print("Error: ADB Not Found. Please Make Sure It Is Installed And In Your PATH.")
@@ -44,7 +47,7 @@ else:
         "com.aura.oobe.solutions",
         "com.goodfix.fingerprint.setting",
         "com.google.ambient.streaming",
-        "com.google.android.accessibility.switchacces",        
+        "com.google.android.accessibility.switchaccess",        
         "com.google.android.adservices.api",
         "com.google.android.apps.docs",
         "com.google.android.apps.restore",
@@ -119,7 +122,6 @@ else:
         "org.lineageos.recorder",
         "com.google.android.apps.safetyhub",
         "com.google.android.marvin.talkback",
-        "com.gogole.ambient.streaming",
         "com.google.android.calendae",
         "com.google.android.apps.emojiwallpaper",
         "com.google.android.apps.aiwallpapers",
