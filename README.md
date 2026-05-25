@@ -48,3 +48,4 @@
 - [x] Make Firmware Finder Support More Devices
 - [x] Make Debloat & Flasher Scripts Support More Devices
 - [x] Make Python Equivalents For Scripts So Windows, Mac, BSD, And More Can Run Scripts.
+- [x] Make Python Scripts BETTER!!!
