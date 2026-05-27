@@ -5,11 +5,15 @@ import time
 import sys
 import os
 import urllib.request
+import webbrowser
 
-if os.name == 'nt':
-    os.system('cls')
-else:
-    os.system('clear')
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+
+clear()
 
 print(r"""
                                                           
@@ -32,6 +36,23 @@ if not adb_path:
     sys.exit()
 else:
     print(f"\nADB found at: {adb_path}")
+    #time.sleep(2)
+    try:
+        result = subprocess.run([
+            "adb", "devices"
+        ], capture_output=True, text=True, check=True)
+
+        if "unauthorized" in result.stdout:
+            print("Device Not Authorized")
+            sys.exit(1)
+        
+        if "device" not in result.stdout.split():
+            print("\nNo Device!")
+            sys.exit(1)
+    except subprocess.CalledProcessError:
+        print("Failed To Run ADB! Is It In Your PATH?")
+        sys.exit(1)
+
     time.sleep(2)
     apps = [
         "com.google.android.googlequicksearchbox",
@@ -149,89 +170,75 @@ for app in apps:
         "adb", "shell", "pm", "disable-user", "--user", "0", app
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-if os.name == 'nt':
-    os.system('cls')
+clear()
+
+try:
+    os.mkdir("APKs")
+except FileExistsError:
+    pass
+print(f"You're In {os.getcwd()}, Chamging To APK Folder!")
+os.chdir("APKs")
+
+confirm = input("\nInstall Droidify? (y/n) ")
+if confirm.lower() != "y":
+    clear()
 else:
-    os.system('clear')
+    print("\nGrabbing Droidify APK From Web!")
+    url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
+    file_name = "Droidify.apk"
+    urllib.request.urlretrieve(url, file_name)
 
-def install_stuff():
-    options = [
-        "Install Droidfy And Outertune",
-        "Skip Installing Droidfy And Outertune",
-        "Install Droidfy Only",
-        "Install Outertune Only"
-    ]
+    print("\nInstalling Droidify!")
+    subprocess.run([
+        "adb", "install", "Droidify.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    while True:
-        print("Please Select Your Choice:")
-        for i, opt in enumerate(options, 1):
-            print(f"{i}) {opt}")
-
-        choice = input("Enter Your Choice: ")
-
-        if choice == "1":
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
-            file_name = "Droidify.apk"
-            urllib.request.urlretrieve(url, file_name)
-
-            url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
-            file_name = "Outertune.apk"
-            urllib.request.urlretrieve(url, file_name)
-
-            subprocess.run([
-                "adb", "install", "Droidify.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            
-            print("Installing Droidify")
-
-            subprocess.run([
-                "adb", "install", "Outertune.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-            print("Installing Outertune")
-
-            os.remove("Droidify.apk")
-            os.remove("Outertune.apk")
-
-            break
-        elif choice == "2":
-            break
-        elif choice == "3":
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
-            file_name = "Droidify.apk"
-            urllib.request.urlretrieve(url, file_name)
-            
-            subprocess.run([
-                "adb", "install", "Droidify.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-            print("Installing Droidify")
-
-            os.remove("Droidify.apk")
-
-            break
-        elif choice == "4":
-            url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
-            file_name = "Outertune.apk"
-            urllib.request.urlretrieve(url, file_name)
-            subprocess.run([
-                "adb", "install", "Outertune.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            
-            print("Installing Outertune")
-
-            os.remove("Outertune.apk")
-
-            break
-        else:
-            print(f"Invalid Choice: {choice}")
-
-install_stuff()
-
-if os.name == 'nt':
-    os.system('cls')
+confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
+if confirm.lower() != "y":
+    clear()
 else:
-    os.system('clear')
+    print("\nGrabbing ArchiveTune APK From Web!")
+    url = "https://github.com/koiverse/ArchiveTune/releases/download/v13.3.0/app-mobile-universal-release.apk"
+    file_name = "ArchiveTune.apk"
+    urllib.request.urlretrieve(url, file_name)
+
+    print("\nInstalling ArchiveTune!")
+    subprocess.run([
+        "adb", "install", "ArchiveTune.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
+if confirm.lower() != "y":
+    clear()
+else:
+    print("\nGrabbing Localsend APK From Web!")
+    url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
+    file = "Localsend.apk"
+    urllib.request.urlretrieve(url, file)
+
+    print("\nInstalling Localsend!")
+    subprocess.run([
+        "adb", "install", "Localsend.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    webbrowser.open("https://localsend.org/")
+
+confirm = input("\nInstall Magisk (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
+if confirm.lower() != "y":
+    clear()
+else:
+    print("\nGrabbing Magisk APK From Web!")
+    url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
+    file = "Magisk.Apk"
+    urllib.request.urlretrieve(url, file)
+
+    print("\nInstalling Magisk!")
+    subprocess.run([
+        "adb", "install", "Magisk.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+os.chdir("../")
+
+clear()
 
 def reboot_menu():
     options = [

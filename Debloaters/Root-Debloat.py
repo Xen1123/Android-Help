@@ -4,12 +4,16 @@ import sys
 import os
 import urllib.request
 import time
+import webbrowser
 from pathlib import Path
 
-if os.name == 'nt':
+def clear():
+    if os.name == 'nt'
     os.system('cls')
 else:
     os.system('clear')
+
+clear()
 
 print(r"""
                                                           
@@ -156,17 +160,64 @@ else:
             "adb", "shell", "pm", "uninstall", "--user", "0", app
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+clear()
 
-def install_stuff():
+try:
+    os.mkdir("APKs")
+except FileExistsError:
+    pass
+print(f"You're In {os.getcwd()}, Chamging To APK Folder!")
+os.chdir("APKs")
+
+confirm = input("\nInstall Droidify? (y/n) ")
+if confirm.lower() != "y":
+    clear()
+else:
+    print("\nGrabbing Droidify APK From Web!")
+    url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
+    file_name = "Droidify.apk"
+    urllib.request.urlretrieve(url, file_name)
+
+    print("\nInstalling Droidify!")
+    subprocess.run([
+        "adb", "install", "Droidify.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
+if confirm.lower() != "y":
+    clear()
+else:
+    print("\nGrabbing ArchiveTune APK From Web!")
+    url = "https://github.com/koiverse/ArchiveTune/releases/download/v13.3.0/app-mobile-universal-release.apk"
+    file_name = "ArchiveTune.apk"
+    urllib.request.urlretrieve(url, file_name)
+
+    print("\nInstalling ArchiveTune!")
+    subprocess.run([
+        "adb", "install", "ArchiveTune.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
+if confirm.lower() != "y":
+    clear()
+else:
+    print("\nGrabbing Localsend APK From Web!")
+    url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
+    file = "Localsend.apk"
+    urllib.request.urlretrieve(url, file)
+
+    print("\nInstalling Localsend!")
+    subprocess.run([
+        "adb", "install", "Localsend.apk"
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    webbrowser.open("https://localsend.org/")
+
+clear()
+
+def reboot_menu():
     options = [
-        "Install Droidfy And Outertune",
-        "Skip Installing Droidfy And Outertune",
-        "Install Droidfy Only",
-        "Install Outertune Only"
+        "Reboot Now",
+        "End The Script"
     ]
 
     while True:
@@ -174,92 +225,15 @@ def install_stuff():
         for i, opt in enumerate(options, 1):
             print(f"{i}) {opt}")
 
-        choice = input("Enter Your Choice: ")
+        choice = input("Enter Choice Number: ")
 
         if choice == "1":
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
-            file_name = "Droidify.apk"
-            urllib.request.urlretrieve(url, file_name)
-
-            url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
-            file_name = "Outertune.apk"
-            urllib.request.urlretrieve(url, file_name)
-
             subprocess.run([
-                "adb", "install", "Droidify.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            
-            print("Installing Droidify")
-
-            subprocess.run([
-                "adb", "install", "Outertune.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-            print("Installing Outertune")
-
-            os.remove("Droidify.apk")
-            os.remove("Outertune.apk")
-
-            break
+                "adb", "reboot"
+            ])
+            sys.exit()
         elif choice == "2":
-            break
-        elif choice == "3":
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
-            file_name = "Droidify.apk"
-            urllib.request.urlretrieve(url, file_name)
-            
-            subprocess.run([
-                "adb", "install", "Droidify.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-            print("Installing Droidify")
-
-            os.remove("Droidify.apk")
-
-            break
-        elif choice == "4":
-            url = "https://github.com/OuterTune/OuterTune/releases/download/v0.10.1/OuterTune-0.10.1-full-release-71.apk"
-            file_name = "Outertune.apk"
-            urllib.request.urlretrieve(url, file_name)
-            subprocess.run([
-                "adb", "install", "Outertune.apk"
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            
-            print("Installing Outertune")
-
-            os.remove("Outertune.apk")
-
-            break
+            sys.exit()
         else:
             print(f"Invalid Choice: {choice}")
-
-install_stuff()
-
-if os.name == 'nt':
-    os.system('cls')
-else:
-    os.system('clear')
-
-    def reboot_menu():
-        options = [
-            "Reboot Now",
-            "End The Script"
-        ]
-
-        while True:
-            print("Please Select Your Choice:")
-            for i, opt in enumerate(options, 1):
-                print(f"{i}) {opt}")
-
-            choice = input("Enter Choice Number: ")
-
-            if choice == "1":
-                subprocess.run([
-                    "adb", "reboot"
-                ])
-                sys.exit()
-            elif choice == "2":
-                sys.exit()
-            else:
-                print(f"Invalid Choice: {choice}")
-    reboot_menu()
+reboot_menu()
