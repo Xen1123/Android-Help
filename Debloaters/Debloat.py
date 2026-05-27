@@ -247,11 +247,11 @@ def reboot_menu():
     ]
 
     while True:
-        print("Please Select Your Choice: ")
+        print("\nPlease Select Your Choice: ")
         for i, opt in enumerate(options, 1):
             print(f"{i}) {opt}")
 
-        choice = input("Enter Choice Number: ")
+        choice = input("\nEnter Choice Number: ")
 
         if choice == "1":
             subprocess.run([
