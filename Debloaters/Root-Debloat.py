@@ -8,10 +8,10 @@ import webbrowser
 from pathlib import Path
 
 def clear():
-    if os.name == 'nt'
-    os.system('cls')
-else:
-    os.system('clear')
+        if os.name == 'nt'
+        os.system('cls')
+    else:
+        os.system('clear')
 
 clear()
 
