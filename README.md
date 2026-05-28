@@ -3,9 +3,9 @@
 
 <img src="./Android-Logo.png" width="384">
 
-<h3 align=center>DISCLAIMER: The Python Variants of Scripts Are Preferred. They Are Newer, More Refined, And Work On All Devices! </h3>
+<h3 align=center>DISCLAIMER: The Python variants of scripts are preferred, as they work on all devices and are newer, being more refined! </h3>
 
-<h4 align=center>Install Python At www.python.org Or Install Via Your Distribution's Package Manager</h4>
+<h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
 ## ITEMS IN REPOSITORY
 - **Debloaters**
@@ -43,9 +43,9 @@
       ```
 
 ## TO-DO:
-- [x] Create Guides For Rooting Android Phones
-- [x] Create Firmware Finder For Select Devices
-- [x] Make Firmware Finder Support More Devices
-- [x] Make Debloat & Flasher Scripts Support More Devices
-- [x] Make Python Equivalents For Scripts So Windows, Mac, BSD, And More Can Run Scripts.
-- [] Make Python Scripts BETTER!!!
+- [x] Create guides for rooting Android phones
+- [x] Create Firmware Finder for select devices
+- [x] Make Firmware Finder support more devices
+- [x] Make Debloat & Flasher Scripts support more devices
+- [x] Make Python equivalents for scripts so Windows, Mac, BSD, and More can run the scripts.
+- [x] Make Python scripts BETTER!!!
