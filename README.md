@@ -1,9 +1,9 @@
 <h1 align="center">Android-Help</h1>
 <h3 align="center">A Simple Repository To Help With Android Tweaking</h3>
 
-<img src="https://github.com/Xen1123/Android-Help/blob/main/Android-Logo.png" width="384">
+<img src="./Android-Logo.png" width="384">
 
-<h3 align=center>DISCLAIMER: If There Is A Python Variant Of Something Here, Use That Instead, It Is Newer, More Refined, And More Compatible With Other Devices.</h3>
+<h3 align=center>DISCLAIMER: The Python Variants of Scripts Are Preferred. They Are Newer, More Refined, And Work On All Devices! </h3>
 
 <h4 align=center>Install Python At www.python.org Or Install Via Your Distribution's Package Manager</h4>
 
