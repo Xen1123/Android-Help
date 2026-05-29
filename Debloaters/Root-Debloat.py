@@ -8,10 +8,10 @@ import webbrowser
 from pathlib import Path
 
 def clear():
-        if os.name == 'nt'
-        os.system('cls')
-    else:
-        os.system('clear')
+        if os.name == 'nt':
+            os.system('cls')
+        else:
+            os.system('clear')
 
 clear()
 
@@ -133,7 +133,7 @@ else:
             "com.google.android.apps.safetyhub",
             "com.google.android.marvin.talkback",
             "com.google.ambient.streaming",
-            "com.google.android.calendae",
+            "com.google.android.calendar",
             "com.google.android.apps.emojiwallpaper",
             "com.google.android.apps.aiwallpapers",
             "com.google.android.apps.carrier.log",
@@ -156,8 +156,9 @@ else:
 
     for app in apps:
         print(f"\nDELETING {app}")
+        pm_uninstall = f"pm uninstall --user 0 {app}"
         subprocess.run([
-            "adb", "shell", "pm", "uninstall", "--user", "0", app
+            "adb", "shell", "su", "-c", pm_uninstall
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 clear()
