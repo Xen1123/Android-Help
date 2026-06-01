@@ -191,19 +191,19 @@ if root_check.stdout.strip() != "root":
     print(f"\nYou're In {os.getcwd()}, Chamging To APK Folder!")
     os.chdir("APKs")
 
-    confirm = input("\nInstall Droidify? (y/n) ")
+    confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
     if confirm.lower() != "y":
         clear()
     else:
         clear()
-        print("\nGrabbing Droidify APK From Web!")
-        url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
-        file_name = "Droidify.apk"
-        urllib.request.urlretrieve(url, file_name)
+        print("\nGrabbing Vyxel APK From Web!")
+        url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.2/VyxelApps-v1.0.2.apk"
+        file = "Vyxel_Apps.apk"
+        urllib.request.urlretrieve(url, file)
 
-        print("\nInstalling Droidify!")
+        print("\nInstalling Vyxel!")
         subprocess.run([
-            "adb", "install", "Droidify.apk"
+            "adb", "install", "Vyxel_Apps.apk"
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         clear()
 
@@ -275,19 +275,19 @@ else:
     print(f"\nYou're In {os.getcwd()}, Chamging To APK Folder!")
     os.chdir("APKs")
 
-    confirm = input("\nInstall Droidify? (y/n) ")
+    confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
     if confirm.lower() != "y":
         clear()
     else:
         clear()
-        print("\nGrabbing Droidify APK From Web!")
-        url = "https://github.com/Droid-ify/client/releases/download/v0.7.1/app-release.apk"
-        file_name = "Droidify.apk"
-        urllib.request.urlretrieve(url, file_name)
+        print("\nGrabbing Vyxel APK From Web!")
+        url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.2/VyxelApps-v1.0.2.apk"
+        file = "Vyxel_Apps.apk"
+        urllib.request.urlretrieve(url, file)
 
-        print("\nInstalling Droidify!")
+        print("\nInstalling Vyxel!")
         subprocess.run([
-            "adb", "install", "Droidify.apk"
+            "adb", "install", "Vyxel_Apps.apk"
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         clear()
 
