@@ -217,7 +217,6 @@ def main():
                 subprocess.run(["fastboot", "reboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 input("Click A Key To Close The Script ")
     else:
-        pass
-
+        parser.print_help()
 if __name__ == "__main__":
     main()
