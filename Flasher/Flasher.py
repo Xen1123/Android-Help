@@ -50,7 +50,8 @@ def main():
     args = parser.parse_args()
 
     if args.full:
-        print("\n>> - FULL FACTORY FLASH - <<")
+        print("\n             >> - FULL FACTORY FLASH - <<")
+        print("Please Make Sure Your Images Are In The Working Directory!")
         time.sleep(3)
         print("\nRebooting To Bootloader Fastboot (ABL)")
         if args.verbose:
@@ -134,7 +135,9 @@ def main():
                 input("Click A Key To Close The Script ")
 
     if args.android:
-        print("\n>> - ANDROID SYSTEM FLASH - <<")
+        print("\n             >> - ANDROID SYSTEM FLASH - <<")
+        print("Please Make Sure Your Images Are In The Working Directory!")
+
         time.sleep(3)
         if args.verbose:
             print("\nRebooting To Bootloader Fastboot (ABL)")
