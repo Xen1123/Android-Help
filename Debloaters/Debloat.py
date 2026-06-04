@@ -5,9 +5,7 @@ import subprocess
 import time
 import os
 import sys
-import webbrowser
 import urllib.request
-import contextlib
 
 apps = [
     
@@ -355,9 +353,6 @@ else:
             "adb", "install", "Localsend.apk"
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-        with open(os.devnull, 'w') as devnull:
-            with contextlib.redirect.stderr(devnull):
-                webbrowser.open("https://localsend.org")
         clear()
 
 def reboot_menu():
