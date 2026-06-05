@@ -268,7 +268,6 @@ if root_check.stdout.strip() != "root":
         subprocess.run([
             "adb", "install", "Localsend.apk"
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        webbrowser.open("https://localsend.org")
         clear()
 
     confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
