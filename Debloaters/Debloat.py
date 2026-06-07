@@ -104,7 +104,6 @@ apps = [
     "com.google.android.safetycore",
     "com.google.android.contactkeys",
     "org.lineageos.glimpse",
-    "com.android.dialer",
     "com.google.android.apps.walletnfcrel",
     "com.fitbit.FitbitMobile",
     "com.google.android.apps.adm",
