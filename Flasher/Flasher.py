@@ -200,7 +200,6 @@ def main():
             clear()
 
         print("\nRebooting To Fastbootd")
-        time.sleep(2)
 
         if args.verbose:
             subprocess.run(["fastboot", "reboot", "fastboot"])
