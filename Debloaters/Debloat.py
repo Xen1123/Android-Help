@@ -243,7 +243,7 @@ if root_check.stdout.strip() != "root":
     else:
         clear()
         print("\nGrabbing ArchiveTune APK From Web!")
-        url = "https://github.com/koiverse/ArchiveTune/releases/download/v13.4.0/app-mobile-universal-release.apk"
+        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.4.0/app-mobile-universal-release.apk"
         file_name = "ArchiveTune.apk"
         urllib.request.urlretrieve(url, file_name)
 
