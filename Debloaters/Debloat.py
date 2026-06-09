@@ -6,6 +6,7 @@ import time
 import os
 import sys
 import urllib.request
+import argparse
 
 apps = [
     
@@ -157,225 +158,230 @@ def clear():
 clear()
 
 print(r"""
-                                                          
+                                                        
 ██████╗ ███████╗██████╗ ██╗      ██████╗  █████╗ ████████╗
 ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██╔══██╗╚══██╔══╝
 ██║  ██║█████╗  ██████╔╝██║     ██║   ██║███████║   ██║   
 ██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██╔══██║   ██║   
 ██████╔╝███████╗██████╔╝███████╗╚██████╔╝██║  ██║   ██║   
 ╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-                                                          
+                                                        
 """)
+def main():
 
-adb_path = shutil.which("adb")
+    parser = argparse.ArgumentParser(
+        description="Multi-Device ADB Debloater - Root Or No Root",
+        epilog="Example: python Debloat.py --root --verbose"
+    )
+    group = parser.add_mutually_exclusive_group(required=False)
+    group.add_argument("--noroot", action="store_true", help="Disable apps - DOESN'T remove them from the device storage, can be re-enabled in settings")
+    group.add_argument("--root", action="store_true", help="Removes apps from your system completely - Apps that are removed will need to be reinstalled.")
+    parser.add_argument("--verbose", action="store_true", help="Makes script show EVERYTHING, including errors - Without '--verbose', errors and other outputs will be silent.")
 
-confirm = input("""\nHello! This script will debloat your Android device! 
-If you have root, apps will be fully removed, if not, apps will just be disabled! Continue? (yes/no) """)
+    args = parser.parse_args()
 
-if confirm.lower() != "yes":
-    clear()
-    print("\nOkay! Have a nice day! :) ")
-    sys.exit(0)
-else:
-    pass
-
-if not adb_path:
-    print("\nYou do not have ADB installed or in your system PATH!")
-    sys.exit(0)
-else:
-    print(f"\nADB Found At: {adb_path}")
-    time.sleep(2)
-
-try:
-    result = subprocess.run([
-        "adb", "devices"
-    ], capture_output=True, text=True, check=True)
-
-    if "unauthorized" in result.stdout:
-        print("\nDevice Not Authorized")
-        sys.exit(1)
-    
-    if "device" not in result.stdout.split():
-        print("\nNo Device!")
-        sys.exit(1)
-except subprocess.CalledProcessError:
-    print("Failed To Run ADB! Is It In Your PATH?")
-    sys.exit(1)
-
-root_check = subprocess.run(["adb", "shell", "su -c whoami"], capture_output=True, text=True)
-
-if root_check.stdout.strip() != "root":
-    print("\nRoot Not Detected! Disabling Apps!")
-    time.sleep(2)
-    clear()
-    for app in apps:
-        print(f"\nDisabling {app}")
-        subprocess.run([
-            "adb", "shell", "pm", "disable-user", "--user", "0", app
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    clear()
+    if not args.root and not args.noroot:
+        parser.print_help()
+        input("\nClick Any Key To Exit . . .")
+        sys.exit()
     try:
-        os.mkdir("APKs")
-    except FileExistsError:
+        result = subprocess.run([
+            "adb", "devices"
+        ], capture_output=True, text=True, check=True)
+
+        if "unauthorized" in result.stdout:
+            print("\nDevice Not Authorized")
+            sys.exit(1)
+        
+        if "device" not in result.stdout.split():
+            print("\nNo Device!")
+            sys.exit(1)
+    except subprocess.CalledProcessError:
+        print("Failed To Run ADB! Is It In Your PATH?")
+        sys.exit(1)
+
+    root_check = subprocess.run(["adb", "shell", "su -c whoami"], capture_output=True, text=True)
+    
+    if args.noroot:
+        adb_path = shutil.which("adb")
+
+        if not adb_path:
+            print("\nYou do not have ADB installed or in your system PATH!")
+            sys.exit(0)
+        else:
+            print(f"\nADB Found At: {adb_path}")
+            time.sleep(2)
+        if args.verbose:
+            for app in apps:
+                subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+        else:
+            for app in apps:
+                print(f"\nDISABLING: {app}")
+                subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    if args.root:
+        adb_path = shutil.which("adb")
+
+        if not adb_path:
+            print("\nYou do not have ADB installed or in your system PATH!")
+            sys.exit(0)
+        else:
+            print(f"\nADB Found At: {adb_path}")
+            time.sleep(2)
+        if args.verbose:
+            pass
+        else:
+            clear()
+        if root_check.stdout.strip() != "root":
+            if args.verbose:
+                pass
+            else:
+                clear()
+            print("\nRoot Not Detected!")
+            input("\nClick Any Key To Exit . . .")
+            sys.exit()
+        for app in apps:
+            if args.verbose:
+                pm_uninstall = f"pm uninstall --user 0 {app}"
+                subprocess.run(["adb", "shell", "su", "-c", pm_uninstall])
+            else:
+                pm_uninstall = f"pm uninstall --user 0 {app}"
+                print(f"\nUNINSTALLING: {app}")
+                subprocess.run(["adb", "shell", "su", "-c", pm_uninstall], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    if args.verbose:
         pass
-    print(f"\nYou're In {os.getcwd()}, Chamging To APK Folder!")
-    os.chdir("APKs")
+    else:
+        clear()
+
+    # APK Folder Creation
+    folder = "APK-Holding"
+    if os.path.isdir(folder):
+        shutil.rmtree("./APK-Holding")
+    else:
+        pass
+    dir = os.getcwd()
+    print(f"\nYou Are In {dir}, Making An APK Folder And Moving Into It.")
+    os.mkdir("APK-Holding")
+    os.chdir("APK-Holding")
+    cdir = os.getcwd()
+    print(f"\nYou Are In {cdir}")
+    time.sleep(2)
+
 
     confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
     if confirm.lower() != "y":
-        clear()
+        if args.verbose:
+            pass
+        else:
+            clear()
     else:
-        clear()
+        if args.verbose:
+            pass
+        else:
+            clear()
         print("\nGrabbing Vyxel APK From Web!")
         url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.2/VyxelApps-v1.0.2.apk"
         file = "Vyxel_Apps.apk"
         urllib.request.urlretrieve(url, file)
 
         print("\nInstalling Vyxel!")
-        subprocess.run([
-            "adb", "install", "Vyxel_Apps.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        clear()
+        if args.verbose:
+            subprocess.run(["adb", "install", "Vyxel_Apps.apk"])
+        else:
+            subprocess.run(["adb", "install", "Vyxel_Apps.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if args.verbose:
+            pass
+        else:
+            clear()
 
     confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
     if confirm.lower() != "y":
-        clear()
+        if args.verbose:
+            pass
+        else:
+            clear()
     else:
-        clear()
+        if args.verbose:
+            pass
+        else:
+            clear()
         print("\nGrabbing ArchiveTune APK From Web!")
         url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.4.0/app-mobile-universal-release.apk"
         file_name = "ArchiveTune.apk"
         urllib.request.urlretrieve(url, file_name)
 
         print("\nInstalling ArchiveTune!")
-        subprocess.run([
-            "adb", "install", "ArchiveTune.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        clear()
-
-    confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
-    if confirm.lower() != "y":
-        clear()
-    else:
-        clear()
-        print("\nGrabbing Localsend APK From Web!")
-        url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
-        file = "Localsend.apk"
-        urllib.request.urlretrieve(url, file)
-
-        print("\nInstalling Localsend!")
-        subprocess.run([
-            "adb", "install", "Localsend.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        clear()
-
-    confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
-    if confirm.lower() != "y":
-        clear()
-    else:
-        clear()
-        print("\nGrabbing Magisk APK From Web!")
-        url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
-        file = "Magisk.Apk"
-        urllib.request.urlretrieve(url, file)
-
-        print("\nInstalling Magisk!")
-        subprocess.run([
-            "adb", "install", "Magisk.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        clear()
-
-else:
-    clear()
-    print("\nRoot Detected! Removing Applications From System!")
-    time.sleep(2)
-    clear()
-    for app in apps:
-        print(f"\nUninstalling {app}")
-        pm_uninstall = f"pm uninstall --user 0 {app}"
-        subprocess.run([
-            "adb", "shell", "su", "-c", pm_uninstall
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    clear()
-    try:
-        os.mkdir("APKs")
-    except FileExistsError:
-        pass
-    print(f"\nYou're In {os.getcwd()}, Chamging To APK Folder!")
-    os.chdir("APKs")
-
-    confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
-    if confirm.lower() != "y":
-        clear()
-    else:
-        clear()
-        print("\nGrabbing Vyxel APK From Web!")
-        url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.2/VyxelApps-v1.0.2.apk"
-        file = "Vyxel_Apps.apk"
-        urllib.request.urlretrieve(url, file)
-
-        print("\nInstalling Vyxel!")
-        subprocess.run([
-            "adb", "install", "Vyxel_Apps.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        clear()
-
-    confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
-    if confirm.lower() != "y":
-        clear()
-    else:
-        clear()
-        print("\nGrabbing ArchiveTune APK From Web!")
-        url = "https://github.com/koiverse/ArchiveTune/releases/download/v13.4.0/app-mobile-universal-release.apk"
-        file_name = "ArchiveTune.apk"
-        urllib.request.urlretrieve(url, file_name)
-
-        print("\nInstalling ArchiveTune!")
-        subprocess.run([
-            "adb", "install", "ArchiveTune.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        clear()
-
-    confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
-    if confirm.lower() != "y":
-        clear()
-    else:
-        clear()
-        print("\nGrabbing Localsend APK From Web!")
-        url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
-        file = "Localsend.apk"
-        urllib.request.urlretrieve(url, file)
-
-        print("\nInstalling Localsend!")
-        subprocess.run([
-            "adb", "install", "Localsend.apk"
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-        clear()
-
-def reboot_menu():
-    options = [
-    "Reboot Now",
-    "End The Script"
-]
-
-    while True:
-        print("\nPlease Select Your Choice: ")
-        for i, opt in enumerate(options, 1):
-            print(f"{i}) {opt}")
-
-        choice = input("\nEnter Choice Number: ")
-
-        if choice == "1":
-            subprocess.run([
-                "adb", "reboot"
-            ])
-            clear()
-            sys.exit()
-        elif choice == "2":
-            clear()
-            sys.exit()
+        if args.verbose:
+            subprocess.run(["adb", "install", "ArchiveTune.apk"])
         else:
-            print(f"Invalid Choice: {choice}")
-clear()
-reboot_menu()
+            subprocess.run(["adb", "install", "ArchiveTune.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if args.verbose:
+            pass
+        else:
+            if args.verbose:
+                pass
+            else:
+                clear()
+
+    confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
+    if confirm.lower() != "y":
+        if args.verbose:
+            pass
+        else:
+            clear()
+    else:
+        if args.verbose:
+            pass
+        else:
+            clear()
+        print("\nGrabbing Localsend APK From Web!")
+        url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
+        file = "Localsend.apk"
+        urllib.request.urlretrieve(url, file)
+
+        print("\nInstalling Localsend!")
+        if args.verbose:
+            subprocess.run(["adb", "install", "Localsend.apk"])
+        else:
+            subprocess.run(["adb", "install", "Localsend.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if args.verbose:
+                pass
+            else:
+                clear()
+    
+    if root_check.stdout.strip() != "root":
+        confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
+        if confirm.lower() != "y":
+            if args.verbose:
+                pass
+            else:
+                clear()
+        else:
+            if args.verbose:
+                pass
+            else:
+                clear()
+            print("\nGrabbing Magisk APK From Web!")
+            url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
+            file = "Magisk.Apk"
+            urllib.request.urlretrieve(url, file)
+
+            print("\nInstalling Magisk!")
+            if args.verbose:
+                subprocess.run(["adb", "install", "Magisk.apk"])
+            else:
+                subprocess.run(["adb", "install", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if args.verbose:
+                pass
+            else:
+                clear()
+    
+        os.chdir("../")
+        shutil.rmtree("./APK-Holding")
+
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()

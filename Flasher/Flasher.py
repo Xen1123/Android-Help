@@ -40,10 +40,10 @@ def main():
 
     parser = argparse.ArgumentParser(
         description="Multi-Device Android Flasher Utility",
-        epilog="Example: python flasher.py --full"
+        epilog="Example: python Flasher.py --full"
     )
 
-    parser.add_argument("--full", action ="store_true", help="Flash All Factory Firmare")
+    parser.add_argument("--full", action="store_true", help="Flash All Factory Firmare")
     parser.add_argument("--android", action="store_true", help="Flash Just Android Partitions (VERY Low Chance of A Hard Brick)")
     parser.add_argument("--verbose", action="store_true", help="Stops Commands From Being Silent So You Can See Outputs (Add This Flag With A Flashing Flag Or Nothing Will Happen)")
 
