@@ -28,5 +28,6 @@
   - [LineageOS Motorola](https://wiki.lineageos.org/devices/#motorola)
 
 ## OnePlus Devices
-- [OnePlus Firmware](https://github.com/spike0en/oneplus_archive)
+- [OnePlus Firmware Downloader APK](https://github.com/Chippa-a/OPlusFwToolkit-android/releases/download/v1.2.0/oplusdownloader-android-1.2.0-release.apk)
+- [OnePlus Firmware On FirmwareFinder (Less Reliable And Is Risky)](https://firmwarefile.com/?s=OnePlus)
   - [LineageOS OnePlus](https://wiki.lineageos.org/devices/#oneplus)
