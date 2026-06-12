@@ -51,8 +51,11 @@ def main():
 
     if args.full:
         print("\n             >> - FULL FACTORY FLASH - <<")
-        print("Please Make Sure Your Images Are In The Working Directory!")
+        print("\nPlease Make Sure Your Images Are In The Working Directory!")
         time.sleep(3)
+        current_dir = os.getcwd()
+        input(f"\nYou're in {current_dir}, make sure this is the correct directory with your images! Exit the script NOW if this is incorrect! Press enter to continue if it is right. ")
+        clear()
         print("\nRebooting To Bootloader Fastboot (ABL)")
         if args.verbose:
             subprocess.run(["adb", "reboot", "bootloader"])
@@ -154,9 +157,12 @@ def main():
 
     if args.android:
         print("\n             >> - ANDROID SYSTEM FLASH - <<")
-        print("Please Make Sure Your Images Are In The Working Directory!")
+        print("\nPlease Make Sure Your Images Are In The Working Directory!")
 
         time.sleep(3)
+        current_dir = os.getcwd()
+        input(f"\nYou're in {current_dir}, make sure this is the correct directory with your images! Exit the script NOW if this is incorrect! Press enter to continue if it is right. ")
+        clear()
         if args.verbose:
             print("\nRebooting To Bootloader Fastboot (ABL)")
             subprocess.run(["adb", "reboot", "bootloader"])
