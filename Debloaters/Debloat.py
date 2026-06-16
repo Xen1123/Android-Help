@@ -60,7 +60,6 @@ apps = [
     "com.google.android.apps.restore",
     "com.google.android.apps.tachyon",
     "com.google.android.apps.youtube.music",
-    "com.google.android.calculator",
     "com.google.android.federatedcompute",
     "com.google.android.feedback",
     "com.google.android.gms.location.history",
