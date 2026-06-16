@@ -379,9 +379,10 @@ def main():
             "Reboot? (You may be prompted by the android system to factory reset first, that is normal) (y/n) "
         )
         if confirm.lower() != "y":
-            print("Exiting The Script!")
-            time.sleep(1.5)
+            if not args.verbose:
+                clear()
             input("Click A Key To Close The Script ")
+            sys.exit()
         else:
             if args.verbose:
                 print("Rebooting Now!")
