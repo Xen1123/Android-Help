@@ -144,6 +144,7 @@ apps = [
     "com.android.providers.settings.auto_generated_rro_vendor__",
     "com.google.android.apps.weather",
     "com.google.android.apps.diagnosticstool",
+    "com.google.android.apps.pixel.nowplaying",
 ]
 
 
