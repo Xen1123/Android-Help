@@ -3,8 +3,6 @@
 
 <img src="./Android-Logo.png" width="384">
 
-<h3 align=center>DISCLAIMER: The Python variants of scripts are preferred, as they work on all devices and are newer, being more refined! </h3>
-
 <h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
 ## ITEMS IN REPOSITORY
