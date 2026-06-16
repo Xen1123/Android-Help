@@ -1,15 +1,13 @@
-from pathlib import Path
-import shutil
-import os
-import subprocess
-import time
-import os
-import sys
-import urllib.request
 import argparse
+import os
+import shutil
+import subprocess
+import sys
+import time
+import urllib.request
+from pathlib import Path
 
 apps = [
-    
     "com.samsung.sree",
     "com.samsung.kidsplay",
     "com.samsung.android.kidsinstaller",
@@ -43,7 +41,6 @@ apps = [
     "com.samsung.android.galaxy",
     "com.sec.android.app.sbrowser",
     "com.samsung.android.email.provider",
-    
     "com.google.android.googlequicksearchbox",
     "android.overlay.gms.region.all",
     "android.overlay.gms.region.row",
@@ -57,7 +54,7 @@ apps = [
     "com.aura.oobe.solutions",
     "com.goodfix.fingerprint.setting",
     "com.google.ambient.streaming",
-    "com.google.android.accessibility.switchaccess",        
+    "com.google.android.accessibility.switchaccess",
     "com.google.android.adservices.api",
     "com.google.android.apps.docs",
     "com.google.android.apps.restore",
@@ -150,33 +147,50 @@ apps = [
     "com.google.android.apps.diagnosticstool",
 ]
 
+
 def clear():
-    if os.name == 'nt':
-        os.system('cls')
+    if os.name == "nt":
+        os.system("cls")
     else:
-        os.system('clear')
+        os.system("clear")
+
+
 clear()
 
 print(r"""
-                                                        
+
 ██████╗ ███████╗██████╗ ██╗      ██████╗  █████╗ ████████╗
 ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██╔══██╗╚══██╔══╝
-██║  ██║█████╗  ██████╔╝██║     ██║   ██║███████║   ██║   
-██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██╔══██║   ██║   
-██████╔╝███████╗██████╔╝███████╗╚██████╔╝██║  ██║   ██║   
-╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-                                                        
+██║  ██║█████╗  ██████╔╝██║     ██║   ██║███████║   ██║
+██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██╔══██║   ██║
+██████╔╝███████╗██████╔╝███████╗╚██████╔╝██║  ██║   ██║
+╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+
 """)
+
+
 def main():
 
     parser = argparse.ArgumentParser(
         description="Multi-Device ADB Debloater - Root Or No Root",
-        epilog="Example: python Debloat.py --root --verbose"
+        epilog="Example: python Debloat.py --root --verbose",
     )
     group = parser.add_mutually_exclusive_group(required=False)
-    group.add_argument("--noroot", action="store_true", help="Disable apps - DOESN'T remove them from the device storage, can be re-enabled in settings")
-    group.add_argument("--root", action="store_true", help="Removes apps from your system completely - Apps that are removed will need to be reinstalled.")
-    parser.add_argument("--verbose", action="store_true", help="Makes script show EVERYTHING, including errors - Without '--verbose', errors and other outputs will be silent.")
+    group.add_argument(
+        "--noroot",
+        action="store_true",
+        help="Disable apps - DOESN'T remove them from the device storage, can be re-enabled in settings",
+    )
+    group.add_argument(
+        "--root",
+        action="store_true",
+        help="Removes apps from your system completely - Apps that are removed will need to be reinstalled.",
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Makes script show EVERYTHING, including errors - Without '--verbose', errors and other outputs will be silent.",
+    )
 
     args = parser.parse_args()
 
@@ -185,14 +199,14 @@ def main():
         input("\nClick Any Key To Exit . . .")
         sys.exit()
     try:
-        result = subprocess.run([
-            "adb", "devices"
-        ], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            ["adb", "devices"], capture_output=True, text=True, check=True
+        )
 
         if "unauthorized" in result.stdout:
             print("\nDevice Not Authorized")
             sys.exit(1)
-        
+
         if "device" not in result.stdout.split():
             print("\nNo Device!")
             sys.exit(1)
@@ -200,8 +214,10 @@ def main():
         print("Failed To Run ADB! Is It In Your PATH?")
         sys.exit(1)
 
-    root_check = subprocess.run(["adb", "shell", "su -c whoami"], capture_output=True, text=True)
-    
+    root_check = subprocess.run(
+        ["adb", "shell", "su -c whoami"], capture_output=True, text=True
+    )
+
     if args.noroot:
         adb_path = shutil.which("adb")
 
@@ -213,11 +229,17 @@ def main():
             time.sleep(2)
         if args.verbose:
             for app in apps:
-                subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                subprocess.run(
+                    ["adb", "shell", "pm", "disable-user", "--user", "0", app]
+                )
         else:
             for app in apps:
                 print(f"\nDISABLING: {app}")
-                subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "shell", "pm", "disable-user", "--user", "0", app],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
 
     if args.root:
         adb_path = shutil.which("adb")
@@ -247,7 +269,11 @@ def main():
             else:
                 pm_uninstall = f"pm uninstall --user 0 {app}"
                 print(f"\nUNINSTALLING: {app}")
-                subprocess.run(["adb", "shell", "su", "-c", pm_uninstall], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "shell", "su", "-c", pm_uninstall],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
 
     if args.verbose:
         pass
@@ -268,8 +294,9 @@ def main():
     print(f"\nYou Are In {cdir}")
     time.sleep(2)
 
-
-    confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
+    confirm = input(
+        "\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) "
+    )
     if confirm.lower() != "y":
         if args.verbose:
             pass
@@ -289,7 +316,11 @@ def main():
         if args.verbose:
             subprocess.run(["adb", "install", "Vyxel_Apps.apk"])
         else:
-            subprocess.run(["adb", "install", "Vyxel_Apps.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(
+                ["adb", "install", "Vyxel_Apps.apk"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
         if args.verbose:
             pass
         else:
@@ -307,7 +338,7 @@ def main():
         else:
             clear()
         print("\nGrabbing ArchiveTune APK From Web!")
-        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.4.0/app-mobile-universal-release.apk"
+        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.4.0/app-mobile-arm64-release.apk"
         file_name = "ArchiveTune.apk"
         urllib.request.urlretrieve(url, file_name)
 
@@ -315,7 +346,11 @@ def main():
         if args.verbose:
             subprocess.run(["adb", "install", "ArchiveTune.apk"])
         else:
-            subprocess.run(["adb", "install", "ArchiveTune.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(
+                ["adb", "install", "ArchiveTune.apk"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
         if args.verbose:
             pass
         else:
@@ -324,7 +359,9 @@ def main():
             else:
                 clear()
 
-    confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
+    confirm = input(
+        "\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) "
+    )
     if confirm.lower() != "y":
         if args.verbose:
             pass
@@ -344,14 +381,20 @@ def main():
         if args.verbose:
             subprocess.run(["adb", "install", "Localsend.apk"])
         else:
-            subprocess.run(["adb", "install", "Localsend.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(
+                ["adb", "install", "Localsend.apk"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
             if args.verbose:
                 pass
             else:
                 clear()
-    
+
     if root_check.stdout.strip() != "root":
-        confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
+        confirm = input(
+            "\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) "
+        )
         if confirm.lower() != "y":
             if args.verbose:
                 pass
@@ -371,17 +414,22 @@ def main():
             if args.verbose:
                 subprocess.run(["adb", "install", "Magisk.apk"])
             else:
-                subprocess.run(["adb", "install", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "install", "Magisk.apk"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
             if args.verbose:
                 pass
             else:
                 clear()
-    
+
         os.chdir("../")
         shutil.rmtree("./APK-Holding")
 
     else:
         parser.print_help()
+
 
 if __name__ == "__main__":
     main()
