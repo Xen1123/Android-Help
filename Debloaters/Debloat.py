@@ -313,10 +313,10 @@ def main():
 
         print("\nInstalling Vyxel!")
         if args.verbose:
-            subprocess.run(["adb", "install", "Vyxel_Apps.apk"])
+            subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"])
         else:
             subprocess.run(
-                ["adb", "install", "Vyxel_Apps.apk"],
+                ["adb", "install", "-r", "Vyxel_Apps.apk"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -324,6 +324,10 @@ def main():
             pass
         else:
             clear()
+
+    subprocess.run(
+        ["adb", "devices"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
 
     confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
     if confirm.lower() != "y":
@@ -343,10 +347,10 @@ def main():
 
         print("\nInstalling ArchiveTune!")
         if args.verbose:
-            subprocess.run(["adb", "install", "ArchiveTune.apk"])
+            subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"])
         else:
             subprocess.run(
-                ["adb", "install", "ArchiveTune.apk"],
+                ["adb", "install", "-r", "ArchiveTune.apk"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -378,10 +382,10 @@ def main():
 
         print("\nInstalling Localsend!")
         if args.verbose:
-            subprocess.run(["adb", "install", "Localsend.apk"])
+            subprocess.run(["adb", "install", "-r", "Localsend.apk"])
         else:
             subprocess.run(
-                ["adb", "install", "Localsend.apk"],
+                ["adb", "install", "-r", "Localsend.apk"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -411,10 +415,10 @@ def main():
 
             print("\nInstalling Magisk!")
             if args.verbose:
-                subprocess.run(["adb", "install", "Magisk.apk"])
+                subprocess.run(["adb", "install", "-r", "Magisk.apk"])
             else:
                 subprocess.run(
-                    ["adb", "install", "Magisk.apk"],
+                    ["adb", "install", "-r", "Magisk.apk"],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
