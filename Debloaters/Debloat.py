@@ -342,7 +342,7 @@ def main():
         else:
             clear()
         print("\nGrabbing ArchiveTune APK From Web!")
-        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.4.0/app-mobile-arm64-release.apk"
+        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.5.0/app-mobile-arm64-release.apk"
         file_name = "ArchiveTune.apk"
         urllib.request.urlretrieve(url, file_name)
 
