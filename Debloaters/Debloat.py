@@ -8,6 +8,7 @@ import urllib.request
 from pathlib import Path
 
 apps = [
+    "com.google.android.apps.bard"
     "com.samsung.sree",
     "com.samsung.kidsplay",
     "com.samsung.android.kidsinstaller",
