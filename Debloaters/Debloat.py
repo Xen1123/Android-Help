@@ -147,6 +147,24 @@ apps = [
     "com.google.android.apps.pixel.nowplaying",
 ]
 
+gstandard = [
+    "com.google.android.apps.photos",
+    "com.google.android.apps.nbu.files",
+    "com.google.android.calendar",
+    "com.google.android.gm",
+    "com.google.android.apps.maps",
+    "com.google.android.apps.searchlite",
+    "com.google.android.apps.mapslite",
+    "com.android.chrome",
+    "com.chrome.beta",
+    "com.chrome.canary",
+    "com.chrome.dev",
+]
+
+gFULL = [
+    "com.android.vending"
+    "com.google.android.gms"
+]
 
 def clear():
     if os.name == "nt":
@@ -197,7 +215,7 @@ def main():
     if not args.root and not args.noroot:
         parser.print_help()
         input("\nClick Any Key To Exit . . .")
-        sys.exit()
+        sys.exit(1)
     try:
         result = subprocess.run(
             ["adb", "devices"], capture_output=True, text=True, check=True
@@ -223,7 +241,7 @@ def main():
 
         if not adb_path:
             print("\nYou do not have ADB installed or in your system PATH!")
-            sys.exit(0)
+            sys.exit(1)
         else:
             print(f"\nADB Found At: {adb_path}")
             time.sleep(2)
@@ -241,12 +259,27 @@ def main():
                     stderr=subprocess.DEVNULL,
                 )
 
+        confirm = input("\nRemove The Unimportant Google Suite? (Google Photos, GMail, Files By Google, Google Maps, & Chrome) (y/n) ")
+        if confirm.lower() != "y":
+            if args.verbose:
+                pass
+            else:
+                clear()
+        else:
+            for app in gstandard:
+                if args.verbose:
+                    print(f"\nDisabling {app}")
+                    subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                else:
+                    print(f"\nDisabling {app}")
+                    subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     if args.root:
         adb_path = shutil.which("adb")
 
         if not adb_path:
             print("\nYou do not have ADB installed or in your system PATH!")
-            sys.exit(0)
+            sys.exit(1)
         else:
             print(f"\nADB Found At: {adb_path}")
             time.sleep(2)
@@ -261,7 +294,7 @@ def main():
                 clear()
             print("\nRoot Not Detected!")
             input("\nClick Any Key To Exit . . .")
-            sys.exit()
+            sys.exit(1)
         for app in apps:
             if args.verbose:
                 pm_uninstall = f"pm uninstall --user 0 {app}"
@@ -274,6 +307,41 @@ def main():
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
+        if args.verbose:
+            pass
+        else:
+            clear()
+        confirm = input("\nRemove The Unimportant Google Suite? (Google Photos, GMail, Files By Google, Google Maps, & Chrome) (y/n) ")
+        if confirm.lower() != "y":
+            if args.verbose:
+                pass
+            else:
+                clear()
+        else:
+            for app in gstandard:
+                if args.verbose:
+                    print(f"\nUninstalling {app}")
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
+                else:
+                    print(f"\nUninstalling {app}")
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if args.verbose:
+            pass
+        else:
+            clear()
+        confirm = input("\nRemove The IMPORTANT Google Apps? (Google Play Services & Google Play Store, This WILL BREAK MANY APPS UNLESS YOU HAVE MICROG) (y/n) ")
+        if confirm.lower() != "y":
+            if args.verbose:
+                pass
+            else:
+                clear()
+        else:
+            for app_full in gFULL:
+                if args.verbose:
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full])
+                else:
+                    print(f"\nUninstalling {gFULL}")
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     if args.verbose:
         pass
