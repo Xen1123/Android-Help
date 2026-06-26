@@ -125,7 +125,6 @@ apps = [
     "org.lineageos.recorder",
     "com.google.android.apps.safetyhub",
     "com.google.android.marvin.talkback",
-    "com.google.android.calendae",
     "com.google.android.apps.emojiwallpaper",
     "com.google.android.apps.aiwallpapers",
     "com.google.android.apps.carrier.log",
@@ -159,11 +158,13 @@ gstandard = [
     "com.chrome.beta",
     "com.chrome.canary",
     "com.chrome.dev",
+    "com.google.android.calendar",
+    "com.google.android.youtube",
 ]
 
 gFULL = [
-    "com.android.vending"
-    "com.google.android.gms"
+    "com.android.vending",
+    "com.google.android.gms",
 ]
 
 def clear():
@@ -172,6 +173,9 @@ def clear():
     else:
         os.system("clear")
 
+# Package Check To Speed Up Script
+result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
+installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
 
 clear()
 
@@ -245,19 +249,19 @@ def main():
         else:
             print(f"\nADB Found At: {adb_path}")
             time.sleep(2)
-        if args.verbose:
-            for app in apps:
-                subprocess.run(
-                    ["adb", "shell", "pm", "disable-user", "--user", "0", app]
-                )
-        else:
-            for app in apps:
-                print(f"\nDISABLING: {app}")
-                subprocess.run(
-                    ["adb", "shell", "pm", "disable-user", "--user", "0", app],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
+
+        for app in apps:
+            if app in installed_apps:
+                if args.verbose:
+                    subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                else:
+                    print(f"\nDISABLING: {app}")
+                    subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            else:
+                if args.verbose:
+                    print(f"\nFailed To Get {app}")
+                else:
+                    pass
 
         confirm = input("\nRemove The Unimportant Google Suite? (Google Photos, GMail, Files By Google, Google Maps, & Chrome) (y/n) ")
         if confirm.lower() != "y":
@@ -267,13 +271,34 @@ def main():
                 clear()
         else:
             for app in gstandard:
-                if args.verbose:
-                    print(f"\nDisabling {app}")
-                    subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                if app in installed_apps:
+                    if args.verbose:
+                        print(f"\nDisabling {app}")
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                    else:
+                        print(f"\nDisabling {app}")
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nDisabling {app}")
-                    subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    print(f"\nFailed To Get {app}")
 
+        confirm = input("\nRemove The IMPORTANT Google Apps? (Google Play Services & Google Play Store, This WILL BREAK MANY APPS UNLESS YOU HAVE MICROG) (y/n) ")
+        if confirm.lower() != "y":
+            if args.verbose:
+                pass
+            else:
+                clear()
+        else:
+            for app_full in gFULL:
+                if app_full in installed_apps:
+                    if args.verbose:
+                        print(f"\nDisabling {app_full}")
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app_full])
+                    else:
+                        print(f"\nDisabling {app_full}")
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app_full], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                else:
+                    print(f"\nFailed To Get {app_full}")
+        
     if args.root:
         adb_path = shutil.which("adb")
 
@@ -296,17 +321,19 @@ def main():
             input("\nClick Any Key To Exit . . .")
             sys.exit(1)
         for app in apps:
-            if args.verbose:
-                pm_uninstall = f"pm uninstall --user 0 {app}"
-                subprocess.run(["adb", "shell", "su", "-c", pm_uninstall])
+            if app in installed_apps:
+                if args.verbose:
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
+                else:
+                    print(f"\nUNINSTALLING: {app}")
+                    subprocess.run(
+                        ["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
             else:
-                pm_uninstall = f"pm uninstall --user 0 {app}"
-                print(f"\nUNINSTALLING: {app}")
-                subprocess.run(
-                    ["adb", "shell", "su", "-c", pm_uninstall],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
+                print(f"\nFailed To Get {app}")
+                
         if args.verbose:
             pass
         else:
@@ -319,12 +346,16 @@ def main():
                 clear()
         else:
             for app in gstandard:
-                if args.verbose:
-                    print(f"\nUninstalling {app}")
-                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
+                if app in installed_apps:
+                    if args.verbose:
+                        print(f"\nUninstalling {app}")
+                        subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
+                    else:
+                        print(f"\nUninstalling {app}")
+                        subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nUninstalling {app}")
-                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    print(f"\nFailed To Get {app}")
+                    
         if args.verbose:
             pass
         else:
@@ -337,12 +368,15 @@ def main():
                 clear()
         else:
             for app_full in gFULL:
-                if args.verbose:
-                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full])
+                if app_full in installed_apps:
+                    if args.verbose:
+                        subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full])
+                    else:
+                        print(f"\nUninstalling {gFULL}")
+                        subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nUninstalling {gFULL}")
-                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
+                    print(f"\nFailed To Get {app_full}")
+                    
     if args.verbose:
         pass
     else:
