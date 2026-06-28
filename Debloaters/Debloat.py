@@ -279,7 +279,10 @@ def main():
                         print(f"\nDisabling {app}")
                         subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nFailed To Get {app}")
+                    if args.verbose:
+                        print(f"\nFailed To Get {app}")
+                    else:
+                        pass
 
         confirm = input("\nRemove The IMPORTANT Google Apps? (Google Play Services & Google Play Store, This WILL BREAK MANY APPS UNLESS YOU HAVE MICROG) (y/n) ")
         if confirm.lower() != "y":
@@ -297,7 +300,10 @@ def main():
                         print(f"\nDisabling {app_full}")
                         subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app_full], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nFailed To Get {app_full}")
+                    if args.verbose:
+                        print(f"\nFailed To Get {app_full}")
+                    else:
+                        pass
         
     if args.root:
         adb_path = shutil.which("adb")
@@ -326,13 +332,12 @@ def main():
                     subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
                 else:
                     print(f"\nUNINSTALLING: {app}")
-                    subprocess.run(
-                        ["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             else:
-                print(f"\nFailed To Get {app}")
+                if args.verbose:
+                    print(f"\nFailed To Get {app}")
+                else:
+                    pass
                 
         if args.verbose:
             pass
@@ -354,7 +359,10 @@ def main():
                         print(f"\nUninstalling {app}")
                         subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nFailed To Get {app}")
+                    if args.verbose:
+                        print(f"\nFailed To Get {app}")
+                    else:
+                        pass
                     
         if args.verbose:
             pass
@@ -375,7 +383,10 @@ def main():
                         print(f"\nUninstalling {gFULL}")
                         subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app_full], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
-                    print(f"\nFailed To Get {app_full}")
+                    if args.verbose:
+                        print(f"\nFailed To Get {app_full}")
+                    else:
+                        pass
                     
     if args.verbose:
         pass
@@ -396,6 +407,24 @@ def main():
     print(f"\nYou Are In {cdir}")
     time.sleep(2)
 
+    clear()
+
+    app_mapping = {
+        "moe.rukamori.archivetune": "ArchiveTune",
+        "org.localsend.localsend_app": "Localsend",
+        "com.topjohnwu.magisk": "Maigsk",
+        "com.vythera.vyxelapps": "VyxelApps",
+    }
+
+    def applist():
+        print("\nApplications Installed:")
+        result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
+        installed_apps_str = result.stdout
+        for package, display_name in app_mapping.items():
+            if package in installed_apps_str:
+                print(f"{display_name}")
+
+    applist()
     confirm = input(
         "\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) "
     )
@@ -431,7 +460,8 @@ def main():
     subprocess.run(
         ["adb", "devices"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
     )
-
+    
+    applist()
     confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
     if confirm.lower() != "y":
         if args.verbose:
@@ -444,7 +474,7 @@ def main():
         else:
             clear()
         print("\nGrabbing ArchiveTune APK From Web!")
-        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.6.0/app-mobile-arm64-release.apk"
+        url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.6.0/app-gms-mobile-arm64-release.apk"
         file_name = "ArchiveTune.apk"
         urllib.request.urlretrieve(url, file_name)
 
@@ -465,9 +495,8 @@ def main():
             else:
                 clear()
 
-    confirm = input(
-        "\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) "
-    )
+    applist()
+    confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
     if confirm.lower() != "y":
         if args.verbose:
             pass
@@ -498,6 +527,7 @@ def main():
                 clear()
 
     if root_check.stdout.strip() != "root":
+        applist()
         confirm = input(
             "\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) "
         )
