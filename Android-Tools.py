@@ -3,6 +3,7 @@ import platform
 import shutil
 import sys
 import time
+import urllib.request
 
 if os.name == "nt":
     os.system("cls")
@@ -23,8 +24,11 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
     if platform.system() == "Windows":
         winget_path = shutil.which("winget")
         if not winget_path:
-            print("This System Does Not Have Winget Installed Or In The Path!")
-            sys.exit(0)
+            print("This System Does Not Have Winget Installed Or In The Path! I'll Try To Just Go Grab The Zip From The Web, You Can Extract That And Use ADB And Fastboot When You're In The Folder!")
+            url = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
+            file_name = "ADB_Fastboot.zip"
+            urllib.request.urlretrieve(url, file_name)
+            
         os.system(
             "winget install Google.PlatformTools --silent --accept-source-agreements --accept-package-agreements"
         )
