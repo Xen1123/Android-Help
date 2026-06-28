@@ -165,6 +165,9 @@ gstandard = [
 gFULL = [
     "com.android.vending",
     "com.google.android.gms",
+    "com.google.android.apps.messaging",
+    "com.google.android.contacts",
+    "com.google.android.dialer",
 ]
 
 def clear():
