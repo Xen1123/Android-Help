@@ -565,7 +565,8 @@ def main():
 
         os.chdir("../")
         shutil.rmtree("./APK-Holding")
-
+        shutil.rmtree("./APK-Holding")
+        
     else:
         parser.print_help()
 
