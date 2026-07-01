@@ -425,7 +425,7 @@ def main():
         installed_apps_str = result.stdout
         for package, display_name in app_mapping.items():
             if package in installed_apps_str:
-                print(f"{package} -- {display_name}")
+                print(f"{display_name} -- {package}")
 
     applist()
     confirm = input(
