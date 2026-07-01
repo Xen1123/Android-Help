@@ -418,14 +418,14 @@ def main():
         "com.topjohnwu.magisk": "Maigsk",
         "com.vythera.vyxelapps": "VyxelApps",
     }
-
+    
     def applist():
         print("\nApplications Installed:")
         result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
         installed_apps_str = result.stdout
         for package, display_name in app_mapping.items():
             if package in installed_apps_str:
-                print(f"{display_name}")
+                print(f"{package} -- {display_name}")
 
     applist()
     confirm = input(
