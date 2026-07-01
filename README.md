@@ -10,6 +10,21 @@
 - **Flashers**: Multi-Platform Python automation scripts that use the Fastboot executable to flash images to a device compatible with bootloader and userspace Fastboot (Fastbootd) -- As a result, these automation modules are not compatible with devices like Samsungs, as they use their proprietary Download Mode.
 - **Guides**: Instructions written in Markdown.
 
+## Repository Hierarchy
+```
+Android-Help/
+├── Android-Logo.png
+├── Android-Tools.py
+├── Debloaters
+│   └── Debloat.py
+├── Documents
+│   ├── Root-Guide.md
+│   └── Stock-Firmware.md
+├── Flasher
+│   └── Flasher.py
+└── README.md
+```
+
 ## Help
 - [How To Flash Custom ROM](https://www.youtube.com/watch?v=gSRxThnfY8M)
 - [How To Root Your Android Phone](https://www.youtube.com/watch?v=qkuXl6m6Ghs)
