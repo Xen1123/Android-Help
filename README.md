@@ -45,7 +45,8 @@ To run these scripts, please make sure you meet all of these requirements.
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       brew install --cask android-platform-tools
       ```
-
+  </details>
+  
 ## TO-DO:
 - [x] Create guides for rooting Android phones
 - [x] Create Firmware Finder for select devices
