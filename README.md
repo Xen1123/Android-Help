@@ -53,4 +53,4 @@ To run these scripts, please make sure you meet all of these requirements.
 - [x] Make Firmware Finder support more devices
 - [x] Make Debloat & Flasher Scripts support more devices
 - [x] Make Python equivalents for scripts so Windows, Mac, BSD, and More can run the scripts.
-- [x] Mature the Python scripts so that they have zero syntax errors and better error handeling.
+- [x] Mature the Python scripts so that they have zero syntax errors and better error handling.
