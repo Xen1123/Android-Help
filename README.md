@@ -5,21 +5,27 @@
 
 <h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
-## ITEMS IN REPOSITORY
+## Repository Contents
 - **Debloaters**
 - **Flashers**
 - **Guides**
 
-## Tools That Can Assist You
+## Help
 - [How To Flash Custom ROM](https://www.youtube.com/watch?v=gSRxThnfY8M)
 - [How To Root Your Android Phone](https://www.youtube.com/watch?v=qkuXl6m6Ghs)
-- [EZ Root Guide](./Documents/Root-Guide.md)
-- [Stock Firmware Finder w/ Links](./Documents/Stock-Firmware.md)
+- [Simple Root Guide](./Documents/Root-Guide.md)
+- [Stock Firmware Finder With Links](./Documents/Stock-Firmware.md)
 
-# Prerequisites
-- `adb` and `fastboot` Installed
-- Unlocked Bootloader
-- USB Debugging enabled
+# System Prerequisites & Host Environment
+To run these scripts, please make sure you meet all of these requirements.
+  - Host
+    - Python 3.8 or later is installed and in your PATH
+    - You have `adb` and `fastboot` installed and in your PATH
+    - Your user has sufficient permissions to communicate to external USB devices
+  - Device Requirements
+    - USB Debugging enabled (see [Root-Guide.md](./Documents/Root-Guide.md) for instructions)
+    - You have OEM Unlocking enabled (see [Root-Guide.md](./Documents/Root-Guide.md))
+  
   <details>
   <summary><b>ADB & Fastboot Installation</b></summary>
   
@@ -46,4 +52,4 @@
 - [x] Make Firmware Finder support more devices
 - [x] Make Debloat & Flasher Scripts support more devices
 - [x] Make Python equivalents for scripts so Windows, Mac, BSD, and More can run the scripts.
-- [x] Make Python scripts BETTER!!!
+- [x] Mature the Python scripts so that they have zero syntax errors and better error handeling.
