@@ -6,9 +6,9 @@
 <h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
 ## Repository Contents
-- **Debloaters**
-- **Flashers**
-- **Guides**
+- **Debloaters**: Multi-Platform Python automation modules that use ADB (Android Debug Bridge) to remove unnecessary apps that are pre-installed on your Android device.
+- **Flashers**: Multi-Platform Python automation scripts that use the Fastboot executable to flash images to a device compatible with bootloader and userspace Fastboot (Fastbootd) -- As a result, these automation modules are not compatible with devices like Samsungs, as they use their proprietary Download Mode.
+- **Guides**: Instructions written in Markdown.
 
 ## Help
 - [How To Flash Custom ROM](https://www.youtube.com/watch?v=gSRxThnfY8M)
@@ -45,6 +45,20 @@ To run these scripts, please make sure you meet all of these requirements.
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       brew install --cask android-platform-tools
       ```
+
+    - Termux (On a separate device)
+      - Assuming the device isn't rooted
+        - ```bash
+          pkg install curl termux-api -y && curl -s https://raw.githubusercontent.com/nohajc/termux-adb/master/install.sh | bash
+          ```
+      - Usage:
+        - ```bash
+          termux-adb <command>
+          ```
+        - ```bash
+          termux-fastboot <command>
+          ```
+    - If your system is not included here, please see [Android-Tools.py](./Android-Tools.py) and run it with Python.
   </details>
   
 ## TO-DO:
