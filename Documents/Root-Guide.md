@@ -27,7 +27,7 @@
       - Open Your Terminal
         ```bash
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        brew install --cask android-platform-tools
+        brew install --cask android-platform-tools -y
         ```
       
 <h2 align=center>Getting To The Root of The Topic</h2>
