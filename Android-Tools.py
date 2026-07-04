@@ -101,9 +101,10 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
         elif shutil.which("pkg_add"):
             os.system("sudo pkg_add android-tools")
     else:
-        print(
-            "Your OS Is NOT Supported, If You Can't Get Android Tools, How Are You Even Able To Get Python??"
-        )
+        print("Your OS Is NOT Supported, Grabbing The SDK Tools Zip Now!")
+        url = "https://raw.githubusercontent.com/Xen1123/Android-Help/main/ADB_Fastboot_Tools.zip"
+        file = "ADB_Fastboot_Tools.zip"
+        urllib.request.urlretrieve(url, file)
         sys.exit()
 else:
     if os.name == "nt":
