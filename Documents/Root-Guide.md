@@ -23,7 +23,7 @@
       - Click [This](https://dl.google.com/android/repository/platform-tools-latest-linux.zip)
         - Unzip It
         - When You Have A Terminal In The Directory Of Platform Tools, You Can Run ADB & Fastboot Commands
-    - MacOS
+    - macOS
       - Open Your Terminal
         ```bash
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -37,7 +37,7 @@
 - Second, Download [Magisk](https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk)
 - `adb install Magisk-v30.7.apk`
 
-**Linux🐧 / MacOS**🍎
+**Linux🐧 / macOS**🍎
 ```bash
 adb push ~/Downloads/init_boot.img /sdcard/Download
 ```
@@ -48,7 +48,7 @@ adb push "%USERPROFILE%\Downloads\init_boot.img" /sdcard/Download
 ```
 - Patch the image in Magisk, then pull it back to your computer
 
-**Linux🐧 / MacOS**🍎
+**Linux🐧 / macOS**🍎
 ```bash
 adb pull /sdcard/Download/magisk-patched* ~/Downloads/root_init_boot.img
 ```
@@ -85,7 +85,7 @@ fastboot flash init_boot root_init_boot.img && fastboot reboot
 <h2 align=center>Post Root Help</h2>
 
 - These Are Just Some Things You Can Use After Rooting To Make Your Android Experience With Root Worth It!
-  - [Android Debloat Script Compatible With MacOS, Linux, Windows, etc.](../Debloaters/Debloat.py) (Apps Are Removed Through Disabling, This Allows The Script To Remove An App Without Root, But It Also Means You Can Go Into Settings And Bring The App Back If You Want!)
+  - [Android Debloat Script Compatible With macOS, Linux, Windows, etc.](../Debloaters/Debloat.py) (Apps Are Removed Through Disabling, This Allows The Script To Remove An App Without Root, But It Also Means You Can Go Into Settings And Bring The App Back If You Want!)
   - LSPosed/Vector Is A Very Good Implementation of Xposed, Which Uses Root To Allow The User To Hook Apps Into System Processes, Download It [Here!](https://github.com/JingMatrix/Vector/releases/download/v2.0/Vector-v2.0-3021-Release.zip)
   - [Droidify](https://github.com/Droid-ify/client/releases/download/v0.7.3/app-release.apk) Is An App Store Of A Collection Of Free And Open Source (FOSS) Apps That You Can Download, Some Apps Available In Droidify Are Directly Reliant On LSPosed/Vector
   - Play Integrity
