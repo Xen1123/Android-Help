@@ -44,7 +44,7 @@ To run these scripts, please make sure you meet all of these requirements.
   <details>
   <summary><b>ADB & Fastboot Installation</b></summary>
   
-  - ## ADB/Fastboot On Your PC
+  - ## ADB & Fastboot Utilities On Your PC
     - Linux
       - Arch/Pacman -  `android-tools`
       - Debian/APT - `adb` and `fastboot`
@@ -62,7 +62,7 @@ To run these scripts, please make sure you meet all of these requirements.
       ```
 
     - Termux (On a separate device)
-      - Assuming the device isn't rooted
+      - Assuming the device isn't rooted:
         - ```bash
           pkg install curl termux-api -y && curl -s https://raw.githubusercontent.com/nohajc/termux-adb/master/install.sh | bash
           ```
@@ -73,6 +73,17 @@ To run these scripts, please make sure you meet all of these requirements.
         - ```bash
           termux-fastboot <command>
           ```
+      - The process on a rooted device:
+        - ```bash
+          pkg install android-tools && su
+          ```
+        - ```bash
+          adb devices
+          ```
+        - ```bash
+          fastboot devices
+          ```
+
     - If your system is not included here, please see [Android-Tools.py](./Android-Tools.py) and run it with Python.
   </details>
   
