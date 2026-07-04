@@ -85,6 +85,7 @@ To run these scripts, please make sure you meet all of these requirements.
           fastboot devices
           ```
 
-    - If your system is not included here, please see [Android-Tools.py](./Android-Tools.py) and run it with Python.
+    - If your system is not included here or you are having issues, please see [Android-Tools.py](./Android-Tools.py) and run it with Python.
   </details>
   
+
