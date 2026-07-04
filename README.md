@@ -76,10 +76,3 @@ To run these scripts, please make sure you meet all of these requirements.
     - If your system is not included here, please see [Android-Tools.py](./Android-Tools.py) and run it with Python.
   </details>
   
-## TO-DO:
-- [x] Create guides for rooting Android phones
-- [x] Create Firmware Finder for select devices
-- [x] Make Firmware Finder support more devices
-- [x] Make Debloat & Flasher Scripts support more devices
-- [x] Make Python equivalents for scripts so Windows, Mac, BSD, and More can run the scripts.
-- [x] Mature the Python scripts so that they have zero syntax errors and better error handling.
