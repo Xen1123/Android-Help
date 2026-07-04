@@ -221,7 +221,7 @@ def main():
     if not args.root and not args.noroot:
         parser.print_help()
         input("\nClick Any Key To Exit . . .")
-        sys.exit(1)
+        sys.exit(0)
     try:
         result = subprocess.run(
             ["adb", "devices"], capture_output=True, text=True, check=True
@@ -229,14 +229,14 @@ def main():
 
         if "unauthorized" in result.stdout:
             print("\nDevice Not Authorized")
-            sys.exit(1)
+            sys.exit(0)
 
         if "device" not in result.stdout.split():
             print("\nNo Device!")
-            sys.exit(1)
+            sys.exit(0)
     except subprocess.CalledProcessError:
         print("Failed To Run ADB! Is It In Your PATH?")
-        sys.exit(1)
+        sys.exit(0)
 
     root_check = subprocess.run(
         ["adb", "shell", "su -c whoami"], capture_output=True, text=True
@@ -247,7 +247,7 @@ def main():
 
         if not adb_path:
             print("\nYou do not have ADB installed or in your system PATH!")
-            sys.exit(1)
+            sys.exit(0)
         else:
             print(f"\nADB Found At: {adb_path}")
             time.sleep(2)
@@ -312,7 +312,7 @@ def main():
 
         if not adb_path:
             print("\nYou do not have ADB installed or in your system PATH!")
-            sys.exit(1)
+            sys.exit(0)
         else:
             print(f"\nADB Found At: {adb_path}")
             time.sleep(2)
@@ -327,7 +327,7 @@ def main():
                 clear()
             print("\nRoot Not Detected!")
             input("\nClick Any Key To Exit . . .")
-            sys.exit(1)
+            sys.exit(0)
         for app in apps:
             if app in installed_apps:
                 if args.verbose:
