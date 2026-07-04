@@ -176,7 +176,6 @@ def clear():
     else:
         os.system("clear")
 
-# Package Check To Speed Up Script
 result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
 installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
 
