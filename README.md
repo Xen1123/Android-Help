@@ -77,6 +77,7 @@ To run these scripts, please make sure you meet all of these requirements.
         - ```bash
           pkg install android-tools && su
           ```
+      - Usage:  
         - ```bash
           adb devices
           ```
