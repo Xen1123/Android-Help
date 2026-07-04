@@ -1,7 +1,7 @@
 <h1 align="center">Android-Help</h1>
 <h3 align="center">A Simple Repository To Help With Android Tweaking</h3>
 
-<img src="./Android-Logo.png" width="384">
+<img src="./assets/Android-Logo.png" width="384">
 
 <h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
