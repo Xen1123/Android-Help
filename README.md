@@ -3,6 +3,7 @@
 
 <img src="./assets/Android-Logo.png" width="384">
 
+<img src="./assets/Debloater.png" width="384"> <img src="./assets/Flasher.png" width="384">
 <h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
 ## Repository Contents
