@@ -29,9 +29,8 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
             file_name = "ADB_Fastboot.zip"
             urllib.request.urlretrieve(url, file_name)
             
-        os.system(
-            "winget install Google.PlatformTools --silent --accept-source-agreements --accept-package-agreements"
-        )
+        if winget_path:
+            os.system("winget install Google.PlatformTools --silent --accept-source-agreements --accept-package-agreements")
         os.system("cls")
         print("ADB & Fastboot Are Now On Your System! :)")
         input(
