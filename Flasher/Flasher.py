@@ -151,7 +151,7 @@ def main():
                     subprocess.run(["fastboot", "flash", part, file_path])
 
                 else:
-                    print(f"\nFILE NOT FOUND: {part}.img")
+                    pass
             else:
                 if file_path.is_file():
                     print(f"\nFlashing {part}.img")
@@ -161,8 +161,7 @@ def main():
                         stderr=subprocess.DEVNULL,
                     )
                 else:
-                    print(f"\nFILE NOT FOUND: {part}.img")
-
+                    pass
         time.sleep(2)
 
         if args.verbose:
@@ -206,7 +205,7 @@ def main():
                 if file_path.is_file():
                     subprocess.run(["fastboot", "flash", logic, file_path])
                 else:
-                    print(f"\nFILE NOT FOUND: {logic}.img")
+                    pass
             else:
                 if file_path.is_file():
                     print(f"\nFlashing {logic}.img")
@@ -216,7 +215,7 @@ def main():
                         stderr=subprocess.DEVNULL,
                     )
                 else:
-                    print(f"\nFILE NOT FOUND: {logic}.img")
+                    pass
 
         time.sleep(2)
 
