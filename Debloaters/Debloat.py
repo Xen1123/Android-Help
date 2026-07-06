@@ -41,7 +41,6 @@ apps = [
     "com.samsung.android.galaxy",
     "com.sec.android.app.sbrowser",
     "com.samsung.android.email.provider",
-    "com.google.android.googlequicksearchbox",
     "android.overlay.gms.region.all",
     "android.overlay.gms.region.row",
     "com.android.egg",
@@ -158,8 +157,8 @@ gstandard = [
     "com.chrome.beta",
     "com.chrome.canary",
     "com.chrome.dev",
-    "com.google.android.calendar",
     "com.google.android.youtube",
+    "com.google.android.googlequicksearchbox",
 ]
 
 gFULL = [
@@ -168,6 +167,18 @@ gFULL = [
     "com.google.android.apps.messaging",
     "com.google.android.contacts",
     "com.google.android.dialer",
+    "com.google.android.googlequicksearchbox",
+    "com.google.android.apps.photos",
+    "com.google.android.apps.nbu.files",
+    "com.google.android.calendar",
+    "com.google.android.gm",
+    "com.google.android.apps.maps",
+    "com.google.android.apps.searchlite",
+    "com.google.android.apps.mapslite",
+    "com.android.chrome",
+    "com.chrome.canary",
+    "com.chrome.dev",
+    "com.google.android.youtube",
 ]
 
 def clear():
