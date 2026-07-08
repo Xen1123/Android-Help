@@ -208,11 +208,13 @@ def main():
             epilog="Example: python master.py --debloat --noroot --verbose",
     )
     
-    parser.add_argument("--verbose", action="store_true", help="Shows ALL Logs And Doesn't Clear The Terminal")
-    parser.add_argument("--debloat", action="store_true", help="Debloat An Android Device With ADB")
-    parser.add_argument("--flash", action="store_true", help="Flash Firmware (or ROMs) To An Android Device With Fastboot")
+    main_group = parser.add_mutually_exclusive_group(required=True)
+    parser.add_argument("--verbose", action="store_true", help="Shows ALL Logs And Doesn't Clear The Terminal") 
+    main_group.add_argument("--debloat", action="store_true", help="Debloat An Android Device With ADB")
+    main_group.add_argument("--flash", action="store_true", help="Flash Firmware (or ROMs) To An Android Device With Fastboot")
     parser.add_argument("--root", action="store_true", help="Debloat An Android Device With Root Permissions, Deleting The App")
     parser.add_argument("--noroot", action="store_true", help="Debloat An Android Device Without Root Access, Disables Apps")
+
     parser.add_argument("--full", action="store_true", help="Flashes ALL Firmware To An Android Device, Includes Bootloader Images")
     parser.add_argument("--logical", action="store_true", help="Flashes JUST Android Partitions To A Phone, Skipping Risky Bootloader Images")
 
@@ -222,7 +224,18 @@ def main():
         parser.print_help()
         input("\nClick Any Key To Exit")
         sys.exit(0)
-
+    
+    if args.debloat and args.flash:
+        adb_path = shutil.which("adb")
+        if adb_path:
+            print(f"\nADB Found At: {adb_path}")
+        else:
+            print("\nADB Not Found, It May Not Be Installed Or In Your Path!")
+        fastboot_path = shutil.which("fastboot")
+        if fastboot_path:
+            print(f"\nFastboot Found At: {fastboot_path}")
+        else:
+            print("\nFastboot Not Found, It May Not Be Installed Or In Your Path!")
     if args.debloat:
         print("\nDebloating Device!")
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=True)
