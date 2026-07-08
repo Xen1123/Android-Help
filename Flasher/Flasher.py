@@ -70,8 +70,7 @@ def main():
             subprocess.run(["fastboot", "reboot", "bootloader"])
         else:
             subprocess.run(["adb", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            subprocess.run(
-                ["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         time.sleep(2)
 
