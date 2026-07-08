@@ -62,36 +62,23 @@ def main():
         print("\nPlease Make Sure Your Images Are In The Working Directory!")
         time.sleep(3)
         current_dir = os.getcwd()
-        input(
-            f"\nYou're in {current_dir}, make sure this is the correct directory with your images! Exit the script NOW if this is incorrect! Press enter to continue if it is right. "
-        )
+        input(f"\nYou're in {current_dir}, make sure this is the correct directory with your images! Exit the script NOW if this is incorrect! Press enter to continue if it is right. ")
         clear()
         print("\nRebooting To Bootloader Fastboot (ABL)")
         if args.verbose:
             subprocess.run(["adb", "reboot", "bootloader"])
             subprocess.run(["fastboot", "reboot", "bootloader"])
         else:
+            subprocess.run(["adb", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             subprocess.run(
-                ["adb", "reboot", "bootloader"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            subprocess.run(
-                ["fastboot", "reboot", "bootloader"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
+                ["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         time.sleep(2)
 
         if args.verbose:
             subprocess.run(["fastboot", "--set-active=a"])
         else:
-            subprocess.run(
-                ["fastboot", "--set-active=a"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
+            subprocess.run(["fastboot", "--set-active=a"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         images = [
             "boot",
@@ -147,11 +134,7 @@ def main():
             else:
                 if file_path.is_file():
                     print(f"\nFlashing {part}.img")
-                    subprocess.run(
-                        ["fastboot", "flash", part, file_path],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
+                    subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
                     pass
         time.sleep(2)
@@ -167,11 +150,7 @@ def main():
         if args.verbose:
             subprocess.run(["fastboot", "reboot", "fastboot"])
         else:
-            subprocess.run(
-                ["fastboot", "reboot", "fastboot"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
+            subprocess.run(["fastboot", "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         time.sleep(2)
 
@@ -201,11 +180,7 @@ def main():
             else:
                 if file_path.is_file():
                     print(f"\nFlashing {logic}.img")
-                    subprocess.run(
-                        ["fastboot", "flash", logic, file_path],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
+                    subprocess.run(["fastboot", "flash", logic, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
                     pass
 
@@ -230,11 +205,7 @@ def main():
                 input("Click A Key To Close The Script ")
             else:
                 print("Rebooting Now!")
-                subprocess.run(
-                    ["fastboot", "reboot"],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
+                subprocess.run(["fastboot", "reboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 input("Click A Key To Close The Script ")
 
     if args.android:
@@ -243,9 +214,7 @@ def main():
 
         time.sleep(3)
         current_dir = os.getcwd()
-        input(
-            f"\nYou're in {current_dir}, make sure this is the correct directory with your images! Exit the script NOW if this is incorrect! Press enter to continue if it is right. "
-        )
+        input(f"\nYou're in {current_dir}, make sure this is the correct directory with your images! Exit the script NOW if this is incorrect! Press enter to continue if it is right. ")
         clear()
         if args.verbose:
             print("\nRebooting To Bootloader Fastboot (ABL)")
@@ -253,27 +222,15 @@ def main():
             subprocess.run(["fastboot", "reboot", "bootloader"])
         else:
             print("\nRebooting To Bootloader Fastboot (ABL)")
-            subprocess.run(
-                ["adb", "reboot", "bootloader"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            subprocess.run(
-                ["fastboot", "reboot", "bootloader"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
+            subprocess.run(["adb", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         time.sleep(2)
 
         if args.verbose:
             subprocess.run(["fastboot", "--set-active=a"])
         else:
-            subprocess.run(
-                ["fastboot", "--set-active=a"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
+            subprocess.run(["fastboot", "--set-active=a"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         images = [
             "boot",
@@ -297,11 +254,7 @@ def main():
             else:
                 if file_path.is_file():
                     print(f"\nFlashing {part}.img")
-                    subprocess.run(
-                        ["fastboot", "flash", part, file_path],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
+                    subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
                     print(f"\nFAILED TO FLASH: {part}.img")
 
@@ -318,10 +271,7 @@ def main():
             subprocess.run(["fastboot", "reboot", "fastboot"])
         else:
             subprocess.run(
-                ["fastboot", "reboot", "fastboot"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
+                ["fastboot", "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         time.sleep(2)
 
@@ -352,10 +302,7 @@ def main():
                 if file_path.is_file():
                     print(f"\nFlashing {logic}.img")
                     subprocess.run(
-                        ["fastboot", "flash", logic, file_path],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
+                        ["fastboot", "flash", logic, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
                     print(f"\nFILE NOT FOUND: {logic}.img")
 
@@ -381,11 +328,7 @@ def main():
                 input("Click A Key To Close The Script ")
             else:
                 print("Rebooting Now!")
-                subprocess.run(
-                    ["fastboot", "reboot"],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
+                subprocess.run(["fastboot", "reboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 input("Click A Key To Close The Script ")
     else:
         parser.print_help()
