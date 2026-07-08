@@ -238,6 +238,9 @@ def main():
             print("\nFastboot Not Found, It May Not Be Installed Or In Your Path!")
     if args.debloat:
         print("\nDebloating Device!")
+        if not adb_path:
+            input("ADB NOT AVAILABLE ")
+            sys.exit(0)
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=True)
         if "device" not in result.stdout.split():
             input("\nNo Device! ")
@@ -481,9 +484,121 @@ def main():
         shutil.rmtree("./APK-Holding")
 
     if args.flash:
-        
+        print("Rebooting Device Into Fastboot!")
+        time.sleep(1)
+        subprocess.run(["adb", "reboot", "bootloader"])
+        if args.verbose
+            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1])
+        else:
+            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1, stoud=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        fastboot_devices = subprocess.run(["fastboot", "devices"], timeout=3, capture_output=True, text=True, check=True)
+        if "fastboot" in fastboot_devices.stdout:
+            print("Fastboot Active!")
+            if args.verbose:
+                subprocess.run(["fastboot", "--set-active=a"])
+            else:
+                subprocess.run(["fastboot", "--set-active=a"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if args.full:
+                images = [
+                    "boot",
+                    "abl",
+                    "xbl",
+                    "aop",
+                    "aop_config",
+                    "featenabler",
+                    "bluetooth",
+                    "modem",
+                    "cpucp",
+                    "cpucp_dtb",
+                    "devcfg",
+                    "init_boot",
+                    "vendor_boot",
+                    "recovery",
+                    "vbmeta",
+                    "vbmeta_vendor",
+                    "vbmeta_system",
+                    "xbl_ramdump",
+                    "xbl_config",
+                    "dsp",
+                    "dtbo",
+                    "keymaster",
+                    "imagefv",
+                    "tz",
+                    "shrm",
+                    "pvmfw",
+                    "hyp",
+                    "uefi",
+                    "uefisecapp",
+                    "qupfw",
+                    "bootloader",
+                    "radio",
+                    "bl1",
+                    "bl2",
+                    "bl31",
+                    "gsa",
+                    "ldfw",
+                    "pbl",
+                    "tzsw",
+                    "multiimgoem",
+                    "system",
+                    "product",
+                    "vendor",
+                    "vendor_dlkm",
+                    "system_ext",
+                    "system_dlkm",
+                    "odm",
+                ]
+                for part in images:
+                    file_path = Path(f"{part}.img")
 
+                    if args.verbose:
+                        if file_path.is_file():
+                            subprocess.run(["fastboot", "flash", part, file_path])
 
+                        else:
+                            pass
+                    else:
+                        if file_path.is_file():
+                            print(f"\nFlashing {part}.img")
+                            subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                        else:
+                            pass
+                time.sleep(2)
+                verbose_clear()
+            
+            if args.logical:
+                images = [
+                    "boot",
+                    "dtbo",
+                    "vendor_boot",
+                    "recovery",
+                    "init_boot",
+                    "vbmeta",
+                    "vbmeta_vendor",
+                    "vbmeta_system",
+                    "system",
+                    "product",
+                    "vendor",
+                    "vendor_dlkm",
+                    "system_ext",
+                    "system_dlkm",
+                    "odm",
+                ]
+            for part in images:
+                file_path = Path(f"{part}.img")
+                if args.verbose:
+                    if file_path.is_file():
+                        subprocess.run(["fastboot", "flash", part, file_path])
+                    else:
+                        pass
+                else:
+                    if file_path.is_file():
+                        print("\nFlashing {part}.img")
+                        subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    else:
+                        pass
+                time.sleep(2)
+                
     if not args.debloat and not args.flash:
         parser.print_help()
 
