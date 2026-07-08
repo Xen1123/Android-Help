@@ -251,7 +251,7 @@ def main():
         if not "device" in result.stdout:
             input("\nADB Unable To Run! ")
             sys.exit(0)
-        if device in result.stdout:
+        if "device" in result.stdout.split():
             pass
 
         if args.root:
@@ -487,8 +487,8 @@ def main():
         print("Rebooting Device Into Fastboot!")
         time.sleep(1)
         subprocess.run(["adb", "reboot", "bootloader"])
-        if args.verbose
-            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1])
+        if args.verbose:
+            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1)
         else:
             subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1, stoud=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         fastboot_devices = subprocess.run(["fastboot", "devices"], timeout=3, capture_output=True, text=True, check=True)
