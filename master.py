@@ -480,6 +480,10 @@ def main():
         shutil.rmtree("./APK-Holding")
         shutil.rmtree("./APK-Holding")
 
+    if args.flash:
+        
+
+
     if not args.debloat and not args.flash:
         parser.print_help()
 
