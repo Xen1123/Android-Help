@@ -1,6 +1,6 @@
 <h1 align=center>How To Root Your Android Phone!</h1>
-
 <h2 align=center>Prerequisites</h2>
+<h4 align=center>Just See The ADB Installation Script At The Repo Root Instead If You Don't Want To Read All Of This Install Stuff</h4>
 
 - Enable OEM Unlocking On Your Android Device (Some Devices Do Not Support This Feature)
   - Go To Settings --> About Phone --> Software Information --> Click The Build Number Many Times Until It Asks For Your Pin Or Says You're A Developer
