@@ -8,7 +8,7 @@
   - Toggle **OEM Unlocking**, THIS WILL ERASE ALL OF YOUR DATA LATER ON!!!
 - Get A Computer With Platform Tools Installed (ADB & Fastboot)
   - Windows
-    - Click [This](../ADB_Fastboot_Tools.zip) To Download Platform Tools
+    - Click [This](https://raw.githubusercontent.com/Xen1123/Android-Help/main/ADB_Fastboot_Tools.zip) To Download Platform Tools
       - Unzip It
       - When You Have A Terminal In The Directory Of Platform Tools, You Can Run ADB & Fastboot Commands
   - Linux
