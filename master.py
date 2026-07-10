@@ -192,6 +192,7 @@ def verbose_clear():
     else:
         clear()
 
+adb_path = shutil.which("adb")
 
 print("""
  █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ██╗██████╗ 
@@ -226,7 +227,6 @@ def main():
         sys.exit(0)
     
     if args.debloat and args.flash:
-        adb_path = shutil.which("adb")
         if adb_path:
             print(f"\nADB Found At: {adb_path}")
         else:
