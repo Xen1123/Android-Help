@@ -12,4 +12,4 @@
 ### Links
 - [Master Script](./master.py)
 - [ADB & Fastboot Tools](./ADB_Fastboot_Tools.zip)
-- [ADB & Fastboot Installer (installs directly to PATH)(./Android-Tools.py)
+- [ADB & Fastboot Installer (installs directly to PATH)](./Android-Tools.py)
