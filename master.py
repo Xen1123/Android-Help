@@ -142,22 +142,6 @@ apps = [
     "com.google.android.apps.pixel.nowplaying",
 ]
 
-gstandard = [
-    "com.google.android.apps.photos",
-    "com.google.android.apps.nbu.files",
-    "com.google.android.calendar",
-    "com.google.android.gm",
-    "com.google.android.apps.maps",
-    "com.google.android.apps.searchlite",
-    "com.google.android.apps.mapslite",
-    "com.android.chrome",
-    "com.chrome.beta",
-    "com.chrome.canary",
-    "com.chrome.dev",
-    "com.google.android.youtube",
-    "com.google.android.googlequicksearchbox",
-]
-
 gFULL = [
     "com.android.vending",
     "com.google.android.gms",
@@ -240,6 +224,9 @@ def main():
             "com.google.android.youtube": "Youtube",
             "com.google.android.googlequicksearchbox": "Google Search",
             "com.google.android.apps.bard": "Google Gemini",
+            "com.google.android.apps.messaging": "Google Messages",
+            "com.google.android.dialer": "Google Phone App",
+            "com.google.android.contacts": "Google Contacts",
     }
         
     def gstandard_choice():
@@ -376,6 +363,7 @@ def main():
             "com.topjohnwu.magisk": "Maigsk",
             "com.vythera.vyxelapps": "VyxelApps",
             "org.adaway": "AdAway",
+            "com.aurora.store": "Aurora Store",
         }
      
         def applist():
@@ -386,6 +374,26 @@ def main():
                 if package in installed_apps_str:
                     print(f"{display_name} -- {package}")
     
+        if not "com.android.vending" in installed_apps:
+            applist()
+            confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has!")
+            if confirm.lower() != "y":
+                verbose_clear()
+            else:
+                verbose_clear()
+                print(f"\nGrabbing Aurora APK From Web!")
+                url = "https://f-droid.org/repo/com.aurora.store_75.apk"
+                file = "Aurora_Store.apk"
+                urllib.request.urlretrieve(url, file)
+                
+                print(f"\nInstalling Aurora Store!")
+                if args.verbose:
+                    subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
+                else:
+                    subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        else:
+            pass
+
         applist()
         confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
         if confirm.lower() != "y":
