@@ -385,6 +385,7 @@ def main():
             "org.localsend.localsend_app": "Localsend",
             "com.topjohnwu.magisk": "Maigsk",
             "com.vythera.vyxelapps": "VyxelApps",
+            "org.adaway": "AdAway",
         }
      
         def applist():
