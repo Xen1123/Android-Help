@@ -1,6 +1,36 @@
-import os, subprocess, shutil, sys, time, argparse, urllib
+import os, subprocess, shutil, sys, time, argparse, urllib.request
 from pathlib import Path
 
+result_choice = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
+installed_apps_choice = [line.replace("package:", "").strip() for line in result_choice.stdout.splitlines()]
+
+
+app_mapping = {
+    "moe.rukamori.archivetune": "ArchiveTune",
+    "org.localsend.localsend_app": "Localsend",
+    "com.topjohnwu.magisk": "Maigsk",
+    "com.vythera.vyxelapps": "VyxelApps",
+}
+    
+def choice():
+    for package, display_name in app_mapping.items():
+        if package in installed_apps_choice:
+            confirm = input(f"Remove {display_name}? (y/n) ")
+            if confirm.lower() != "y":
+                verbose_clear()
+            else:
+                if args.noroot:
+                    if args.verbose:
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package])
+                    else:
+                        print(f"Removing: {package}")
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                if args.root:
+                    if args.verbose:
+                        subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package])
+                    else:
+                        print(f"Removing: {package}")
+                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 apps = [
     "com.google.android.apps.bard",
     "com.samsung.sree",
@@ -186,14 +216,6 @@ def clear():
         os.system('clear')
 clear()
 
-def verbose_clear():
-    if args.verbose:
-        pass
-    else:
-        clear()
-
-adb_path = shutil.which("adb")
-
 print("""
  █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ██╗██████╗ 
 ██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔═══██╗██║██╔══██╗
@@ -226,16 +248,22 @@ def main():
         input("\nClick Any Key To Exit")
         sys.exit(0)
     
-    if args.debloat and args.flash:
-        if adb_path:
-            print(f"\nADB Found At: {adb_path}")
+    def verbose_clear():
+        if args.verbose:
+            pass
         else:
-            print("\nADB Not Found, It May Not Be Installed Or In Your Path!")
-        fastboot_path = shutil.which("fastboot")
-        if fastboot_path:
-            print(f"\nFastboot Found At: {fastboot_path}")
-        else:
-            print("\nFastboot Not Found, It May Not Be Installed Or In Your Path!")
+            clear()
+
+    adb_path = shutil.which("adb")
+    if adb_path:
+        print(f"\nADB Found At: {adb_path}")
+    else:
+        print("\nADB Not Found, It May Not Be Installed Or In Your Path!")
+    fastboot_path = shutil.which("fastboot")
+    if fastboot_path:
+        print(f"\nFastboot Found At: {fastboot_path}")
+    else:
+        print("\nFastboot Not Found, It May Not Be Installed Or In Your Path!")
     if args.debloat:
         print("\nDebloating Device!")
         if not adb_path:
@@ -350,8 +378,7 @@ def main():
         cdir = os.getcwd()
         print(f"\nYou Are In {cdir}")
         time.sleep(2)
-
-        clear()
+        verbose_clear()
 
         app_mapping = {
             "moe.rukamori.archivetune": "ArchiveTune",
@@ -359,7 +386,7 @@ def main():
             "com.topjohnwu.magisk": "Maigsk",
             "com.vythera.vyxelapps": "VyxelApps",
         }
-    
+     
         def applist():
             print("\nApplications Installed:")
             result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
@@ -367,7 +394,7 @@ def main():
             for package, display_name in app_mapping.items():
                 if package in installed_apps_str:
                     print(f"{display_name} -- {package}")
-
+    
         applist()
         confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
         if confirm.lower() != "y":
@@ -384,7 +411,7 @@ def main():
             url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.5/Vyxel.Apps.v1.0.5.Foundation.apk"
             file = "Vyxel_Apps.apk"
             urllib.request.urlretrieve(url, file)
-
+    
             print("\nInstalling Vyxel!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"])
@@ -394,9 +421,9 @@ def main():
                 pass
             else:
                 clear()
-
-        subprocess.run(["adb", "devices"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
+        subprocess.run(["adb", "devices"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+     
         applist()
         confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
         if confirm.lower() != "y":
@@ -413,7 +440,7 @@ def main():
             url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.6.0/app-gms-mobile-arm64-release.apk"
             file_name = "ArchiveTune.apk"
             urllib.request.urlretrieve(url, file_name)
-
+    
             print("\nInstalling ArchiveTune!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"])
@@ -423,7 +450,7 @@ def main():
                 pass
             else:
                 pass
-
+    
         applist()
         confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
         if confirm.lower() != "y":
@@ -440,7 +467,7 @@ def main():
             url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
             file = "Localsend.apk"
             urllib.request.urlretrieve(url, file)
-
+    
             print("\nInstalling Localsend!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"])
@@ -450,8 +477,8 @@ def main():
                     pass
                 else:
                     clear()
-
-        if root_check.stdout.strip() != "root":
+    
+        if root_result.stdout.strip() != "root":
             applist()
             confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
             if confirm.lower() != "y":
@@ -468,7 +495,7 @@ def main():
                 url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
                 file = "Magisk.Apk"
                 urllib.request.urlretrieve(url, file)
-
+    
                 print("\nInstalling Magisk!")
                 if args.verbose:
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"])
@@ -478,7 +505,7 @@ def main():
                     pass
                 else:
                     clear()
-
+    
         os.chdir("../")
         shutil.rmtree("./APK-Holding")
         shutil.rmtree("./APK-Holding")
@@ -490,7 +517,7 @@ def main():
         if args.verbose:
             subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1)
         else:
-            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1, stoud=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         fastboot_devices = subprocess.run(["fastboot", "devices"], timeout=3, capture_output=True, text=True, check=True)
         if "fastboot" in fastboot_devices.stdout:
             print("Fastboot Active!")
