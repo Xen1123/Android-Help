@@ -398,17 +398,11 @@ def main():
         applist()
         confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
         if confirm.lower() != "y":
-            if args.verbose:
-                pass
-            else:
-                clear()
+            verbose_clear()
         else:
-            if args.verbose:
-                pass
-            else:
-                clear()
+            verbose_clear()
             print("\nGrabbing Vyxel APK From Web!")
-            url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.5/Vyxel.Apps.v1.0.5.Foundation.apk"
+            url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.6/Vyxel.Apps.v1.0.6.Foundation.apk"
             file = "Vyxel_Apps.apk"
             urllib.request.urlretrieve(url, file)
     
@@ -417,27 +411,18 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            if args.verbose:
-                pass
-            else:
-                clear()
-    
+            verbose_clear()
+
         subprocess.run(["adb", "devices"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
      
         applist()
         confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
         if confirm.lower() != "y":
-            if args.verbose:
-                pass
-            else:
-                clear()
+            verbose_clear()
         else:
-            if args.verbose:
-                pass
-            else:
-                clear()
+            verbose_clear()
             print("\nGrabbing ArchiveTune APK From Web!")
-            url = "https://github.com/ArchiveTuneApp/ArchiveTune/releases/download/v13.6.0/app-gms-mobile-arm64-release.apk"
+            url = "https://github.com/rukamori/ArchiveTune/releases/download/v13.7.0/app-gms-mobile-arm64-release.apk"
             file_name = "ArchiveTune.apk"
             urllib.request.urlretrieve(url, file_name)
     
@@ -446,23 +431,14 @@ def main():
                 subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            if args.verbose:
-                pass
-            else:
-                pass
+            verbose_clear()
     
         applist()
         confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
         if confirm.lower() != "y":
-            if args.verbose:
-                pass
-            else:
-                clear()
+            verbose_clear()
         else:
-            if args.verbose:
-                pass
-            else:
-                clear()
+            verbose_clear
             print("\nGrabbing Localsend APK From Web!")
             url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
             file = "Localsend.apk"
@@ -473,24 +449,15 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                if args.verbose:
-                    pass
-                else:
-                    clear()
+                verbose_clear()
     
         if root_result.stdout.strip() != "root":
             applist()
             confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
             if confirm.lower() != "y":
-                if args.verbose:
-                    pass
-                else:
-                    clear()
+                verbose_clear()
             else:
-                if args.verbose:
-                    pass
-                else:
-                    clear()
+                verbose_clear()
                 print("\nGrabbing Magisk APK From Web!")
                 url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
                 file = "Magisk.Apk"
@@ -501,13 +468,27 @@ def main():
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"])
                 else:
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                verbose_clear()
+        if "root" in root_result.stdout:
+            applist()
+            confirm = input("\nInstall AdAway? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (y/n) ")
+            if confirm.lower() != "y":
+                verbose_clear()
+            else:
+                verbose_clear()
+                print("\nGrabbing AdAway APK From Web!")
+                url = "https://github.com/AdAway/AdAway/releases/download/v6.1.4/AdAway-6.1.4-20241027.apk"
+                file = "AdAway.apk"
+                urllib.request.urlretrieve(url, file)
+
+                print("\nInstalling AdAway!")
                 if args.verbose:
-                    pass
+                    subprocess.run(["adb", "install", "-r", "AdAway.apk"])
                 else:
-                    clear()
+                    subprocess.run(["adb", "install", "-r", "AdAway.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                verbose_clear()
     
         os.chdir("../")
-        shutil.rmtree("./APK-Holding")
         shutil.rmtree("./APK-Holding")
 
     if args.flash:
