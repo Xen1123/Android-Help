@@ -549,6 +549,7 @@ def main():
                     "pbl",
                     "tzsw",
                     "multiimgoem",
+                    "vendor_kernel_boot",
                 ]
                 for part in images:
                     file_path = Path(f"{part}.img")
@@ -579,6 +580,7 @@ def main():
                         "system_dlkm",
                         "system",
                         "odm",
+                        "vendor_kernel_boot",
                     ]
                 for log in logicals_full:
                     file_path = Path(f"{log}.img")
@@ -616,6 +618,7 @@ def main():
                     "system_ext",
                     "system_dlkm",
                     "odm",
+                    "vendor_kernel_boot",
                 ]
                 for part in images:
                     file_path = Path(f"{part}.img")
