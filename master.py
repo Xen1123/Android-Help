@@ -4,45 +4,7 @@ from pathlib import Path
 result_choice = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
 installed_apps_choice = [line.replace("package:", "").strip() for line in result_choice.stdout.splitlines()]
 
-
-gstandard_mapping = {
-        "com.google.android.apps.photos": "Google Photos",
-        "com.google.android.apps.nbu.files": "Files by Google",
-        "com.google.android.calendar": "Google Calendar",
-        "com.google.android.gm": "Gmail",
-        "com.google.android.apps.maps": "Google Maps",
-        "com.google.android.apps.searchlite": "Google Lite",
-        "com.google.android.apps.mapslite": "Maps Lite",
-        "com.android.chrome": "Google Chrome",
-        "com.chrome.beta": "Google Chrome Beta",
-        "com.chrome.canary": "Google Chrome Canary",
-        "com.chrome.dev": "Google Chrome Developer",
-        "com.google.android.youtube": "Youtube",
-        "com.google.android.googlequicksearchbox": "Google Search",
-        "com.google.android.apps.bard": "Google Gemini",
-}
-    
-def gstandard_choice():
-    for package, display_name in gstandard_mapping.items():
-        if package in installed_apps_choice:
-            confirm = input(f"Remove {display_name}? (y/n) ")
-            if confirm.lower() != "y":
-                verbose_clear()
-            else:
-                if args.noroot:
-                    if args.verbose:
-                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package])
-                    else:
-                        print(f"Removing: {package}")
-                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                if args.root:
-                    if args.verbose:
-                        subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package])
-                    else:
-                        print(f"Removing: {package}")
-                    subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 apps = [
-    "com.google.android.apps.bard",
     "com.samsung.sree",
     "com.samsung.kidsplay",
     "com.samsung.android.kidsinstaller",
@@ -263,7 +225,45 @@ def main():
             pass
         else:
             clear()
-
+    gstandard_mapping = {
+            "com.google.android.apps.photos": "Google Photos",
+            "com.google.android.apps.nbu.files": "Files by Google",
+            "com.google.android.calendar": "Google Calendar",
+            "com.google.android.gm": "Gmail",
+            "com.google.android.apps.maps": "Google Maps",
+            "com.google.android.apps.searchlite": "Google Lite",
+            "com.google.android.apps.mapslite": "Maps Lite",
+            "com.android.chrome": "Google Chrome",
+            "com.chrome.beta": "Google Chrome Beta",
+            "com.chrome.canary": "Google Chrome Canary",
+            "com.chrome.dev": "Google Chrome Developer",
+            "com.google.android.youtube": "Youtube",
+            "com.google.android.googlequicksearchbox": "Google Search",
+            "com.google.android.apps.bard": "Google Gemini",
+    }
+        
+    def gstandard_choice():
+        for package, display_name in gstandard_mapping.items():
+            if package in installed_apps_choice:
+                confirm = input(f"Remove {display_name}? (y/n) ")
+                if confirm.lower() != "y":
+                    verbose_clear()
+                else:
+                    if args.noroot:
+                        if args.verbose:
+                            subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package])
+                        else:
+                            print(f"Removing: {package}")
+                            subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            clear()
+                    if args.root:
+                        if args.verbose:
+                            subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package])
+                        else:
+                            print(f"Removing: {package}")
+                            subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            clear()
+    
     adb_path = shutil.which("adb")
     if adb_path:
         print(f"\nADB Found At: {adb_path}")
@@ -309,18 +309,6 @@ def main():
                 
                 gstandard_choice()
 
-                #confirm = input("\nRemove The Standard Google Apps? (Photos, Chrome, Google, Gmail, Maps, keeps Play Store and Play Services)  (y/n ")
-                #if confirm.lower() != "y":
-                #    verbose_clear()
-                #if confirm.lower() == "y":
-                #    verbose_clear()
-                #    for app in gstandard:
-                #        if app in installed_apps:
-                #            if args.verbose:
-                #                subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
-                #            else:
-                #                print(f"\nUninstalling: {app}")
-                #                subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 verbose_clear()
                 confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n) ")
                 if confirm.lower() != "y":
@@ -354,20 +342,6 @@ def main():
 
             gstandard_choice()
 
-            #confirm = input("\nRemove The Standard Google Apps? (Photos, Chrome, Google, Gmail, Maps, keeps Play Store and Play Services)  (y/n ")
-            #if confirm.lower() != "y":
-            #    verbose_clear()
-            #elif confirm.lower() == "y":
-            #    verbose_clear()
-            #    for app in gstandard:
-            #        if app in installed_apps:
-            #            if args.verbose:
-            #                subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
-            #            else:
-            #                print(f"\nDisabling: {app}")
-            #                subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-            #        else:
-            #            pass
             verbose_clear()
             confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n) ")
             if confirm.lower() != "y":
