@@ -577,9 +577,13 @@ def main():
                         if file_path.is_file():
                             subprocess.run(["fastboot", "flash", log, file_path])
                         else:
+                            pass
+                    else:
+                        if file_path.is_file():
                             print(f"\nFlashing {log}.img")
                             subprocess.run(["fastboot", "flash", log, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
- 
+                        else:
+                            pass
                 else:
                     pass
             if args.logical:
@@ -604,20 +608,20 @@ def main():
                     "system_dlkm",
                     "odm",
                 ]
-            for part in images:
-                file_path = Path(f"{part}.img")
-                if args.verbose:
-                    if file_path.is_file():
-                        subprocess.run(["fastboot", "flash", part, file_path])
+                for part in images:
+                    file_path = Path(f"{part}.img")
+                    if args.verbose:
+                        if file_path.is_file():
+                            subprocess.run(["fastboot", "flash", part, file_path])
+                        else:
+                            pass
                     else:
-                        pass
-                else:
-                    if file_path.is_file():
-                        print(f"\nFlashing {part}.img")
-                        subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    else:
-                        pass
-                time.sleep(2)
+                        if file_path.is_file():
+                            print(f"\nFlashing {part}.img")
+                            subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                        else:
+                            pass
+            time.sleep(2)
         else:
             print("\nFastboot Not Active!")
     if not args.debloat and not args.flash:
