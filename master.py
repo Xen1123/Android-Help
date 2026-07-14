@@ -487,11 +487,12 @@ def main():
         time.sleep(1)
         subprocess.run(["adb", "reboot", "bootloader"])
         if args.verbose:
-            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1)
+            subprocess.run(["fastboot", "reboot", "bootloader"])
         else:
-            subprocess.run(["fastboot", "reboot", "bootloader"], timeout=1, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        fastboot_devices = subprocess.run(["fastboot", "devices"], timeout=3, capture_output=True, text=True, check=True)
-        if "fastboot" in fastboot_devices.stdout:
+            subprocess.run(["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        time.sleep(6)
+        fastboot_devices = subprocess.run(["fastboot", "devices"], capture_output=True, text=True, check=True)
+        if fastboot_devices.stdout:
             print("Fastboot Active!")
             if args.verbose:
                 subprocess.run(["fastboot", "--set-active=a"])
@@ -566,6 +567,10 @@ def main():
                 verbose_clear()
             
             if args.logical:
+                if args.verbose:
+                    subprocess.run(["fastboot", "reboot", "fastboot"])
+                else:
+                    subprocess.run(["fastboot", "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 images = [
                     "boot",
                     "dtbo",
@@ -592,12 +597,13 @@ def main():
                         pass
                 else:
                     if file_path.is_file():
-                        print("\nFlashing {part}.img")
+                        print(f"\nFlashing {part}.img")
                         subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                     else:
                         pass
                 time.sleep(2)
-                
+        else:
+            print("\nFastboot Not Active!")
     if not args.debloat and not args.flash:
         parser.print_help()
 
