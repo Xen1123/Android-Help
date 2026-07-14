@@ -540,13 +540,6 @@ def main():
                     "pbl",
                     "tzsw",
                     "multiimgoem",
-                    "system",
-                    "product",
-                    "vendor",
-                    "vendor_dlkm",
-                    "system_ext",
-                    "system_dlkm",
-                    "odm",
                 ]
                 for part in images:
                     file_path = Path(f"{part}.img")
@@ -565,7 +558,30 @@ def main():
                             pass
                 time.sleep(2)
                 verbose_clear()
-            
+                if args.verbose:
+                    subprocess.run(["fastboot", "reboot", "fastboot"])
+                else:
+                    subprocess.run(["fastboot", "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                logicals_full = [
+                        "product",
+                        "vendor",
+                        "vendor_dlkm",
+                        "system_ext",
+                        "system_dlkm",
+                        "system",
+                        "odm",
+                    ]
+                for log in logicals_full:
+                    file_path = Path(f"{log}.img")
+                    if args.verbose:
+                        if file_path.is_file():
+                            subprocess.run(["fastboot", "flash", log, file_path])
+                        else:
+                            print(f"\nFlashing {log}.img")
+                            subprocess.run(["fastboot", "flash", log, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+ 
+                else:
+                    pass
             if args.logical:
                 if args.verbose:
                     subprocess.run(["fastboot", "reboot", "fastboot"])
