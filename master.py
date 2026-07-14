@@ -227,6 +227,7 @@ def main():
             "com.google.android.apps.messaging": "Google Messages",
             "com.google.android.dialer": "Google Phone App",
             "com.google.android.contacts": "Google Contacts",
+           "com.google.android.calculator": "Google Calculator App",
     }
         
     def gstandard_choice():
