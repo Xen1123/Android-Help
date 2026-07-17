@@ -375,7 +375,7 @@ def main():
                     print(f"{display_name} -- {package}")
     
         applist()
-        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has!")
+        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (y/n) ")
         if confirm.lower() != "y":
             verbose_clear()
         else:
@@ -390,6 +390,7 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                verbose_clear()
 
         applist()
         confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
@@ -408,9 +409,7 @@ def main():
             else:
                 subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             verbose_clear()
-
-        subprocess.run(["adb", "devices"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-     
+ 
         applist()
         confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
         if confirm.lower() != "y":
