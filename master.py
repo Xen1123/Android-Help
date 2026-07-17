@@ -6,6 +6,7 @@ installed_apps_choice = [line.replace("package:", "").strip() for line in result
 
 apps = [
     "com.samsung.sree",
+    "com.chiller3.bcr",
     "com.samsung.kidsplay",
     "com.samsung.android.kidsinstaller",
     "com.samsung.android.homemade",
@@ -43,7 +44,6 @@ apps = [
     "com.android.egg",
     "com.android.microdroid.empty_payload",
     "com.android.providers.partnerbooks",
-    "com.android.settings.overlay.personalsafety",
     "com.android.settings.overlay.turbo",
     "com.android.setupwizard.overlay",
     "com.android.systemui.overlay.gms",
@@ -67,7 +67,6 @@ apps = [
     "com.google.android.videos",
     "com.google.mainline.adservices",
     "com.nothing.agreement",
-    "com.nt.android.overlay.gmsconfig.safetycenter",
     "com.nt.android.overlay.gmsconfig.settings",
     "com.nt.android.overlay.gmsconfig.settingsprovider",
     "com.nt.diagswitch",
