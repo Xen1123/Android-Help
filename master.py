@@ -374,25 +374,22 @@ def main():
                 if package in installed_apps_str:
                     print(f"{display_name} -- {package}")
     
-        if not "com.android.vending" in installed_apps:
-            applist()
-            confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has!")
-            if confirm.lower() != "y":
-                verbose_clear()
-            else:
-                verbose_clear()
-                print(f"\nGrabbing Aurora APK From Web!")
-                url = "https://f-droid.org/repo/com.aurora.store_75.apk"
-                file = "Aurora_Store.apk"
-                urllib.request.urlretrieve(url, file)
-                
-                print(f"\nInstalling Aurora Store!")
-                if args.verbose:
-                    subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
-                else:
-                    subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        applist()
+        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has!")
+        if confirm.lower() != "y":
+            verbose_clear()
         else:
-            pass
+            verbose_clear()
+            print(f"\nGrabbing Aurora APK From Web!")
+            url = "https://f-droid.org/repo/com.aurora.store_75.apk"
+            file = "Aurora_Store.apk"
+            urllib.request.urlretrieve(url, file)
+    
+            print(f"\nInstalling Aurora Store!")
+            if args.verbose:
+                subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
+            else:
+                subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         applist()
         confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
