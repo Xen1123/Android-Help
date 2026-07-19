@@ -400,21 +400,21 @@ def main():
                 verbose_clear()
 
         applist()
-        confirm = input("\nInstall Vyxel Apps? It Is An Open Source App Store That Has MANY Sources, Not Just F-Droid! (y/n) ")
+        confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (y/n) ")
         if confirm.lower() != "y":
             verbose_clear()
         else:
             verbose_clear()
-            print("\nGrabbing Vyxel APK From Web!")
-            url = "https://github.com/NikhilKain/vyxel-apps/releases/download/v1.0.6/Vyxel.Apps.v1.0.6.Foundation.apk"
-            file = "Vyxel_Apps.apk"
+            print("\nGrabbing Droidify APK From Web!")
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.4/app-release.apk
+            file = "Droidify.apk"
             urllib.request.urlretrieve(url, file)
     
-            print("\nInstalling Vyxel!")
+            print("\nInstalling Droidify!")
             if args.verbose:
-                subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"])
+                subprocess.run(["adb", "install", "-r", "Droidify.apk"])
             else:
-                subprocess.run(["adb", "install", "-r", "Vyxel_Apps.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(["adb", "install", "-r", "Droidify.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             verbose_clear()
  
         applist()
