@@ -368,7 +368,7 @@ def main():
             "moe.rukamori.archivetune": "ArchiveTune",
             "org.localsend.localsend_app": "Localsend",
             "com.topjohnwu.magisk": "Maigsk",
-            "com.vythera.vyxelapps": "VyxelApps",
+            "com.looker.droidify": "Droidify",
             "org.adaway": "AdAway",
             "com.aurora.store": "Aurora Store",
         }
