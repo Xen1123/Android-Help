@@ -406,7 +406,7 @@ def main():
         else:
             verbose_clear()
             print("\nGrabbing Droidify APK From Web!")
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.4/app-release.apk
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.4/app-release.apk"
             file = "Droidify.apk"
             urllib.request.urlretrieve(url, file)
     
