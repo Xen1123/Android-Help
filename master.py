@@ -228,7 +228,12 @@ def main():
             "com.google.android.contacts": "the Google Contacts App",
             "com.google.android.calculator": "the Google Calculator App",
             "com.google.android.apps.wear.companion": "the Google Pixel Watch App",
-            "com.google.android.apps.translate": "Google Translate"
+            "com.google.android.apps.translate": "Google Translate",
+            "com.android.contacts": "the Android Contacts App",
+            "com.android.dialer": "the Android Dialer App",
+            "com.lineageos.aperture": "the LineageOS camera app",
+            "com.android.messaging": "the Android messaging app",
+            "com.android.deskclock": "the Android clock app",
     }
         
     def gstandard_choice():
