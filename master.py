@@ -101,11 +101,7 @@ apps = [
     "com.google.android.apps.adm",
     "com.google.ar.core",
     "com.google.pixel.livewallpaper",
-    "org.lineageos.audiofx",
-    "org.lineageos.jelly",
     "com.google.android.apps.healthdata",
-    "com.android.calculator2",
-    "org.lineageos.etar",
     "com.google.android.apps.tips",
     "com.google.android.apps.chromecast.app",
     "org.fossify.gallery",
@@ -234,6 +230,10 @@ def main():
             "com.lineageos.aperture": "the LineageOS camera app",
             "com.android.messaging": "the Android messaging app",
             "com.android.deskclock": "the Android clock app",
+            "org.lineageos.audiofx": "AudioFX",
+            "com.android.calculator2": "the Android Calculator",
+            "org.lineageos.jelly": "the LineageOS Browser",
+            "org.lineageos.etar": "the LineageOS Calendar App",
     }
         
     def gstandard_choice():
@@ -424,7 +424,7 @@ def main():
         else:
             verbose_clear()
             print("\nGrabbing ArchiveTune APK From Web!")
-            url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.0.0/app-gms-mobile-arm64-release.apk"
+            url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.0.0/app-foss-mobile-universal-release.apk"
             file_name = "ArchiveTune.apk"
             urllib.request.urlretrieve(url, file_name)
     
@@ -501,7 +501,7 @@ def main():
             subprocess.run(["fastboot", "reboot", "bootloader"])
         else:
             subprocess.run(["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        time.sleep(6)
+        time.sleep(15)
         fastboot_devices = subprocess.run(["fastboot", "devices"], capture_output=True, text=True, check=True)
         if fastboot_devices.stdout:
             print("Fastboot Active!")
