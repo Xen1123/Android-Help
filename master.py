@@ -472,21 +472,17 @@ def main():
                 verbose_clear()
         if "root" in root_result.stdout:
             applist()
-            confirm = input("\nInstall AdAway? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (y/n) ")
+            confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (y/n) ")
             if confirm.lower() != "y":
                 verbose_clear()
             else:
                 verbose_clear()
-                print("\nGrabbing AdAway APK From Web!")
-                url = "https://github.com/AdAway/AdAway/releases/download/v6.1.4/AdAway-6.1.4-20241027.apk"
-                file = "AdAway.apk"
+                print("\nGrabbing Bind Hosts Zip From Web!")
+                url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.4/bindhosts.zip"
+                file = "Bind_Hosts.zip"
                 urllib.request.urlretrieve(url, file)
-
-                print("\nInstalling AdAway!")
-                if args.verbose:
-                    subprocess.run(["adb", "install", "-r", "AdAway.apk"])
-                else:
-                    subprocess.run(["adb", "install", "-r", "AdAway.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                
+                print("\nYou'll have to flash this as a zip through Magisk, it isn't a standalone APK.")
                 verbose_clear()
     
         os.chdir("../")
