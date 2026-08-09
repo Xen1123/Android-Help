@@ -12,7 +12,7 @@
 - **Guides**: Instructions written in Markdown.
 
 ## Repository Hierarchy
-```
+```bash
 Android-Help/
 ├── ADB_Fastboot_Tools.zip
 ├── Android-Tools.py
