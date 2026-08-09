@@ -14,8 +14,12 @@
 ## Repository Hierarchy
 ```
 Android-Help/
-├── Android-Logo.png
+├── ADB_Fastboot_Tools.zip
 ├── Android-Tools.py
+├── assets
+│   ├── Android-Logo.png
+│   ├── Debloater.png
+│   └── Flasher.png
 ├── Debloaters
 │   └── Debloat.py
 ├── Documents
@@ -23,6 +27,8 @@ Android-Help/
 │   └── Stock-Firmware.md
 ├── Flasher
 │   └── Flasher.py
+├── Help.md
+├── master.py
 └── README.md
 ```
 
