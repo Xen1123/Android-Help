@@ -368,7 +368,6 @@ def main():
             "org.localsend.localsend_app": "Localsend",
             "com.topjohnwu.magisk": "Maigsk",
             "com.looker.droidify": "Droidify",
-            "org.adaway": "AdAway",
             "com.aurora.store": "Aurora Store",
         }
      
@@ -387,7 +386,7 @@ def main():
         else:
             verbose_clear()
             print(f"\nGrabbing Aurora APK From Web!")
-            url = "https://f-droid.org/repo/com.aurora.store_75.apk"
+            url = "https://f-droid.org/repo/com.aurora.store_76.apk"
             file = "Aurora_Store.apk"
             urllib.request.urlretrieve(url, file)
     
@@ -423,7 +422,7 @@ def main():
         else:
             verbose_clear()
             print("\nGrabbing ArchiveTune APK From Web!")
-            url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.0.0/app-foss-mobile-universal-release.apk"
+            url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.1.0/app-foss-mobile-universal-release.apk"
             file_name = "ArchiveTune.apk"
             urllib.request.urlretrieve(url, file_name)
     
