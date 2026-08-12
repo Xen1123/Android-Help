@@ -130,7 +130,6 @@ apps = [
     "com.android.providers.settings.auto_generated_rro_vendor__",
     "com.google.android.apps.weather",
     "com.google.android.apps.diagnosticstool",
-    "com.google.android.apps.pixel.nowplaying",
 ]
 
 gFULL = [
@@ -234,6 +233,7 @@ def main():
             "org.lineageos.twelve": "the LineageOS Music Player App",
             "org.lineageos.recorder": "the LineageOS Audio Recorder App",
             "com.google.android.apps.recorder": "Google's Recorder App",
+            "com.google.android.apps.pixel.nowplaying": "Google's Now Playing App",
     }
         
     def gstandard_choice():
