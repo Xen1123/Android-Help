@@ -632,6 +632,8 @@ def main():
             time.sleep(2)
         else:
             print("\nFastboot Not Active!")
+            time.sleep(2)
+            sys.exit(1)
     if not args.debloat and not args.flash:
         parser.print_help()
 
