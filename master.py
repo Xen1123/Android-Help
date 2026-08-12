@@ -1,3 +1,4 @@
+from tabnanny import verbose
 import os, subprocess, shutil, sys, time, argparse, urllib.request
 from pathlib import Path
 
@@ -631,6 +632,7 @@ def main():
                             pass
             time.sleep(2)
         else:
+            verbose_clear()
             print("\nFastboot Not Active!")
             time.sleep(2)
             sys.exit(1)
