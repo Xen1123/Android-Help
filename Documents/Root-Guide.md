@@ -94,3 +94,4 @@ fastboot flash init_boot root_init_boot.img && fastboot reboot
       - [Rezygisk (Use Instead of Magisk Zygisk)](https://github.com/PerformanC/ReZygisk/releases/download/v1.0.0-rc.7/ReZygisk-v1.0.0-rc.7-release.zip)
       - [Tricky Store](https://github.com/5ec1cff/TrickyStore/releases/download/1.4.1/Tricky-Store-v1.4.1-245-72b2e84-release.zip)
       - [YuriKey Manager](https://github.com/Yurii0307/yurikey/releases/download/v3.0.6/Yurikey-v3.0.6.signed.zip)
+      - [Vector (LSPosed)](https://github.com/JingMatrix/Vector/releases/download/canary-3090/Vector-v2.2-3090-Release.zip)
