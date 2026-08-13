@@ -287,7 +287,7 @@ def main():
             pass
 
         if args.root:
-            root_result = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True, check=True)
+            root_result = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
             if "root" in root_result.stdout:
                 verbose_clear()
                 for app in apps:
@@ -300,6 +300,9 @@ def main():
                     else:
                         pass
                 verbose_clear()
+            if root_result.returncode != 0:
+                input("\n❌Root not detected! Please click to continue!❌  ")
+                sys.exit(0)
                 
                 gstandard_choice()
 
@@ -635,7 +638,7 @@ def main():
             verbose_clear()
             print("\nFastboot Not Active!")
             time.sleep(2)
-            sys.exit(1)
+            sys.exit(0)
     if not args.debloat and not args.flash:
         parser.print_help()
 
