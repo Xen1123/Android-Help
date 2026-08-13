@@ -192,7 +192,7 @@ def main():
     if not args.debloat and not args.flash:
         parser.print_help()
         input("\nClick Any Key To Exit")
-        sys.exit(0)
+        sys.exit(1)
     
     def verbose_clear():
         if args.verbose:
@@ -272,17 +272,17 @@ def main():
         print("\nDebloating Device!")
         if not adb_path:
             input("ADB NOT AVAILABLE ")
-            sys.exit(0)
+            sys.exit(1)
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=True)
         if "device" not in result.stdout.split():
             input("\nNo Device! ")
-            sys.exit(0)
+            sys.exit(1)
         if "unauthorized" in result.stdout:
             input("\nDevice Not Authorized! ")
-            sys.exit(0)
+            sys.exit(1)
         if not "device" in result.stdout:
             input("\nADB Unable To Run! ")
-            sys.exit(0)
+            sys.exit(1)
         if "device" in result.stdout.split():
             pass
 
@@ -302,7 +302,7 @@ def main():
                 verbose_clear()
             if root_result.returncode != 0:
                 input("\n❌Root not detected! Please click to continue!❌  ")
-                sys.exit(0)
+                sys.exit(1)
                 
                 gstandard_choice()
 
@@ -322,7 +322,7 @@ def main():
                 verbose_clear()
             elif not "root" in root_result.stdout:
                 input("\nRoot Not Detected! If You Are Rooted, Please Make Sure You Granted `shell` Root Permissions! ")
-                sys.exit(0)
+                sys.exit(1)
 
         if args.noroot:
             verbose_clear()
@@ -638,7 +638,7 @@ def main():
             verbose_clear()
             print("\nFastboot Not Active!")
             time.sleep(2)
-            sys.exit(0)
+            sys.exit(1)
     if not args.debloat and not args.flash:
         parser.print_help()
 

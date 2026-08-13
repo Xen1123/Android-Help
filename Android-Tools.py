@@ -78,7 +78,7 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
         else:
             os.system("clear")
             print("Sorry, Your Package Manager Is Not Supported")
-            sys.exit()
+            sys.exit(1)
         print(
             "You Now Have ADB & Fastboot! Depending On Your Distro, You May Need To Run ADB & Fastboot As Root Or With Sudo!"
         )
@@ -104,11 +104,11 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
         url = "https://raw.githubusercontent.com/Xen1123/Android-Help/main/ADB_Fastboot_Tools.zip"
         file = "ADB_Fastboot_Tools.zip"
         urllib.request.urlretrieve(url, file)
-        sys.exit()
+        sys.exit(1)
 else:
     if os.name == "nt":
         os.system("cls")
     else:
         os.system("clear")
     print("ADB & Fastboot Are Already Installed! :)")
-    sys.exit()
+    sys.exit(1)
