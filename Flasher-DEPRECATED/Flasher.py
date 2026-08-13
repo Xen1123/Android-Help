@@ -1,3 +1,6 @@
+
+# THIS IS DEPRECATED
+
 import argparse
 import os
 import shutil
@@ -24,6 +27,10 @@ print(r"""
 ██║  ██║██║ ╚████║██████╔╝██║  ██║╚██████╔╝██║██████╔╝
 ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═════╝
 """)
+
+print("This Script Is Deprecated, Please Use master.py Instead!")
+time.sleep(2)
+
 
 fastboot_path = shutil.which("fastboot")
 if not fastboot_path:

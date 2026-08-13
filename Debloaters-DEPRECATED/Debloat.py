@@ -1,3 +1,6 @@
+
+# DEPRECTED, PLEASE USE master.py INSTEAD
+
 import argparse
 import os
 import shutil
@@ -203,6 +206,8 @@ print(r"""
 
 """)
 
+print("This Script Is Deprecated, Please Use master.py Instead!")
+time.sleep(2)
 
 def main():
 
