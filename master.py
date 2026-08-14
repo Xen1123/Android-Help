@@ -444,7 +444,7 @@ def main():
         else:
             verbose_clear
             print("\nGrabbing Localsend APK From Web!")
-            url = "https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-android-arm64v8.apk"
+            url = "https://github.com/localsend/localsend/releases/download/v1.18.1/LocalSend-1.18.1-android-arm64v8.apk"
             file = "Localsend.apk"
             urllib.request.urlretrieve(url, file)
     
