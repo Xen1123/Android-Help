@@ -109,7 +109,6 @@ apps = [
     "com.google.android.apps.docs.editors.docs",
     "uk.akane.accord",
     "com.google.android.apps.work.cloudpc",
-    "com.google.android.apps.wearables.maestro.companion",
     "com.google.android.apps.safetyhub",
     "com.google.android.marvin.talkback",
     "com.google.android.apps.emojiwallpaper",
