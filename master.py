@@ -119,17 +119,9 @@ apps = [
     "com.google.android.apps.pixel.creativeassistant",
     "com.google.android.apps.pixel.relationships",
     "com.google.android.apps.pixel.support",
-    "com.google.android.apps.wallpaper.pixel",
     "com.android.adservices.api",
-    "com.android.backupconfirm",
-    "com.google.audio.hearing.visualization.accessibility.scribe",
-    "com.google.android.accessibility.soundamplifier",
-    "com.google.android.apps.accessibility.voiceaccess",
-    "com.android.companiondevicemanager",
     "com.android.providers.telephony.auto_generated_characteristics_rro",
     "com.android.providers.settings.auto_generated_rro_vendor__",
-    "com.google.android.apps.weather",
-    "com.google.android.apps.diagnosticstool",
 ]
 
 gFULL = [
