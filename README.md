@@ -20,13 +20,9 @@ Android-Help/
 │   ├── Android-Logo.png
 │   ├── Debloater.png
 │   └── Flasher.png
-├── Debloaters
-│   └── Debloat.py
 ├── Documents
 │   ├── Root-Guide.md
 │   └── Stock-Firmware.md
-├── Flasher
-│   └── Flasher.py
 ├── Help.md
 ├── master.py
 └── README.md
