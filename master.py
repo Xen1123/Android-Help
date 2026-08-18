@@ -277,8 +277,9 @@ def main():
         if "device" in result.stdout.split():
             pass
 
+
+        root_result = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
         if args.root:
-            root_result = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
             if "root" in root_result.stdout:
                 verbose_clear()
                 for app in apps:
@@ -399,7 +400,7 @@ def main():
         else:
             verbose_clear()
             print("\nGrabbing Droidify APK From Web!")
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.4/app-release.apk"
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.5/app-release.apk"
             file = "Droidify.apk"
             urllib.request.urlretrieve(url, file)
     
