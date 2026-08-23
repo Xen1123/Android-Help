@@ -292,9 +292,7 @@ def main():
                     else:
                         pass
                 verbose_clear()
-            if root_result.returncode != 0:
-                input("\n❌Root not detected! Please click to continue!❌  ")
-                sys.exit(1)
+
                 
                 gstandard_choice()
 
@@ -313,7 +311,7 @@ def main():
                                 subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 verbose_clear()
             elif not "root" in root_result.stdout:
-                input("\nRoot Not Detected! If You Are Rooted, Please Make Sure You Granted `shell` Root Permissions! ")
+                input("\n❌ Root not detected! Please click to continue! ❌  ")
                 sys.exit(1)
 
         if args.noroot:
