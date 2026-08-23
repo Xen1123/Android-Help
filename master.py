@@ -472,10 +472,13 @@ def main():
                 verbose_clear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
                 url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.4/bindhosts.zip"
-                file = "Bind_Hosts.zip"
-                urllib.request.urlretrieve(url, file)
-                
-                print("\nYou'll have to flash this as a zip through Magisk, it isn't a standalone APK.")
+                filename = "Bind_Hosts.zip"
+                urllib.request.urlretrieve(url, filename)
+                if args.verbose:
+                    subprocess.run(["adb", "push", "./Bind_Hosts.zip", "/sdcard/"])
+                else:
+                    subprocess.run(["adb", "push", "./Bind_Hosts.zip", "/sdcard/"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                input("\nYou'll have to flash this as a zip through Magisk, it isn't a standalone APK. Click to continue! ")
                 verbose_clear()
     
         os.chdir("../")
