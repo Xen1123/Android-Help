@@ -398,7 +398,7 @@ def main():
         else:
             verbose_clear()
             print("\nGrabbing Droidify APK From Web!")
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.5/app-release.apk"
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.6/app-release.apk"
             file = "Droidify.apk"
             urllib.request.urlretrieve(url, file)
     
@@ -434,7 +434,7 @@ def main():
         else:
             verbose_clear
             print("\nGrabbing Localsend APK From Web!")
-            url = "https://github.com/localsend/localsend/releases/download/v1.18.1/LocalSend-1.18.1-android-arm64v8.apk"
+            url = "https://github.com/localsend/localsend/releases/download/v1.18.2/LocalSend-1.18.2-android-arm64v8.apk"
             file = "Localsend.apk"
             urllib.request.urlretrieve(url, file)
     
@@ -471,7 +471,7 @@ def main():
             else:
                 verbose_clear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
-                url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.4/bindhosts.zip"
+                url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.5/bindhosts.zip"
                 filename = "Bind_Hosts.zip"
                 urllib.request.urlretrieve(url, filename)
                 if args.verbose:
