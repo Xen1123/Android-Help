@@ -15,7 +15,6 @@ apps = [
     "com.samsung.android.mapsagent",
     "com.samsung.android.bbc.bbcagent",
     "android.autoinstalls.config.samsung",
-    "com.samsung.android.app.omcagent",
     "com.samsung.android.livestickers",
     "com.samsung.android.rubin.app",
     "com.samsung.android.sdm.config",
@@ -23,7 +22,6 @@ apps = [
     "com.samsung.android.game.gamehome",
     "com.samsung.android.game.gos",
     "com.samsung.gpuwatchapp",
-    "com.samsung.android.app.spage",
     "com.sec.spp.push",
     "com.samsung.android.stickercenter",
     "com.sec.android.app.ve.vebgm",
@@ -31,7 +29,6 @@ apps = [
     "com.audible.application",
     "com.google.ar.core",
     "com.sec.android.preloadinstaller",
-    "com.microsoft.skydrive",
     "com.sec.android.daemonapp",
     "com.google.android.music",
     "com.sec.android.app.popupcalculator",
@@ -83,10 +80,8 @@ apps = [
     "com.samsung.android.app.reminder",
     "com.sec.android.app.billing",
     "com.samsung.android.app.spage",
-    "com.sec.android.app.sbrowser",
     "com.samsung.android.samsungpass",
     "com.google.android.game.gamehome",
-    "com.samsung.android.game.gametools",
     "com.samsung.android.aremoji",
     "com.samsung.android.samsungpassautofill",
     "com.sec.android.mimage.avatarstickers",
@@ -185,9 +180,7 @@ def main():
         sys.exit(1)
     
     def verbose_clear():
-        if args.verbose:
-            pass
-        else:
+        if not args.verbose:
             clear()
     gstandard_mapping = {
             "com.google.android.apps.photos": "Google Photos",
@@ -359,7 +352,7 @@ def main():
         app_mapping = {
             "moe.rukamori.archivetune": "ArchiveTune",
             "org.localsend.localsend_app": "Localsend",
-            "com.topjohnwu.magisk": "Maigsk",
+            "com.topjohnwu.magisk": "Magisk",
             "com.looker.droidify": "Droidify",
             "com.aurora.store": "Aurora Store",
         }
@@ -431,7 +424,7 @@ def main():
         if confirm.lower() == "n":
             verbose_clear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-            verbose_clear
+            verbose_clear()
             print("\nGrabbing Localsend APK From Web!")
             url = "https://github.com/localsend/localsend/releases/download/v1.18.2/LocalSend-1.18.2-android-arm64v8.apk"
             file = "Localsend.apk"
