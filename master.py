@@ -266,13 +266,13 @@ def main():
             sys.exit(1)
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=True)
         if "device" not in result.stdout.split():
-            input("\nNo Device! ")
+            input("\nNo Device! Click to continue!\n")
             sys.exit(1)
         if "unauthorized" in result.stdout:
-            input("\nDevice Not Authorized! ")
+            input("\nDevice Not Authorized! Click to continue!\n")
             sys.exit(1)
         if not "device" in result.stdout:
-            input("\nADB Unable To Run! ")
+            input("\nADB Unable To Run! Click to continue!\n")
             sys.exit(1)
         if "device" in result.stdout.split():
             pass
