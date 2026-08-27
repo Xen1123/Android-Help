@@ -230,7 +230,7 @@ def main():
     def gstandard_choice():
         for package, display_name in gstandard_mapping.items():
             if package in installed_apps_choice:
-                confirm = input(f"Remove {display_name}? (y/n)\n")
+                confirm = input(f"Remove {display_name}? (y/N)\n")
                 if confirm.lower() != "y":
                     verbose_clear()
                 else:
@@ -297,7 +297,7 @@ def main():
                 gstandard_choice()
 
                 verbose_clear()
-                confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n)\n")
+                confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n")
                 if confirm.lower() != "y":
                     verbose_clear()
                 if confirm.lower() == "y":
@@ -330,7 +330,7 @@ def main():
             gstandard_choice()
 
             verbose_clear()
-            confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n)\n")
+            confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n")
             if confirm.lower() != "y":
                 verbose_clear()
             elif confirm.lower() == "y":
@@ -374,10 +374,10 @@ def main():
                     print(f"{display_name} -- {package}")
     
         applist()
-        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (y/n)\n")
-        if confirm.lower() != "y":
+        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (Y/n)\n")
+        if confirm.lower() == "n":
             verbose_clear()
-        else:
+        elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verbose_clear()
             print(f"\nGrabbing Aurora APK From Web!")
             url = "https://f-droid.org/repo/com.aurora.store_76.apk"
@@ -392,10 +392,10 @@ def main():
                 verbose_clear()
 
         applist()
-        confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (y/n)\n")
-        if confirm.lower() != "y":
+        confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n")
+        if confirm.lower() == "n":
             verbose_clear()
-        else:
+        elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verbose_clear()
             print("\nGrabbing Droidify APK From Web!")
             url = "https://github.com/Droid-ify/client/releases/download/v0.7.6/app-release.apk"
@@ -410,10 +410,10 @@ def main():
             verbose_clear()
  
         applist()
-        confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n)\n")
-        if confirm.lower() != "y":
+        confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (Y/n)\n")
+        if confirm.lower() == "n":
             verbose_clear()
-        else:
+        elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verbose_clear()
             print("\nGrabbing ArchiveTune APK From Web!")
             url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.1.0/app-foss-mobile-universal-release.apk"
@@ -428,10 +428,10 @@ def main():
             verbose_clear()
     
         applist()
-        confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n)\n")
-        if confirm.lower() != "y":
+        confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (Y/n)\n")
+        if confirm.lower() == "n":
             verbose_clear()
-        else:
+        elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verbose_clear
             print("\nGrabbing Localsend APK From Web!")
             url = "https://github.com/localsend/localsend/releases/download/v1.18.2/LocalSend-1.18.2-android-arm64v8.apk"
@@ -447,10 +447,10 @@ def main():
     
         if root_result.stdout.strip() != "root":
             applist()
-            confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n)\n")
-            if confirm.lower() != "y":
+            confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (Y/n)\n")
+            if confirm.lower() == "n":
                 verbose_clear()
-            else:
+            elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verbose_clear()
                 print("\nGrabbing Magisk APK From Web!")
                 url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
@@ -465,10 +465,10 @@ def main():
                 verbose_clear()
         if "root" in root_result.stdout:
             applist()
-            confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (y/n)\n")
-            if confirm.lower() != "y":
+            confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n")
+            if confirm.lower() == "n":
                 verbose_clear()
-            else:
+            elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verbose_clear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
                 url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.5/bindhosts.zip"
