@@ -1,4 +1,3 @@
-from tabnanny import verbose
 import os, subprocess, shutil, sys, time, argparse, urllib.request
 from pathlib import Path
 
