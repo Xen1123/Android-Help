@@ -230,7 +230,7 @@ def main():
     def gstandard_choice():
         for package, display_name in gstandard_mapping.items():
             if package in installed_apps_choice:
-                confirm = input(f"Remove {display_name}? (y/n) ")
+                confirm = input(f"Remove {display_name}? (y/n)\n")
                 if confirm.lower() != "y":
                     verbose_clear()
                 else:
@@ -297,7 +297,7 @@ def main():
                 gstandard_choice()
 
                 verbose_clear()
-                confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n) ")
+                confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n)\n")
                 if confirm.lower() != "y":
                     verbose_clear()
                 if confirm.lower() == "y":
@@ -330,7 +330,7 @@ def main():
             gstandard_choice()
 
             verbose_clear()
-            confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n) ")
+            confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/n)\n")
             if confirm.lower() != "y":
                 verbose_clear()
             elif confirm.lower() == "y":
@@ -374,7 +374,7 @@ def main():
                     print(f"{display_name} -- {package}")
     
         applist()
-        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (y/n) ")
+        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (y/n)\n")
         if confirm.lower() != "y":
             verbose_clear()
         else:
@@ -392,7 +392,7 @@ def main():
                 verbose_clear()
 
         applist()
-        confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (y/n) ")
+        confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (y/n)\n")
         if confirm.lower() != "y":
             verbose_clear()
         else:
@@ -410,7 +410,7 @@ def main():
             verbose_clear()
  
         applist()
-        confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n) ")
+        confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (y/n)\n")
         if confirm.lower() != "y":
             verbose_clear()
         else:
@@ -428,7 +428,7 @@ def main():
             verbose_clear()
     
         applist()
-        confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n) ")
+        confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (y/n)\n")
         if confirm.lower() != "y":
             verbose_clear()
         else:
@@ -447,7 +447,7 @@ def main():
     
         if root_result.stdout.strip() != "root":
             applist()
-            confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n) ")
+            confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (y/n)\n")
             if confirm.lower() != "y":
                 verbose_clear()
             else:
@@ -465,7 +465,7 @@ def main():
                 verbose_clear()
         if "root" in root_result.stdout:
             applist()
-            confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (y/n) ")
+            confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (y/n)\n")
             if confirm.lower() != "y":
                 verbose_clear()
             else:
@@ -478,7 +478,11 @@ def main():
                     subprocess.run(["adb", "push", "./Bind_Hosts.zip", "/sdcard/"])
                 else:
                     subprocess.run(["adb", "push", "./Bind_Hosts.zip", "/sdcard/"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                input("\nYou'll have to flash this as a zip through Magisk, it isn't a standalone APK. Click to continue! ")
+                bindcheck = subprocess.run(["adb", "shell", "ls", "/sdcard"], capture_output=True, text=True)
+                if "Bind_Hosts.zip" in bindcheck.stdout:
+                    applist()
+                    print("Bind Hosts -- Bind_Hosts.zip\n")
+                input("You'll have to flash this as a zip through Magisk, it isn't a standalone APK. Click to continue!\n")
                 verbose_clear()
     
         os.chdir("../")
