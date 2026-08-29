@@ -17,8 +17,7 @@ Android-Help/
 ├── Android-Tools.py
 ├── assets
 │   ├── Android-Logo.png
-│   ├── Debloater.png
-│   └── Flasher.png
+│   ├── master.png
 ├── Documents
 │   ├── Root-Guide.md
 │   └── Stock-Firmware.md
