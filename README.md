@@ -1,9 +1,8 @@
 <h1 align="center">Android-Help</h1>
 <h3 align="center">A Simple Repository To Help With Android Tweaking</h3>
 
-<img src="./assets/Android-Logo.png" width="384">
+<img src="./assets/Android-Logo.png" width="384"> <img src="./assets/master.png" width="445">
 
-<img src="./assets/Debloater.png" width="384"> <img src="./assets/Flasher.png" width="445">
 <h4 align=center>Install Python from www.python.org or via your distribution's package manager.</h4>
 
 ## Repository Contents  
