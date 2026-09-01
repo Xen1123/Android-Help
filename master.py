@@ -1,6 +1,11 @@
 import os, subprocess, shutil, sys, time, argparse, urllib.request
 from pathlib import Path
 
+adb_path1 = subprocess.run(["which", "adb"], capture_output=True, text=True)
+if not adb_path1.stdout.strip():
+    input("ADB NOT AVAILABLE ")
+    sys.exit(1)
+
 result_choice = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
 installed_apps_choice = [line.replace("package:", "").strip() for line in result_choice.stdout.splitlines()]
 
