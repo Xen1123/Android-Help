@@ -5,10 +5,7 @@ import sys
 import time
 import urllib.request
 
-if os.name == "nt":
-    os.system("cls")
-else:
-    os.system("clear")
+print("\033[2J\033[3J\033[1;1H")
 
 print(r"""
  █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ██╗██████╗
@@ -106,9 +103,6 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
         urllib.request.urlretrieve(url, file)
         sys.exit(1)
 else:
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
+    print("\033[2J\033[3J\033[1;1H")
     print("ADB & Fastboot Are Already Installed! :)")
     sys.exit(1)
