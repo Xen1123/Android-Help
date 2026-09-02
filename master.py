@@ -140,10 +140,7 @@ result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_outp
 installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
 
 def clear():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+    print("\033[2J\033[3J\033[1;1H")
 clear()
 
 print("""
