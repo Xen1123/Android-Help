@@ -470,8 +470,16 @@ def main():
                 if "Bind_Hosts.zip" in bindcheck.stdout:
                     applist()
                     print("Bind Hosts -- Bind_Hosts.zip\n")
-                input("You'll have to flash this as a zip through Magisk, it isn't a standalone APK. Click to continue!\n")
-                verbose_clear()
+                input("You'll have to flash this as a zip through Magisk (or your preferred root manager), it isn't a standalone APK. Click to continue!\n")
+                if "com.topjohnwu.magisk" in installed_apps_str:
+                    input("Open Magisk app? (Y/n) ")
+                    if confirm.lower() == "n":
+                        pass
+                    elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
+                        subprocess.run(["adb", "shell", "am", "start", "-n", "com.topjohnwu.magisk/.ui.MainActivity"], stdout=subprocces.DEVNULL, stderr=subprocess.DEVNULL)
+                    verbose_clear()
+                else:
+                    verbose_clear()
     
         os.chdir("../")
         shutil.rmtree("./APK-Holding")
