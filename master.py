@@ -441,7 +441,7 @@ def main():
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verbose_clear()
                 print("\nGrabbing Magisk APK From Web!")
-                url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
+                url = "https://github.com/topjohnwu/Magisk/releases/download/v31.0/Magisk-v31.0.apk"
                 file = "Magisk.Apk"
                 urllib.request.urlretrieve(url, file)
     
