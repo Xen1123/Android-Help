@@ -451,7 +451,7 @@ def main():
                 else:
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 verbose_clear()
-        if "root" in root_result.stdout:
+        elif "root" in root_result.stdout:
             applist()
             confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n")
             if confirm.lower() == "n":
