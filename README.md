@@ -13,17 +13,17 @@
 ## Repository Hierarchy 📂
 ```bash
 Android-Help/
-├── ADB_Fastboot_Tools.zip
-├── Android-Tools.py
-├── assets
-│   ├── Android-Logo.png
-│   ├── master.png
-├── Documents
-│   ├── Root-Guide.md
-│   └── Stock-Firmware.md
-├── Help.md
-├── master.py
-└── README.md
+├── ADB_Fastboot_Tools.zip 🔍
+├── Android-Tools.py 🐍
+├── assets/ 🖼️
+│   ├── Android-Logo.png 🖼️
+│   ├── master.png 🖼️
+├── Documents/ 📄
+│   ├── Root-Guide.md 📄
+│   └── Stock-Firmware.md 📄
+├── Help.md ✍️
+├── master.py 🐍
+└── README.md ✍️
 ```
 
 ## Help ❔
