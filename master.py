@@ -175,7 +175,7 @@ def main():
         input("\nClick Any Key To Exit")
         sys.exit(1)
     
-    def verbose_clear():
+    def verboseClear():
         if not args.verbose:
             clear()
     gstandard_mapping = {
@@ -220,7 +220,7 @@ def main():
             if package in installed_apps_choice:
                 confirm = input(f"Remove {display_name}? (y/N)\n")
                 if confirm.lower() != "y":
-                    verbose_clear()
+                    verboseClear()
                 else:
                     if args.noroot:
                         if args.verbose:
@@ -269,7 +269,7 @@ def main():
         root_result = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
         if args.root:
             if "root" in root_result.stdout:
-                verbose_clear()
+                verboseClear()
                 for app in apps:
                     if app in installed_apps:
                         if args.verbose:
@@ -279,17 +279,17 @@ def main():
                             subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                     else:
                         pass
-                verbose_clear()
+                verboseClear()
 
                 
                 gstandard_choice()
 
-                verbose_clear()
+                verboseClear()
                 confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n")
                 if confirm.lower() != "y":
-                    verbose_clear()
+                    verboseClear()
                 if confirm.lower() == "y":
-                    verbose_clear()
+                    verboseClear()
                     for app in gFULL:
                         if app in installed_apps:
                             if args.verbose:
@@ -297,13 +297,13 @@ def main():
                             else:
                                 print(f"\nUninstalling: {app}")
                                 subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                verbose_clear()
+                verboseClear()
             elif not "root" in root_result.stdout:
                 input("\n❌ Root not detected! Please click to continue! ❌  ")
                 sys.exit(1)
 
         if args.noroot:
-            verbose_clear()
+            verboseClear()
             for app in apps:
                 if app in installed_apps:
                     if args.verbose:
@@ -313,16 +313,16 @@ def main():
                         subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
                     pass
-            verbose_clear()
+            verboseClear()
 
             gstandard_choice()
 
-            verbose_clear()
+            verboseClear()
             confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n")
             if confirm.lower() != "y":
-                verbose_clear()
+                verboseClear()
             elif confirm.lower() == "y":
-                verbose_clear()
+                verboseClear()
                 for app in gFULL:
                     if app in installed_apps:
                         if args.verbose:
@@ -343,7 +343,7 @@ def main():
         cdir = os.getcwd()
         print(f"\nYou Are In {cdir}")
         time.sleep(2)
-        verbose_clear()
+        verboseClear()
 
         app_mapping = {
             "moe.rukamori.archivetune": "ArchiveTune",
@@ -351,6 +351,7 @@ def main():
             "com.topjohnwu.magisk": "Magisk",
             "com.looker.droidify": "Droidify",
             "com.aurora.store": "Aurora Store",
+            "sh.haven.app": "Haven SSH Client",
         }
      
         def applist():
@@ -364,9 +365,9 @@ def main():
         applist()
         confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (Y/n)\n")
         if confirm.lower() == "n":
-            verbose_clear()
+            verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-            verbose_clear()
+            verboseClear()
             print(f"\nGrabbing Aurora APK From Web!")
             url = "https://f-droid.org/repo/com.aurora.store_76.apk"
             file = "Aurora_Store.apk"
@@ -377,14 +378,14 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                verbose_clear()
+                verboseClear()
 
         applist()
         confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n")
         if confirm.lower() == "n":
-            verbose_clear()
+            verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-            verbose_clear()
+            verboseClear()
             print("\nGrabbing Droidify APK From Web!")
             url = "https://github.com/Droid-ify/client/releases/download/v0.7.7/app-release.apk"
             file = "Droidify.apk"
@@ -395,14 +396,32 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Droidify.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "Droidify.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            verbose_clear()
- 
+            verboseClear()
+
+        applist()
+        confirm = input("\nInstall Haven SSH Client? It's a beautiful SSHH client for Android, great for when you just want to quickly log in to your server! (Y/n)\n")
+        if confirm.lower() == 'n':
+            verboseClear()
+        elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
+            verboseClear()
+            print("\nGrabbing Haven APK From Web!")
+            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.77/haven-5.87.77-arm64-release.apk"
+            file = "Haven.apk"
+            urllib.request.urlretrieve(url, file)
+
+            print("\nInstalling Haven!")
+            if args.verbose:
+                subprocess.run(["adb", "install", "-r", "Haven.apk"])
+            else:
+                subprocess.run(["adb", "install", "-r", "Haven.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            verboseClear()
+
         applist()
         confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (Y/n)\n")
         if confirm.lower() == "n":
-            verbose_clear()
+            verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-            verbose_clear()
+            verboseClear()
             print("\nGrabbing ArchiveTune APK From Web!")
             url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.1.0/app-foss-mobile-universal-release.apk"
             file_name = "ArchiveTune.apk"
@@ -413,14 +432,14 @@ def main():
                 subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            verbose_clear()
+            verboseClear()
     
         applist()
         confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (Y/n)\n")
         if confirm.lower() == "n":
-            verbose_clear()
+            verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-            verbose_clear()
+            verboseClear()
             print("\nGrabbing Localsend APK From Web!")
             url = "https://github.com/localsend/localsend/releases/download/v1.18.2/LocalSend-1.18.2-android-arm64v8.apk"
             file = "Localsend.apk"
@@ -431,15 +450,15 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"])
             else:
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                verbose_clear()
+                verboseClear()
     
         if root_result.stdout.strip() != "root":
             applist()
             confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (Y/n)\n")
             if confirm.lower() == "n":
-                verbose_clear()
+                verboseClear()
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-                verbose_clear()
+                verboseClear()
                 print("\nGrabbing Magisk APK From Web!")
                 url = "https://github.com/topjohnwu/Magisk/releases/download/v31.0/Magisk-v31.0.apk"
                 file = "Magisk.Apk"
@@ -450,14 +469,14 @@ def main():
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"])
                 else:
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                verbose_clear()
+                verboseClear()
         elif "root" in root_result.stdout:
             applist()
             confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n")
             if confirm.lower() == "n":
-                verbose_clear()
+                verboseClear()
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-                verbose_clear()
+                verboseClear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
                 url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.5/bindhosts.zip"
                 filename = "Bind_Hosts.zip"
@@ -477,9 +496,9 @@ def main():
                         pass
                     elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                         subprocess.run(["adb", "shell", "am", "start", "-n", "com.topjohnwu.magisk/.ui.MainActivity"], stdout=subprocces.DEVNULL, stderr=subprocess.DEVNULL)
-                    verbose_clear()
+                    verboseClear()
                 else:
-                    verbose_clear()
+                    verboseClear()
     
         os.chdir("../")
         shutil.rmtree("./APK-Holding")
@@ -560,7 +579,7 @@ def main():
                         else:
                             pass
                 time.sleep(2)
-                verbose_clear()
+                verboseClear()
                 if args.verbose:
                     subprocess.run(["fastboot", "reboot", "fastboot"])
                 else:
@@ -628,7 +647,7 @@ def main():
                             pass
             time.sleep(2)
         else:
-            verbose_clear()
+            verboseClear()
             print("\nFastboot Not Active!")
             time.sleep(2)
             sys.exit(1)
