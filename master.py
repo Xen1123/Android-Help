@@ -1,8 +1,8 @@
 import os, subprocess, shutil, sys, time, argparse, urllib.request
 from pathlib import Path
 
-adb_path1 = subprocess.run(["which", "adb"], capture_output=True, text=True)
-if not adb_path1.stdout.strip():
+adbPath1 = subprocess.run(["which", "adb"], capture_output=True, text=True)
+if not adbPath1.stdout.strip():
     input("ADB NOT AVAILABLE ")
     sys.exit(1)
 
@@ -237,19 +237,19 @@ def main():
                             subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                             clear()
     
-    adb_path = shutil.which("adb")
-    if adb_path:
-        print(f"\nADB Found At: {adb_path}")
+    adbPath = shutil.which("adb")
+    if adbPath:
+        print(f"\nADB Found At: {adbPath}")
     else:
         print("\nADB Not Found, It May Not Be Installed Or In Your Path!")
-    fastboot_path = shutil.which("fastboot")
-    if fastboot_path:
-        print(f"\nFastboot Found At: {fastboot_path}")
+    fastbootPath = shutil.which("fastboot")
+    if fastbootPath:
+        print(f"\nFastboot Found At: {fastbootPath}")
     else:
         print("\nFastboot Not Found, It May Not Be Installed Or In Your Path!")
     if args.debloat:
         print("\nDebloating Device!")
-        if not adb_path:
+        if not adbPath:
             input("ADB NOT AVAILABLE ")
             sys.exit(1)
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=True)
@@ -266,9 +266,9 @@ def main():
             pass
 
 
-        root_result = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
+        rootResult = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
         if args.root:
-            if "root" in root_result.stdout:
+            if "root" in rootResult.stdout:
                 verboseClear()
                 for app in apps:
                     if app in installed_apps:
@@ -298,7 +298,7 @@ def main():
                                 print(f"\nUninstalling: {app}")
                                 subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 verboseClear()
-            elif not "root" in root_result.stdout:
+            elif not "root" in rootResult.stdout:
                 input("\n❌ Root not detected! Please click to continue! ❌  ")
                 sys.exit(1)
 
@@ -452,7 +452,7 @@ def main():
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 verboseClear()
     
-        if root_result.stdout.strip() != "root":
+        if rootResult.stdout.strip() != "root":
             applist()
             confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (Y/n)\n")
             if confirm.lower() == "n":
@@ -470,7 +470,7 @@ def main():
                 else:
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 verboseClear()
-        elif "root" in root_result.stdout:
+        elif "root" in rootResult.stdout:
             applist()
             confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n")
             if confirm.lower() == "n":
@@ -479,16 +479,16 @@ def main():
                 verboseClear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
                 url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.5/bindhosts.zip"
-                filename = "Bind_Hosts.zip"
+                filename = "bindHosts.zip"
                 urllib.request.urlretrieve(url, filename)
                 if args.verbose:
-                    subprocess.run(["adb", "push", "./Bind_Hosts.zip", "/sdcard/"])
+                    subprocess.run(["adb", "push", "./bindHosts.zip", "/sdcard/"])
                 else:
-                    subprocess.run(["adb", "push", "./Bind_Hosts.zip", "/sdcard/"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                bindcheck = subprocess.run(["adb", "shell", "ls", "/sdcard"], capture_output=True, text=True)
-                if "Bind_Hosts.zip" in bindcheck.stdout:
+                    subprocess.run(["adb", "push", "./bindHosts.zip", "/sdcard/"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                bindCheck = subprocess.run(["adb", "shell", "ls", "/sdcard"], capture_output=True, text=True)
+                if "bindHosts.zip" in bindCheck.stdout:
                     applist()
-                    print("Bind Hosts -- Bind_Hosts.zip\n")
+                    print("Bind Hosts -- bindHosts.zip\n")
                 input("You'll have to flash this as a zip through Magisk (or your preferred root manager), it isn't a standalone APK. Click to continue!\n")
                 if "com.topjohnwu.magisk" in installed_apps_str:
                     input("Open Magisk app? (Y/n) ")
@@ -564,18 +564,18 @@ def main():
                     "vendor_kernel_boot",
                 ]
                 for part in images:
-                    file_path = Path(f"{part}.img")
+                    filePath = Path(f"{part}.img")
 
                     if args.verbose:
-                        if file_path.is_file():
-                            subprocess.run(["fastboot", "flash", part, file_path])
+                        if filePath.is_file():
+                            subprocess.run(["fastboot", "flash", part, filePath])
 
                         else:
                             pass
                     else:
-                        if file_path.is_file():
+                        if filePath.is_file():
                             print(f"\nFlashing {part}.img")
-                            subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(["fastboot", "flash", part, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                         else:
                             pass
                 time.sleep(2)
@@ -595,16 +595,16 @@ def main():
                         "vendor_kernel_boot",
                     ]
                 for log in logicals_full:
-                    file_path = Path(f"{log}.img")
+                    filePath = Path(f"{log}.img")
                     if args.verbose:
-                        if file_path.is_file():
-                            subprocess.run(["fastboot", "flash", log, file_path])
+                        if filePath.is_file():
+                            subprocess.run(["fastboot", "flash", log, filePath])
                         else:
                             pass
                     else:
-                        if file_path.is_file():
+                        if filePath.is_file():
                             print(f"\nFlashing {log}.img")
-                            subprocess.run(["fastboot", "flash", log, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(["fastboot", "flash", log, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                         else:
                             pass
                 else:
@@ -633,16 +633,16 @@ def main():
                     "vendor_kernel_boot",
                 ]
                 for part in images:
-                    file_path = Path(f"{part}.img")
+                    filePath = Path(f"{part}.img")
                     if args.verbose:
-                        if file_path.is_file():
-                            subprocess.run(["fastboot", "flash", part, file_path])
+                        if filePath.is_file():
+                            subprocess.run(["fastboot", "flash", part, filePath])
                         else:
                             pass
                     else:
-                        if file_path.is_file():
+                        if filePath.is_file():
                             print(f"\nFlashing {part}.img")
-                            subprocess.run(["fastboot", "flash", part, file_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(["fastboot", "flash", part, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                         else:
                             pass
             time.sleep(2)
