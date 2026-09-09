@@ -42,26 +42,42 @@ else:
         else:
             input("\nADB was not found as an executable! Please make sure it is installed and/or in your path, then click to continue! ")
             sys.exit(1)
+        deviceCheck = subprocess.run(["adb", "devices"], capture_output=True, text=True)
+        if not "device" in deviceCheck:
+            print("Your device was not detected! Please make sure USB Debugging is enabled and allowed, your cable may also just not be connecting to the phone/tablet!")
+            time.sleep(3)
+            sys.exit(1)
+        elif "unauthorized" in deviceCheck:
+            print("Device is unauthorized! Please make sure your device has accepted your computer!")
+            time.sleep(2)
+            sys.exit(1)
+        else:
+            pass
         result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
         installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
         if args.noRoot:
             for app in result:
                 appDis = input("""\nRemove {app}? (y/N)
                 """)
-                if appDis.lower() in ("n", "no", "nah", "nn"):
+                if appDis.lower() in ("y", "ye", "ys", "yeah", "yes"):
                     subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
                 else:
                     pass
+                    
         elif args.root:
             rootCheck = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
             if "root" in rootCheck.stdout:
                 for app in result:
                     rootRemove = input("""\nRemove {app}? (y/N)
                     """)
-                    if rootRemove.lower() in ("n", "no", "nah", "nn"):
+                    if rootRemove.lower() in ("y", "ye", "ys", "yeah", "yes"):
                         subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
-                    else:
+                    elif:
                         pass
+            else:
+                input("""You do not have an accessible root interface! Click to continue!
+                """)
+                sys.exit(1)
 
 if __name__ == "__main__":
     main()
