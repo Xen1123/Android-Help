@@ -1,4 +1,10 @@
-import os, subprocess, shutil, sys, time, argparse, urllib.request
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+import time
+import urllib.request
 from pathlib import Path
 
 adbPath1 = subprocess.run(["which", "adb"], capture_output=True, text=True)
@@ -6,8 +12,12 @@ if not adbPath1.stdout.strip():
     input("ADB NOT AVAILABLE ")
     sys.exit(1)
 
-result_choice = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
-installed_apps_choice = [line.replace("package:", "").strip() for line in result_choice.stdout.splitlines()]
+result_choice = subprocess.run(
+    ["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True
+)
+installed_apps_choice = [
+    line.replace("package:", "").strip() for line in result_choice.stdout.splitlines()
+]
 
 apps = [
     "com.samsung.sree",
@@ -136,11 +146,18 @@ gFULL = [
     "com.google.android.youtube",
 ]
 
-result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
-installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
+result = subprocess.run(
+    ["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True
+)
+installed_apps = [
+    line.replace("package:", "").strip() for line in result.stdout.splitlines()
+]
+
 
 def clear():
     print("\033[2J\033[3J\033[1;1H")
+
+
 clear()
 
 print("""
@@ -152,69 +169,97 @@ print("""
 ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═════╝ 
 """)
 
+
 def main():
     parser = argparse.ArgumentParser(
-            description="Multi-Device Tool For Debloating And Flashing",
-            epilog="Example: python master.py --debloat --noroot --verbose",
+        description="Multi-Device Tool For Debloating And Flashing",
+        epilog="Example: python master.py --debloat --noroot --verbose",
     )
-    
-    main_group = parser.add_mutually_exclusive_group(required=True)
-    parser.add_argument("--verbose", action="store_true", help="Shows ALL Logs And Doesn't Clear The Terminal") 
-    main_group.add_argument("--debloat", action="store_true", help="Debloat An Android Device With ADB")
-    main_group.add_argument("--flash", action="store_true", help="Flash Firmware (or ROMs) To An Android Device With Fastboot")
-    parser.add_argument("--root", action="store_true", help="Debloat An Android Device With Root Permissions, Deleting The App")
-    parser.add_argument("--noroot", action="store_true", help="Debloat An Android Device Without Root Access, Disables Apps")
 
-    parser.add_argument("--full", action="store_true", help="Flashes ALL Firmware To An Android Device, Includes Bootloader Images")
-    parser.add_argument("--logical", action="store_true", help="Flashes JUST Android Partitions To A Phone, Skipping Risky Bootloader Images")
+    main_group = parser.add_mutually_exclusive_group(required=True)
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Shows ALL Logs And Doesn't Clear The Terminal",
+    )
+    main_group.add_argument(
+        "--debloat", action="store_true", help="Debloat An Android Device With ADB"
+    )
+    main_group.add_argument(
+        "--flash",
+        action="store_true",
+        help="Flash Firmware (or ROMs) To An Android Device With Fastboot",
+    )
+    parser.add_argument(
+        "--root",
+        action="store_true",
+        help="Debloat An Android Device With Root Permissions, Deleting The App",
+    )
+    parser.add_argument(
+        "--noroot",
+        action="store_true",
+        help="Debloat An Android Device Without Root Access, Disables Apps",
+    )
+
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Flashes ALL Firmware To An Android Device, Includes Bootloader Images",
+    )
+    parser.add_argument(
+        "--logical",
+        action="store_true",
+        help="Flashes JUST Android Partitions To A Phone, Skipping Risky Bootloader Images",
+    )
 
     args = parser.parse_args()
-    
+
     if not args.debloat and not args.flash:
         parser.print_help()
         input("\nClick Any Key To Exit")
         sys.exit(1)
-    
+
     def verboseClear():
         if not args.verbose:
             clear()
+
     gstandard_mapping = {
-            "com.google.android.apps.photos": "Google Photos",
-            "com.google.android.apps.nbu.files": "Files by Google",
-            "com.google.android.calendar": "Google Calendar",
-            "com.google.android.gm": "Gmail",
-            "com.google.android.apps.maps": "Google Maps",
-            "com.google.android.apps.searchlite": "Google Lite",
-            "com.google.android.apps.mapslite": "Maps Lite",
-            "com.android.chrome": "the Google Chrome App",
-            "com.chrome.beta": "the Google Chrome Beta App",
-            "com.chrome.canary": "the Google Chrome Canary App",
-            "com.chrome.dev": "the Google Chrome Developer App",
-            "com.google.android.youtube": "Youtube",
-            "com.google.android.googlequicksearchbox": "Google Search App",
-            "com.google.android.apps.bard": "the Google Gemini App",
-            "com.google.android.apps.messaging": "the Google Messages App",
-            "com.google.android.dialer": "the Google Phone App",
-            "com.google.android.contacts": "the Google Contacts App",
-            "com.google.android.calculator": "the Google Calculator App",
-            "com.google.android.apps.wear.companion": "the Google Pixel Watch App",
-            "com.google.android.apps.translate": "Google Translate",
-            "com.android.contacts": "the Android Contacts App",
-            "com.android.dialer": "the Android Dialer App",
-            "com.lineageos.aperture": "the LineageOS camera app",
-            "com.android.messaging": "the Android messaging app",
-            "com.android.deskclock": "the Android clock app",
-            "org.lineageos.audiofx": "AudioFX",
-            "com.android.calculator2": "the Android Calculator",
-            "org.lineageos.jelly": "the LineageOS Browser",
-            "org.lineageos.etar": "the LineageOS Calendar App",
-            "org.lineageos.glimpse": "the LineageOS gallery app",
-            "org.lineageos.twelve": "the LineageOS Music Player App",
-            "org.lineageos.recorder": "the LineageOS Audio Recorder App",
-            "com.google.android.apps.recorder": "Google's Recorder App",
-            "com.google.android.apps.pixel.nowplaying": "Google's Now Playing App",
+        "com.google.android.apps.photos": "Google Photos",
+        "com.google.android.apps.nbu.files": "Files by Google",
+        "com.google.android.calendar": "Google Calendar",
+        "com.google.android.gm": "Gmail",
+        "com.google.android.apps.maps": "Google Maps",
+        "com.google.android.apps.searchlite": "Google Lite",
+        "com.google.android.apps.mapslite": "Maps Lite",
+        "com.android.chrome": "the Google Chrome App",
+        "com.chrome.beta": "the Google Chrome Beta App",
+        "com.chrome.canary": "the Google Chrome Canary App",
+        "com.chrome.dev": "the Google Chrome Developer App",
+        "com.google.android.youtube": "Youtube",
+        "com.google.android.googlequicksearchbox": "Google Search App",
+        "com.google.android.apps.bard": "the Google Gemini App",
+        "com.google.android.apps.messaging": "the Google Messages App",
+        "com.google.android.dialer": "the Google Phone App",
+        "com.google.android.contacts": "the Google Contacts App",
+        "com.google.android.calculator": "the Google Calculator App",
+        "com.google.android.apps.wear.companion": "the Google Pixel Watch App",
+        "com.google.android.apps.translate": "Google Translate",
+        "com.android.contacts": "the Android Contacts App",
+        "com.android.dialer": "the Android Dialer App",
+        "com.lineageos.aperture": "the LineageOS camera app",
+        "com.android.messaging": "the Android messaging app",
+        "com.android.deskclock": "the Android clock app",
+        "org.lineageos.audiofx": "AudioFX",
+        "com.android.calculator2": "the Android Calculator",
+        "org.lineageos.jelly": "the LineageOS Browser",
+        "org.lineageos.etar": "the LineageOS Calendar App",
+        "org.lineageos.glimpse": "the LineageOS gallery app",
+        "org.lineageos.twelve": "the LineageOS Music Player App",
+        "org.lineageos.recorder": "the LineageOS Audio Recorder App",
+        "com.google.android.apps.recorder": "Google's Recorder App",
+        "com.google.android.apps.pixel.nowplaying": "Google's Now Playing App",
     }
-        
+
     def gstandard_choice():
         for package, display_name in gstandard_mapping.items():
             if package in installed_apps_choice:
@@ -224,19 +269,67 @@ def main():
                 else:
                     if args.noroot:
                         if args.verbose:
-                            subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package])
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "pm",
+                                    "disable-user",
+                                    "--user",
+                                    "0",
+                                    package,
+                                ]
+                            )
                         else:
                             print(f"Removing: {package}")
-                            subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "pm",
+                                    "disable-user",
+                                    "--user",
+                                    "0",
+                                    package,
+                                ],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
                             clear()
                     if args.root:
                         if args.verbose:
-                            subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package])
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "su",
+                                    "-c",
+                                    "pm",
+                                    "uninstall",
+                                    "--user",
+                                    "0",
+                                    package,
+                                ]
+                            )
                         else:
                             print(f"Removing: {package}")
-                            subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "su",
+                                    "-c",
+                                    "pm",
+                                    "uninstall",
+                                    "--user",
+                                    "0",
+                                    package,
+                                ],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
                             clear()
-    
+
     adbPath = shutil.which("adb")
     if adbPath:
         print(f"\nADB Found At: {adbPath}")
@@ -252,7 +345,9 @@ def main():
         if not adbPath:
             input("ADB NOT AVAILABLE ")
             sys.exit(1)
-        result = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            ["adb", "devices"], capture_output=True, text=True, check=True
+        )
         if "device" not in result.stdout.split():
             input("\nNo Device! Click to continue!\n")
             sys.exit(1)
@@ -265,27 +360,55 @@ def main():
         if "device" in result.stdout.split():
             pass
 
-
-        rootResult = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
+        rootResult = subprocess.run(
+            ["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True
+        )
         if args.root:
             if "root" in rootResult.stdout:
                 verboseClear()
                 for app in apps:
                     if app in installed_apps:
                         if args.verbose:
-                            subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "su",
+                                    "-c",
+                                    "pm",
+                                    "uninstall",
+                                    "--user",
+                                    "0",
+                                    app,
+                                ]
+                            )
                         else:
                             print(f"\nUninstalling: {app}")
-                            subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "su",
+                                    "-c",
+                                    "pm",
+                                    "uninstall",
+                                    "--user",
+                                    "0",
+                                    app,
+                                ],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
                     else:
                         pass
                 verboseClear()
 
-                
                 gstandard_choice()
 
                 verboseClear()
-                confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n")
+                confirm = input(
+                    "\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n"
+                )
                 if confirm.lower() != "y":
                     verboseClear()
                 if confirm.lower() == "y":
@@ -293,10 +416,36 @@ def main():
                     for app in gFULL:
                         if app in installed_apps:
                             if args.verbose:
-                                subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
+                                subprocess.run(
+                                    [
+                                        "adb",
+                                        "shell",
+                                        "su",
+                                        "-c",
+                                        "pm",
+                                        "uninstall",
+                                        "--user",
+                                        "0",
+                                        app,
+                                    ]
+                                )
                             else:
                                 print(f"\nUninstalling: {app}")
-                                subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                subprocess.run(
+                                    [
+                                        "adb",
+                                        "shell",
+                                        "su",
+                                        "-c",
+                                        "pm",
+                                        "uninstall",
+                                        "--user",
+                                        "0",
+                                        app,
+                                    ],
+                                    stdout=subprocess.DEVNULL,
+                                    stderr=subprocess.DEVNULL,
+                                )
                 verboseClear()
             elif not "root" in rootResult.stdout:
                 input("\n❌ Root not detected! Please click to continue! ❌  ")
@@ -307,10 +456,16 @@ def main():
             for app in apps:
                 if app in installed_apps:
                     if args.verbose:
-                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                        subprocess.run(
+                            ["adb", "shell", "pm", "disable-user", "--user", "0", app]
+                        )
                     else:
                         print(f"\nDisabling: {app}")
-                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                        subprocess.run(
+                            ["adb", "shell", "pm", "disable-user", "--user", "0", app],
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL,
+                        )
                 else:
                     pass
             verboseClear()
@@ -318,7 +473,9 @@ def main():
             gstandard_choice()
 
             verboseClear()
-            confirm = input("\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n")
+            confirm = input(
+                "\nRemove The Important Google Apps? (Play Services and Play Store + apps that depend on them) (y/N)\n"
+            )
             if confirm.lower() != "y":
                 verboseClear()
             elif confirm.lower() == "y":
@@ -326,11 +483,33 @@ def main():
                 for app in gFULL:
                     if app in installed_apps:
                         if args.verbose:
-                            subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "pm",
+                                    "disable-user",
+                                    "--user",
+                                    "0",
+                                    app,
+                                ]
+                            )
                         else:
                             print(f"\nDisabling: {app}")
-                            subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    
+                            subprocess.run(
+                                [
+                                    "adb",
+                                    "shell",
+                                    "pm",
+                                    "disable-user",
+                                    "--user",
+                                    "0",
+                                    app,
+                                ],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
+
         folder = "APK-Holding"
         if os.path.isdir(folder):
             shutil.rmtree("./APK-Holding")
@@ -353,35 +532,47 @@ def main():
             "com.aurora.store": "Aurora Store",
             "sh.haven.app": "Haven SSH Client",
         }
-     
+
         def applist():
             print("\nApplications Installed:")
-            result = subprocess.run(["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True)
+            result = subprocess.run(
+                ["adb", "shell", "pm", "list", "packages"],
+                capture_output=True,
+                text=True,
+            )
             installed_apps_str = result.stdout
             for package, display_name in app_mapping.items():
                 if package in installed_apps_str:
                     print(f"{display_name} -- {package}")
-    
+
         applist()
-        confirm = input("\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (Y/n)\n")
+        confirm = input(
+            "\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (Y/n)\n"
+        )
         if confirm.lower() == "n":
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
-            print(f"\nGrabbing Aurora APK From Web!")
+            print("\nGrabbing Aurora APK From Web!")
             url = "https://f-droid.org/repo/com.aurora.store_76.apk"
             file = "Aurora_Store.apk"
             urllib.request.urlretrieve(url, file)
-    
-            print(f"\nInstalling Aurora Store!")
+
+            print("\nInstalling Aurora Store!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
             else:
-                subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "install", "-r", "Aurora_Store.apk"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
                 verboseClear()
 
         applist()
-        confirm = input("\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n")
+        confirm = input(
+            "\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n"
+        )
         if confirm.lower() == "n":
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
@@ -390,17 +581,23 @@ def main():
             url = "https://github.com/Droid-ify/client/releases/download/v0.7.7/app-release.apk"
             file = "Droidify.apk"
             urllib.request.urlretrieve(url, file)
-    
+
             print("\nInstalling Droidify!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "Droidify.apk"])
             else:
-                subprocess.run(["adb", "install", "-r", "Droidify.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "install", "-r", "Droidify.apk"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
             verboseClear()
 
         applist()
-        confirm = input("\nInstall Haven SSH Client? It's a beautiful SSHH client for Android, great for when you just want to quickly log in to your server! (Y/n)\n")
-        if confirm.lower() == 'n':
+        confirm = input(
+            "\nInstall Haven SSH Client? It's a beautiful SSHH client for Android, great for when you just want to quickly log in to your server! (Y/n)\n"
+        )
+        if confirm.lower() == "n":
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
@@ -413,7 +610,11 @@ def main():
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "Haven.apk"])
             else:
-                subprocess.run(["adb", "install", "-r", "Haven.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "install", "-r", "Haven.apk"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
             verboseClear()
 
         applist()
@@ -423,19 +624,25 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing ArchiveTune APK From Web!")
-            url = "https://github.com/rukamori/ArchiveTune/releases/download/v14.1.0/app-foss-mobile-universal-release.apk"
+            url = "https://github.com/rukamori/ArchiveTune/releases/download/v15.0.0/app-foss-mobile-universal-release.apk"
             file_name = "ArchiveTune.apk"
             urllib.request.urlretrieve(url, file_name)
-    
+
             print("\nInstalling ArchiveTune!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"])
             else:
-                subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "install", "-r", "ArchiveTune.apk"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
             verboseClear()
-    
+
         applist()
-        confirm = input("\nInstall Localsend? [Basically Open Source Android AirDrop] (Y/n)\n")
+        confirm = input(
+            "\nInstall Localsend? [Basically Open Source Android AirDrop] (Y/n)\n"
+        )
         if confirm.lower() == "n":
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
@@ -444,17 +651,23 @@ def main():
             url = "https://github.com/localsend/localsend/releases/download/v1.18.2/LocalSend-1.18.2-android-arm64v8.apk"
             file = "Localsend.apk"
             urllib.request.urlretrieve(url, file)
-    
+
             print("\nInstalling Localsend!")
             if args.verbose:
                 subprocess.run(["adb", "install", "-r", "Localsend.apk"])
             else:
-                subprocess.run(["adb", "install", "-r", "Localsend.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["adb", "install", "-r", "Localsend.apk"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
                 verboseClear()
-    
+
         if rootResult.stdout.strip() != "root":
             applist()
-            confirm = input("\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (Y/n)\n")
+            confirm = input(
+                "\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (Y/n)\n"
+            )
             if confirm.lower() == "n":
                 verboseClear()
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
@@ -463,16 +676,22 @@ def main():
                 url = "https://github.com/topjohnwu/Magisk/releases/download/v31.0/Magisk-v31.0.apk"
                 file = "Magisk.Apk"
                 urllib.request.urlretrieve(url, file)
-    
+
                 print("\nInstalling Magisk!")
                 if args.verbose:
                     subprocess.run(["adb", "install", "-r", "Magisk.apk"])
                 else:
-                    subprocess.run(["adb", "install", "-r", "Magisk.apk"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    subprocess.run(
+                        ["adb", "install", "-r", "Magisk.apk"],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
                 verboseClear()
         elif "root" in rootResult.stdout:
             applist()
-            confirm = input("\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n")
+            confirm = input(
+                "\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n"
+            )
             if confirm.lower() == "n":
                 verboseClear()
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
@@ -484,22 +703,50 @@ def main():
                 if args.verbose:
                     subprocess.run(["adb", "push", "./bindHosts.zip", "/sdcard/"])
                 else:
-                    subprocess.run(["adb", "push", "./bindHosts.zip", "/sdcard/"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                bindCheck = subprocess.run(["adb", "shell", "ls", "/sdcard"], capture_output=True, text=True)
+                    subprocess.run(
+                        ["adb", "push", "./bindHosts.zip", "/sdcard/"],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                bindCheck = subprocess.run(
+                    ["adb", "shell", "ls", "/sdcard"], capture_output=True, text=True
+                )
                 if "bindHosts.zip" in bindCheck.stdout:
                     applist()
                     print("Bind Hosts -- bindHosts.zip\n")
-                input("You'll have to flash this as a zip through Magisk (or your preferred root manager), it isn't a standalone APK. Click to continue!\n")
+                input(
+                    "You'll have to flash this as a zip through Magisk (or your preferred root manager), it isn't a standalone APK. Click to continue!\n"
+                )
                 if "com.topjohnwu.magisk" in installed_apps_str:
                     input("Open Magisk app? (Y/n) ")
                     if confirm.lower() == "n":
                         pass
-                    elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-                        subprocess.run(["adb", "shell", "am", "start", "-n", "com.topjohnwu.magisk/.ui.MainActivity"], stdout=subprocces.DEVNULL, stderr=subprocess.DEVNULL)
+                    elif confirm.lower() in (
+                        "y",
+                        "yes",
+                        "ye",
+                        "yeah",
+                        "",
+                        "yess",
+                        "yy",
+                        "ys",
+                    ):
+                        subprocess.run(
+                            [
+                                "adb",
+                                "shell",
+                                "am",
+                                "start",
+                                "-n",
+                                "com.topjohnwu.magisk/.ui.MainActivity",
+                            ],
+                            stdout=subprocces.DEVNULL,
+                            stderr=subprocess.DEVNULL,
+                        )
                     verboseClear()
                 else:
                     verboseClear()
-    
+
         os.chdir("../")
         shutil.rmtree("./APK-Holding")
 
@@ -510,15 +757,25 @@ def main():
         if args.verbose:
             subprocess.run(["fastboot", "reboot", "bootloader"])
         else:
-            subprocess.run(["fastboot", "reboot", "bootloader"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(
+                ["fastboot", "reboot", "bootloader"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
         time.sleep(15)
-        fastboot_devices = subprocess.run(["fastboot", "devices"], capture_output=True, text=True, check=True)
+        fastboot_devices = subprocess.run(
+            ["fastboot", "devices"], capture_output=True, text=True, check=True
+        )
         if fastboot_devices.stdout:
             print("Fastboot Active!")
             if args.verbose:
                 subprocess.run(["fastboot", "--set-active=a"])
             else:
-                subprocess.run(["fastboot", "--set-active=a"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(
+                    ["fastboot", "--set-active=a"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
             if args.full:
                 images = [
                     "boot",
@@ -575,7 +832,11 @@ def main():
                     else:
                         if filePath.is_file():
                             print(f"\nFlashing {part}.img")
-                            subprocess.run(["fastboot", "flash", part, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(
+                                ["fastboot", "flash", part, filePath],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
                         else:
                             pass
                 time.sleep(2)
@@ -583,17 +844,21 @@ def main():
                 if args.verbose:
                     subprocess.run(["fastboot", "reboot", "fastboot"])
                 else:
-                    subprocess.run(["fastboot", "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    subprocess.run(
+                        ["fastboot", "reboot", "fastboot"],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
                 logicals_full = [
-                        "product",
-                        "vendor",
-                        "vendor_dlkm",
-                        "system_ext",
-                        "system_dlkm",
-                        "system",
-                        "odm",
-                        "vendor_kernel_boot",
-                    ]
+                    "product",
+                    "vendor",
+                    "vendor_dlkm",
+                    "system_ext",
+                    "system_dlkm",
+                    "system",
+                    "odm",
+                    "vendor_kernel_boot",
+                ]
                 for log in logicals_full:
                     filePath = Path(f"{log}.img")
                     if args.verbose:
@@ -604,16 +869,22 @@ def main():
                     else:
                         if filePath.is_file():
                             print(f"\nFlashing {log}.img")
-                            subprocess.run(["fastboot", "flash", log, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(
+                                ["fastboot", "flash", log, filePath],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
                         else:
                             pass
-                else:
-                    pass
             if args.logical:
                 if args.verbose:
                     subprocess.run(["fastboot", "reboot", "fastboot"])
                 else:
-                    subprocess.run(["fastboot", "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    subprocess.run(
+                        ["fastboot", "reboot", "fastboot"],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
                 images = [
                     "boot",
                     "dtbo",
@@ -642,7 +913,11 @@ def main():
                     else:
                         if filePath.is_file():
                             print(f"\nFlashing {part}.img")
-                            subprocess.run(["fastboot", "flash", part, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            subprocess.run(
+                                ["fastboot", "flash", part, filePath],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                            )
                         else:
                             pass
             time.sleep(2)
@@ -654,6 +929,6 @@ def main():
     if not args.debloat and not args.flash:
         parser.print_help()
 
+
 if __name__ == "__main__":
     main()
- 
