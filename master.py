@@ -602,7 +602,7 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Haven APK From Web!")
-            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.77/haven-5.87.77-arm64-release.apk"
+            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.79/haven-5.87.79-arm64-release.apk"
             file = "Haven.apk"
             urllib.request.urlretrieve(url, file)
 
