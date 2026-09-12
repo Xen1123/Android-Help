@@ -42,7 +42,6 @@ apps = [
     "com.sec.android.app.ve.vebgm",
     "com.sec.android.widgetapp.samsungapps",
     "com.audible.application",
-    "com.google.ar.core",
     "com.sec.android.preloadinstaller",
     "com.sec.android.daemonapp",
     "com.google.android.music",
@@ -740,7 +739,7 @@ def main():
                                 "-n",
                                 "com.topjohnwu.magisk/.ui.MainActivity",
                             ],
-                            stdout=subprocces.DEVNULL,
+                            stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL,
                         )
                     verboseClear()
