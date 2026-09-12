@@ -18,6 +18,7 @@ Android-Help/
 ├── assets/ 🖼️
 │   ├── Android-Logo.png 🖼️
 │   ├── master.png 🖼️
+│   └── README.md ✍️
 ├── Documents/ 📄
 │   ├── Root-Guide.md 📄
 │   └── Stock-Firmware.md 📄
