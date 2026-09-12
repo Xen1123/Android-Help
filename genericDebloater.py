@@ -57,7 +57,7 @@ else:
         installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
         if args.noRoot:
             for app in result:
-                appDis = input("""\nRemove {app}? (y/N)
+                appDis = input(f"""\nRemove {app}? (y/N)
                 """)
                 if appDis.lower() in ("y", "ye", "ys", "yeah", "yes"):
                     subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
@@ -68,16 +68,24 @@ else:
             rootCheck = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
             if "root" in rootCheck.stdout:
                 for app in result:
-                    rootRemove = input("""\nRemove {app}? (y/N)
+                    rootRemove = input(f"""\nRemove {app}? (y/N)
                     """)
                     if rootRemove.lower() in ("y", "ye", "ys", "yeah", "yes"):
                         subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
                     elif:
                         pass
             else:
-                input("""You do not have an accessible root interface! Click to continue!
+                confirm = input("""You do not have an accessible root interface! Would you like to switch to disabling? (Y/n)
                 """)
-                sys.exit(1)
+                if confirm.lower() in ("y", "", "ye", "ys", "yeah", "yea", "yy", "yeas"):
+                    appDis = input(f"""\nRemove {app}? (y/N)
+                    """)
+                    if appDis.lower() in ("y", "ye", "ys", "yeah", "yes"):
+                        subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
+                    else:
+                        pass
+                else:
+                    sys.exit(1)
 
 if __name__ == "__main__":
     main()
