@@ -456,12 +456,28 @@ def main():
                 if app in installed_apps:
                     if args.verbose:
                         subprocess.run(
-                            ["adb", "shell", "pm", "disable-user", "--user", "0", app]
+                            [
+                                "adb",
+                                "shell",
+                                "pm",
+                                "disable-user",
+                                "--user",
+                                "0",
+                                app,
+                            ],
                         )
                     else:
                         print(f"\nDisabling: {app}")
                         subprocess.run(
-                            ["adb", "shell", "pm", "disable-user", "--user", "0", app],
+                            [
+                                "adb",
+                                "shell",
+                                "pm",
+                                "disable-user",
+                                "--user",
+                                "0",
+                                app,
+                            ],
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL,
                         )
@@ -554,15 +570,27 @@ def main():
             verboseClear()
             print("\nGrabbing Aurora APK From Web!")
             url = "https://f-droid.org/repo/com.aurora.store_76.apk"
-            file = "Aurora_Store.apk"
+            file = "auroraStore.apk"
             urllib.request.urlretrieve(url, file)
 
             print("\nInstalling Aurora Store!")
             if args.verbose:
-                subprocess.run(["adb", "install", "-r", "Aurora_Store.apk"])
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "auroraStore.apk"
+                    ],
+                )
             else:
                 subprocess.run(
-                    ["adb", "install", "-r", "Aurora_Store.apk"],
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "auroraStore.apk"
+                    ],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -583,10 +611,22 @@ def main():
 
             print("\nInstalling Droidify!")
             if args.verbose:
-                subprocess.run(["adb", "install", "-r", "Droidify.apk"])
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Droidify.apk"
+                    ],
+                )
             else:
                 subprocess.run(
-                    ["adb", "install", "-r", "Droidify.apk"],
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Droidify.apk"
+                    ],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -601,16 +641,28 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Haven APK From Web!")
-            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.79/haven-5.87.79-arm64-release.apk"
+            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.82/haven-5.87.82-arm64-release.apk"
             file = "Haven.apk"
             urllib.request.urlretrieve(url, file)
 
             print("\nInstalling Haven!")
             if args.verbose:
-                subprocess.run(["adb", "install", "-r", "Haven.apk"])
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Haven.apk"
+                    ],
+                )
             else:
                 subprocess.run(
-                    ["adb", "install", "-r", "Haven.apk"],
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Haven.apk"
+                    ],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -629,10 +681,22 @@ def main():
 
             print("\nInstalling ArchiveTune!")
             if args.verbose:
-                subprocess.run(["adb", "install", "-r", "ArchiveTune.apk"])
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "ArchiveTune.apk"
+                    ],
+                )
             else:
                 subprocess.run(
-                    ["adb", "install", "-r", "ArchiveTune.apk"],
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "ArchiveTune.apk"
+                    ],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -653,10 +717,22 @@ def main():
 
             print("\nInstalling Localsend!")
             if args.verbose:
-                subprocess.run(["adb", "install", "-r", "Localsend.apk"])
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Localsend.apk"
+                    ],
+                )
             else:
                 subprocess.run(
-                    ["adb", "install", "-r", "Localsend.apk"],
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Localsend.apk"
+                    ],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -677,14 +753,26 @@ def main():
                 urllib.request.urlretrieve(url, file)
 
                 print("\nInstalling Magisk!")
-                if args.verbose:
-                    subprocess.run(["adb", "install", "-r", "Magisk.apk"])
-                else:
-                    subprocess.run(
-                        ["adb", "install", "-r", "Magisk.apk"],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
+            if args.verbose:
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Magisk.apk"
+                    ],
+                )
+            else:
+                subprocess.run(
+                    [
+                        "adb",
+                        "install",
+                        "-r",
+                        "Magisk.apk"
+                    ],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
                 verboseClear()
         elif "root" in rootResult.stdout:
             applist()
@@ -700,15 +788,33 @@ def main():
                 filename = "bindHosts.zip"
                 urllib.request.urlretrieve(url, filename)
                 if args.verbose:
-                    subprocess.run(["adb", "push", "./bindHosts.zip", "/sdcard/"])
-                else:
                     subprocess.run(
-                        ["adb", "push", "./bindHosts.zip", "/sdcard/"],
+                        [
+                            "adb",
+                            "push",
+                            "./bindHosts.zip",
+                            "/sdcard/"
+                        ],
+                    )
+                    subprocess.run(
+                        [
+                            "adb",
+                            "push",
+                            "./bindHosts.zip",
+                            "/sdcard/",
+                        ],
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
                 bindCheck = subprocess.run(
-                    ["adb", "shell", "ls", "/sdcard"], capture_output=True, text=True
+                    [
+                        "adb",
+                        "shell",
+                        "ls",
+                        "/sdcard",
+                    ],
+                    capture_output=True,
+                    text=True,
                 )
                 if "bindHosts.zip" in bindCheck.stdout:
                     applist()
@@ -752,26 +858,56 @@ def main():
     if args.flash:
         print("Rebooting Device Into Fastboot!")
         time.sleep(1)
-        subprocess.run(["adb", "reboot", "bootloader"])
+        subprocess.run(
+            [
+                "adb",
+                "reboot",
+                "bootloader",
+            ],
+        )
         if args.verbose:
-            subprocess.run(["fastboot", "reboot", "bootloader"])
+            subprocess.run(
+                [
+                    "fastboot",
+                    "reboot",
+                    "bootloader",
+                ],
+            )
         else:
             subprocess.run(
-                ["fastboot", "reboot", "bootloader"],
+                [
+                    "fastboot",
+                    "reboot",
+                    "bootloader",
+                ],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
         time.sleep(15)
         fastboot_devices = subprocess.run(
-            ["fastboot", "devices"], capture_output=True, text=True, check=True
+            [
+                "fastboot",
+                "devices",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
         )
         if fastboot_devices.stdout:
             print("Fastboot Active!")
             if args.verbose:
-                subprocess.run(["fastboot", "--set-active=a"])
+                subprocess.run(
+                    [
+                        "fastboot",
+                        "--set-active=a",
+                    ],
+                )
             else:
                 subprocess.run(
-                    ["fastboot", "--set-active=a"],
+                    [
+                        "fastboot",
+                        "--set-active=a",
+                    ],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
@@ -824,7 +960,14 @@ def main():
 
                     if args.verbose:
                         if filePath.is_file():
-                            subprocess.run(["fastboot", "flash", part, filePath])
+                            subprocess.run(
+                                [
+                                    "fastboot",
+                                    "flash",
+                                    part,
+                                    filePath,
+                                ],
+                            )
 
                         else:
                             pass
@@ -832,7 +975,12 @@ def main():
                         if filePath.is_file():
                             print(f"\nFlashing {part}.img")
                             subprocess.run(
-                                ["fastboot", "flash", part, filePath],
+                                [
+                                    "fastboot",
+                                    "flash",
+                                    part,
+                                    filePath,
+                                ],
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL,
                             )
@@ -841,10 +989,20 @@ def main():
                 time.sleep(2)
                 verboseClear()
                 if args.verbose:
-                    subprocess.run(["fastboot", "reboot", "fastboot"])
+                    subprocess.run(
+                        [
+                            "fastboot",
+                            "reboot",
+                            "fastboot",
+                        ],
+                    )
                 else:
                     subprocess.run(
-                        ["fastboot", "reboot", "fastboot"],
+                        [
+                            "fastboot",
+                            "reboot",
+                            "fastboot",
+                        ],
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
@@ -862,14 +1020,26 @@ def main():
                     filePath = Path(f"{log}.img")
                     if args.verbose:
                         if filePath.is_file():
-                            subprocess.run(["fastboot", "flash", log, filePath])
+                            subprocess.run(
+                                [
+                                    "fastboot",
+                                    "flash",
+                                    log,
+                                    filePath,
+                                ],
+                            )
                         else:
                             pass
                     else:
                         if filePath.is_file():
                             print(f"\nFlashing {log}.img")
                             subprocess.run(
-                                ["fastboot", "flash", log, filePath],
+                                [
+                                    "fastboot",
+                                    "flash",
+                                    log,
+                                    filePath,
+                                ],
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL,
                             )
@@ -877,10 +1047,20 @@ def main():
                             pass
             if args.logical:
                 if args.verbose:
-                    subprocess.run(["fastboot", "reboot", "fastboot"])
+                    subprocess.run(
+                        [
+                            "fastboot",
+                            "reboot",
+                            "fastboot",
+                        ],
+                    )
                 else:
                     subprocess.run(
-                        ["fastboot", "reboot", "fastboot"],
+                        [
+                            "fastboot",
+                            "reboot",
+                            "fastboot",
+                        ],
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
@@ -906,14 +1086,26 @@ def main():
                     filePath = Path(f"{part}.img")
                     if args.verbose:
                         if filePath.is_file():
-                            subprocess.run(["fastboot", "flash", part, filePath])
+                            subprocess.run(
+                                [
+                                    "fastboot",
+                                    "flash",
+                                    part,
+                                    filePath,
+                                ],
+                            )
                         else:
                             pass
                     else:
                         if filePath.is_file():
                             print(f"\nFlashing {part}.img")
                             subprocess.run(
-                                ["fastboot", "flash", part, filePath],
+                                [
+                                    "fastboot",
+                                    "flash",
+                                    part,
+                                    filePath,
+                                ],
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL,
                             )
