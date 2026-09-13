@@ -7,8 +7,8 @@ import time
 import urllib.request
 from pathlib import Path
 
-adbPath1 = subprocess.run(["which", "adb"], capture_output=True, text=True)
-if not adbPath1.stdout.strip():
+adbPath1 = shutil.which("adb")
+if not adbPath1:
     input("ADB NOT AVAILABLE ")
     sys.exit(1)
 
