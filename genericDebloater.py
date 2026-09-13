@@ -16,8 +16,7 @@ print("""
 
 
 print("\nThis script is different from master.py, it should be obvious from its name. It's boring. It doesn't really automate much, let you install anything, or have much error handling. It's small and efficient. It will basically read what apps you have installed, then ask 'do you want to remove this app?' for every app while giving you the package name.")
-confirm = input("""\nContinue? (y/N)
-""")
+confirm = input("Continue? (y/N)\n")
 if confirm.lower() in ("n", "no", "na", "nah", "nn", "noo", "nno"):
     clear()
     sys.exit(0)
@@ -33,14 +32,14 @@ else:
         args = parser.parse_args()
         if not args.root and not args.noRoot:
             parser.print_help()
-            input("\nClick Any Key To Exit")
+            input("\nClick Any Key To Exit\n")
             sys.exit(1)
         adbPath = shutil.which("adb")
         if adbPath:
             print(f"\nADB Found: {adbPath}")
             time.sleep(2)
         else:
-            input("\nADB was not found as an executable! Please make sure it is installed and/or in your path, then click to continue! ")
+            input("\nADB was not found as an executable! Please make sure it is installed and/or in your path, then click to continue!\n")
             sys.exit(1)
         deviceCheck = subprocess.run(["adb", "devices"], capture_output=True, text=True)
         if not "device" in deviceCheck:
@@ -57,8 +56,7 @@ else:
         installed_apps = [line.replace("package:", "").strip() for line in result.stdout.splitlines()]
         if args.noRoot:
             for app in result:
-                appDis = input(f"""\nRemove {app}? (y/N)
-                """)
+                appDis = input(f\nRemove {app}? (y/N)\n")
                 if appDis.lower() in ("y", "ye", "ys", "yeah", "yes"):
                     subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
                 else:
@@ -68,18 +66,15 @@ else:
             rootCheck = subprocess.run(["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True)
             if "root" in rootCheck.stdout:
                 for app in result:
-                    rootRemove = input(f"""\nRemove {app}? (y/N)
-                    """)
+                    rootRemove = input(f"\nRemove {app}? (y/N)\n")
                     if rootRemove.lower() in ("y", "ye", "ys", "yeah", "yes"):
                         subprocess.run(["adb", "shell", "su", "-c", "pm", "uninstall", "--user", "0", app])
                     elif:
                         pass
             else:
-                confirm = input("""You do not have an accessible root interface! Would you like to switch to disabling? (Y/n)
-                """)
+                confirm = input("You do not have an accessible root interface! Would you like to switch to disabling? (Y/n)\n")
                 if confirm.lower() in ("y", "", "ye", "ys", "yeah", "yea", "yy", "yeas"):
-                    appDis = input(f"""\nRemove {app}? (y/N)
-                    """)
+                    appDis = input(f"\nRemove {app}? (y/N)\n")
                     if appDis.lower() in ("y", "ye", "ys", "yeah", "yes"):
                         subprocess.run(["adb", "shell", "pm", "disable-user", "--user", "0", app])
                     else:
