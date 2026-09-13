@@ -329,15 +329,12 @@ def main():
                             )
                             clear()
     adbPath = shutil.which("adb")
-    if adbPath:
-        print(f"\nADB Found At: {adbPath}")
-    else:
-        input("\nADB Not Found, It May Not Be Installed Or In Your Path! Click to exit!\n")
-        sys.exit(1)
     if args.debloat:
         print("\nDebloating Device!")
-        if not adbPath:
-            input("ADB NOT AVAILABLE ")
+        if adbPath:
+            print(f"\nADB Found At: {adbPath}")
+        else:
+            input("\nADB Not Found, It May Not Be Installed Or In Your Path! Click to exit!\n")
             sys.exit(1)
         result = subprocess.run(
             [
@@ -360,6 +357,13 @@ def main():
         if "device" in result.stdout.split():
             pass
 
+            subprocess.run(
+                [
+                    "adb",
+                    "devices",
+                ],
+            )
+            deviceChoice = input("Choose your device by typing out the model name, then pressing enter. (like XYZ789)")
         rootResult = subprocess.run(
             [
                 "adb",
@@ -380,6 +384,8 @@ def main():
                             subprocess.run(
                                 [
                                     "adb",
+                                    "-s",
+                                    deviceChoice,
                                     "shell",
                                     "su",
                                     "-c",
@@ -395,6 +401,8 @@ def main():
                             subprocess.run(
                                 [
                                     "adb",
+                                    "-s",
+                                    deviceChoice,
                                     "shell",
                                     "su",
                                     "-c",
@@ -427,6 +435,8 @@ def main():
                                 subprocess.run(
                                     [
                                         "adb",
+                                        "-s",
+                                        deviceChoice,
                                         "shell",
                                         "su",
                                         "-c",
@@ -442,6 +452,8 @@ def main():
                                 subprocess.run(
                                     [
                                         "adb",
+                                        "-s",
+                                        deviceChoice,
                                         "shell",
                                         "su",
                                         "-c",
@@ -467,6 +479,8 @@ def main():
                         subprocess.run(
                             [
                                 "adb",
+                                "-s",
+                                deviceChoice,
                                 "shell",
                                 "pm",
                                 "disable-user",
@@ -480,6 +494,8 @@ def main():
                         subprocess.run(
                             [
                                 "adb",
+                                "-s",
+                                deviceChoice,
                                 "shell",
                                 "pm",
                                 "disable-user",
@@ -510,6 +526,8 @@ def main():
                             subprocess.run(
                                 [
                                     "adb",
+                                    "-s",
+                                    deviceChoice,                                    
                                     "shell",
                                     "pm",
                                     "disable-user",
@@ -523,6 +541,8 @@ def main():
                             subprocess.run(
                                 [
                                     "adb",
+                                    "-s",
+                                    deviceChoice,
                                     "shell",
                                     "pm",
                                     "disable-user",
@@ -562,6 +582,8 @@ def main():
             result = subprocess.run(
                 [
                     "adb",
+                    "-s",
+                    deviceChoice,
                     "shell",
                     "pm",
                     "list",
@@ -593,6 +615,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "auroraStore.apk"
@@ -602,6 +626,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "auroraStore.apk"
@@ -629,6 +655,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Droidify.apk"
@@ -638,6 +666,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Droidify.apk"
@@ -665,6 +695,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Haven.apk"
@@ -674,6 +706,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Haven.apk"
@@ -699,6 +733,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "ArchiveTune.apk"
@@ -708,6 +744,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "ArchiveTune.apk"
@@ -735,6 +773,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Localsend.apk"
@@ -744,6 +784,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Localsend.apk"
@@ -772,6 +814,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Magisk.apk"
@@ -781,6 +825,8 @@ def main():
                 subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "install",
                         "-r",
                         "Magisk.apk"
@@ -806,6 +852,8 @@ def main():
                     subprocess.run(
                         [
                             "adb",
+                            "-s",
+                            deviceChoice,
                             "push",
                             "./bindHosts.zip",
                             "/sdcard/"
@@ -814,6 +862,8 @@ def main():
                     subprocess.run(
                         [
                             "adb",
+                            "-s",
+                            deviceChoice,
                             "push",
                             "./bindHosts.zip",
                             "/sdcard/",
@@ -824,6 +874,8 @@ def main():
                 bindCheck = subprocess.run(
                     [
                         "adb",
+                        "-s",
+                        deviceChoice,
                         "shell",
                         "ls",
                         "/sdcard",
@@ -854,6 +906,8 @@ def main():
                         subprocess.run(
                             [
                                 "adb",
+                                "-s",
+                                deviceChoice,
                                 "shell",
                                 "am",
                                 "start",
