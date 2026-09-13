@@ -329,17 +329,13 @@ def main():
                             )
                             clear()
 
-    adbPath = shutil.which("adb")
-    if adbPath:
-        print(f"\nADB Found At: {adbPath}")
-    else:
-        print("\nADB Not Found, It May Not Be Installed Or In Your Path!")
-    fastbootPath = shutil.which("fastboot")
-    if fastbootPath:
-        print(f"\nFastboot Found At: {fastbootPath}")
-    else:
-        print("\nFastboot Not Found, It May Not Be Installed Or In Your Path!")
     if args.debloat:
+        adbPath = shutil.which("adb")
+        if adbPath:
+            print(f"\nADB Found At: {adbPath}")
+        else:
+            input("\nADB Not Found, It May Not Be Installed Or In Your Path! Click to exit!\n")
+            sys.exit(1)
         print("\nDebloating Device!")
         if not adbPath:
             input("ADB NOT AVAILABLE ")
@@ -876,6 +872,12 @@ def main():
         shutil.rmtree("./APK-Holding")
 
     if args.flash:
+        fastbootPath = shutil.which("fastboot")
+        if fastbootPath:
+            print(f"\nFastboot Found At: {fastbootPath}")
+        else:
+            input("\nFastboot Not Found, It May Not Be Installed Or In Your Path! Click to exit!\n")
+            sys.exit(1)
         print("Rebooting Device Into Fastboot!")
         time.sleep(1)
         subprocess.run(
