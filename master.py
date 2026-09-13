@@ -345,7 +345,13 @@ def main():
             input("ADB NOT AVAILABLE ")
             sys.exit(1)
         result = subprocess.run(
-            ["adb", "devices"], capture_output=True, text=True, check=True
+            [
+                "adb",
+                "devices",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
         )
         if "device" not in result.stdout.split():
             input("\nNo Device! Click to continue!\n")
@@ -360,7 +366,15 @@ def main():
             pass
 
         rootResult = subprocess.run(
-            ["adb", "shell", "su", "-c", "whoami"], capture_output=True, text=True
+            [
+                "adb",
+                "shell",
+                "su",
+                "-c",
+                "whoami",
+            ],
+            capture_output=True,
+            text=True,
         )
         if args.root:
             if "root" in rootResult.stdout:
@@ -551,7 +565,13 @@ def main():
         def applist():
             print("\nApplications Installed:")
             result = subprocess.run(
-                ["adb", "shell", "pm", "list", "packages"],
+                [
+                    "adb",
+                    "shell",
+                    "pm",
+                    "list",
+                    "packages",
+                ],
                 capture_output=True,
                 text=True,
             )
