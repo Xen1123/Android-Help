@@ -363,10 +363,12 @@ def main():
                     "devices",
                 ],
             )
-            deviceChoice = input("Choose your device by typing out the model name, then pressing enter. (like XYZ789)")
+            deviceChoice = input("Choose your device by typing out the model name, then pressing enter. (like XYZ789)\n")
         rootResult = subprocess.run(
             [
                 "adb",
+                "-s",
+                deviceChoice,
                 "shell",
                 "su",
                 "-c",
@@ -936,33 +938,77 @@ def main():
         else:
             input("\nFastboot Not Found, It May Not Be Installed Or In Your Path! Click to exit!\n")
             sys.exit(1)
-        print("Rebooting Device Into Fastboot!")
+        print("Rebooting Device Into Fastboot!\n")
         time.sleep(1)
         subprocess.run(
             [
                 "adb",
-                "reboot",
-                "bootloader",
+                "devices",
             ],
         )
-        if args.verbose:
-            subprocess.run(
-                [
-                    "fastboot",
-                    "reboot",
-                    "bootloader",
-                ],
-            )
+        adbd = subprocess.run(
+            [
+                "adb",
+                "devices",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        if "device" not in adbd.stdout:
+            pass
         else:
+            adbChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
             subprocess.run(
                 [
-                    "fastboot",
+                    "adb",
+                    "-s",
+                    adbChoice,
+                    "shell",
                     "reboot",
                     "bootloader",
                 ],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
             )
+        time.sleep(15)
+        subprocess.run(
+            [
+                "fastboot",
+                "devices",
+            ],
+        )
+        fastCheck = subprocess.run(
+            [
+                "fastboot",
+                "devices",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if "fastboot" in fastCheck.stdout:
+            fastbootChoice = input("Please type your device model and click enter (like XDKC158J)\n")
+
+            if args.verbose:
+                subprocess.run(
+                    [
+                        "fastboot",
+                        "-s",
+                        fastbootChoice,
+                        "reboot",
+                        "bootloader",
+                    ],
+                )
+            else:
+                subprocess.run(
+                    [
+                        "fastboot",
+                        "-s",
+                        fastbootChoice,
+                        "reboot",
+                        "bootloader",
+                    ],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
         time.sleep(15)
         fastboot_devices = subprocess.run(
             [
@@ -979,6 +1025,8 @@ def main():
                 subprocess.run(
                     [
                         "fastboot",
+                        "-s",
+                        fastbootChoice,
                         "--set-active=a",
                     ],
                 )
@@ -986,6 +1034,8 @@ def main():
                 subprocess.run(
                     [
                         "fastboot",
+                        "-s",
+                        fastbootChoice,
                         "--set-active=a",
                     ],
                     stdout=subprocess.DEVNULL,
@@ -1043,6 +1093,8 @@ def main():
                             subprocess.run(
                                 [
                                     "fastboot",
+                                    "-s",
+                                    fastbootChoice,
                                     "flash",
                                     part,
                                     filePath,
@@ -1057,6 +1109,8 @@ def main():
                             subprocess.run(
                                 [
                                     "fastboot",
+                                    "-s",
+                                    fastbootChoice,
                                     "flash",
                                     part,
                                     filePath,
@@ -1072,6 +1126,8 @@ def main():
                     subprocess.run(
                         [
                             "fastboot",
+                            "-s",
+                            fastbootChoice,
                             "reboot",
                             "fastboot",
                         ],
@@ -1080,6 +1136,8 @@ def main():
                     subprocess.run(
                         [
                             "fastboot",
+                            "-s",
+                            fastbootChoice,
                             "reboot",
                             "fastboot",
                         ],
@@ -1103,6 +1161,8 @@ def main():
                             subprocess.run(
                                 [
                                     "fastboot",
+                                    "-s",
+                                    fastbootChoice,
                                     "flash",
                                     log,
                                     filePath,
@@ -1116,6 +1176,8 @@ def main():
                             subprocess.run(
                                 [
                                     "fastboot",
+                                    "-s",
+                                    fastbootChoice,
                                     "flash",
                                     log,
                                     filePath,
@@ -1130,6 +1192,8 @@ def main():
                     subprocess.run(
                         [
                             "fastboot",
+                            "-s",
+                            fastbootChoice,
                             "reboot",
                             "fastboot",
                         ],
@@ -1138,6 +1202,8 @@ def main():
                     subprocess.run(
                         [
                             "fastboot",
+                            "-s",
+                            fastbootChoice,
                             "reboot",
                             "fastboot",
                         ],
@@ -1169,6 +1235,8 @@ def main():
                             subprocess.run(
                                 [
                                     "fastboot",
+                                    "-s",
+                                    fastbootChoice,
                                     "flash",
                                     part,
                                     filePath,
@@ -1182,6 +1250,8 @@ def main():
                             subprocess.run(
                                 [
                                     "fastboot",
+                                    "-s",
+                                    fastbootChoice,
                                     "flash",
                                     part,
                                     filePath,
