@@ -648,7 +648,7 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Droidify APK From Web!")
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.7/app-release.apk"
+            url = "https://github.com/Droid-ify/client/releases/download/v0.7.8/app-release.apk"
             file = "Droidify.apk"
             urllib.request.urlretrieve(url, file)
 
@@ -688,7 +688,7 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Haven APK From Web!")
-            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.82/haven-5.87.82-arm64-release.apk"
+            url = "https://github.com/GlassHaven/Haven/releases/download/v5.87.86/haven-5.87.86-arm64-release.apk"
             file = "Haven.apk"
             urllib.request.urlretrieve(url, file)
 
