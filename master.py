@@ -887,11 +887,23 @@ def main():
                 )
                 if "bindHosts.zip" in bindCheck.stdout:
                     applist()
-                    print("Bind Hosts -- bindHosts.zip\n")
+                    print("Bind Hosts -- /sdcard/bindHosts.zip\n")
                 input(
                     "You'll have to flash this as a zip through Magisk (or your preferred root manager), it isn't a standalone APK. Click to continue!\n"
                 )
-                if "com.topjohnwu.magisk" in installed_apps_str:
+                if "com.topjohnwu.magisk" in subprocess.run(
+                    [
+                        "adb",
+                        "-s",
+                        deviceChoice,
+                        "shell", 
+                        "pm",
+                        "list",
+                        "packages",
+                    ],
+                    capture_output=True,
+                    text=True,
+                ):
                     input("Open Magisk app? (Y/n) ")
                     if confirm.lower() == "n":
                         pass
