@@ -1,5 +1,4 @@
-import shutil, subprocess, os, argparse, time, sys
-from pathlib import Path
+import shutil, subprocess, argparse, time, sys
 
 def clear():
     print("\033[2J]\033[3J]\033[1;1H")

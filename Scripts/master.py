@@ -1033,6 +1033,22 @@ def main():
         )
         if fastboot_devices.stdout:
             print("Fastboot Active!")
+            blUnlock = subprocess.run(
+              [
+                "fastboot",
+                "-s",
+                fastbootChoice,
+                "getvar",
+                "all",
+              ],
+              capture_output=True,
+              text=True,
+            )
+            if "unlocked" in blUnlock.stdout:
+              pass
+            else:
+              input("Your device does not have an unlocked bootloader! Please click any key, then enter, to exit!\n")
+              sys.exit(1)
             if args.verbose:
                 subprocess.run(
                     [
@@ -1276,12 +1292,8 @@ def main():
             time.sleep(2)
         else:
             verboseClear()
-            print("\nFastboot Not Active!")
-            time.sleep(2)
+            input("\nFastboot Not Active!\n")
             sys.exit(1)
-    if not args.debloat and not args.flash:
-        parser.print_help()
-
 
 if __name__ == "__main__":
     main()
