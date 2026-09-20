@@ -20,6 +20,21 @@ installed_apps_choice = [
 ]
 
 apps = [
+    "com.android.bips",
+    "com.miui.analytics",
+    "com.miui.msa.global",
+    "com.miui.msa",
+    "com.miui.systemAdSolution",
+    "com.miui.bugreport",
+    "com.miui.hybrid",
+    "com.motorola.brapps",
+    "com.motorola.demo",
+    "com.motorola.help",
+    "com.motorola.motocare",
+    "com.motorola.gamemoe",
+    "com.motorola.gametime",
+    "com.motorola.actions",
+    "com.motorola.moto",
     "com.samsung.sree",
     "com.chiller3.bcr",
     "com.samsung.kidsplay",
