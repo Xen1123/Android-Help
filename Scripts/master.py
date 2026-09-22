@@ -618,7 +618,7 @@ def main():
         confirm = input(
             "\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (Y/n)\n"
         )
-        if confirm.lower() == "n":
+        if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
@@ -658,7 +658,7 @@ def main():
         confirm = input(
             "\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n"
         )
-        if confirm.lower() == "n":
+        if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
@@ -698,7 +698,7 @@ def main():
         confirm = input(
             "\nInstall Haven SSH Client? It's a beautiful SSHH client for Android, great for when you just want to quickly log in to your server! (Y/n)\n"
         )
-        if confirm.lower() == "n":
+        if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
@@ -736,7 +736,7 @@ def main():
 
         applist()
         confirm = input("\nInstall ArchiveTune? [Youtube Music Client] (Y/n)\n")
-        if confirm.lower() == "n":
+        if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
@@ -776,7 +776,7 @@ def main():
         confirm = input(
             "\nInstall Localsend? [Basically Open Source Android AirDrop] (Y/n)\n"
         )
-        if confirm.lower() == "n":
+        if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
             verboseClear()
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
@@ -817,7 +817,7 @@ def main():
             confirm = input(
                 "\nInstall Magisk? (For Rooting, If You Don't Have OEM Unlocking, Don't Even Bother. (Y/n)\n"
             )
-            if confirm.lower() == "n":
+            if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
                 verboseClear()
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verboseClear()
@@ -857,7 +857,7 @@ def main():
             confirm = input(
                 "\nInstall Bind Hosts? (An app you can use with root to disable ads at the system level while freeing up your private DNS settings. (Y/n)\n"
             )
-            if confirm.lower() == "n":
+            if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
                 verboseClear()
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verboseClear()
@@ -906,7 +906,7 @@ def main():
                 input(
                     "You'll have to flash this as a zip through Magisk (or your preferred root manager), it isn't a standalone APK. Click to continue!\n"
                 )
-                if "com.topjohnwu.magisk" in subprocess.run(
+                magiskCheck = subprocess.run(
                     [
                         "adb",
                         "-s",
@@ -918,9 +918,10 @@ def main():
                     ],
                     capture_output=True,
                     text=True,
-                ):
-                    input("Open Magisk app? (Y/n) ")
-                    if confirm.lower() == "n":
+                )
+                if "package:com.topjohnwu.magisk" in magiskCheck.stdout:
+                    input("Open Magisk app? (Y/n)\n")
+                    if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
                         pass
                     elif confirm.lower() in (
                         "y",
