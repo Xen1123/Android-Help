@@ -361,8 +361,11 @@ def main():
             check=True,
         )
         if "device" not in result.stdout.split():
-            input("\nNo Device! Click to continue!\n")
-            sys.exit(1)
+            if "Webcam" in result.stdout():
+                pass
+            else:
+                input("\nNo Device! Click to continue!\n")
+                sys.exit(1)
         if "unauthorized" in result.stdout:
             input("\nDevice Not Authorized! Click to continue!\n")
             sys.exit(1)
@@ -983,8 +986,9 @@ def main():
             text=True,
             check=True,
         )
-        if "device" not in adbd.stdout:
-            pass
+        if "device" and "Webcam" not in adbd.stdout.split():
+            input("Device not found! Click to continue!\n")
+            sys.exit(1)
         else:
             adbChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
             subprocess.run(
