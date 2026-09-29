@@ -71,6 +71,10 @@ elif confirm.lower() == "y":
                     capture_output=True,
                     text=True,
                 )
+                if "Webcam" in adbCheck.stdout.split():
+                    pass
+                else:
+                    pass
                 if "device" in adbCheck.stdout.split():
                     pass
                 elif "unauthorized" in adbCheck.stdout:
