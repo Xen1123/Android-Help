@@ -588,12 +588,12 @@ def main():
         time.sleep(2)
         verboseClear()
 
+        import json
         app_mapping = {
             "moe.rukamori.archivetune": "ArchiveTune",
             "org.localsend.localsend_app": "Localsend",
             "com.topjohnwu.magisk": "Magisk",
             "com.looker.droidify": "Droidify",
-            "com.aurora.store": "Aurora Store",
             "sh.haven.app": "Haven SSH Client",
         }
 
@@ -618,47 +618,7 @@ def main():
                     print(f"{display_name} -- {package}")
 
         applist()
-        confirm = input(
-            "\nInstall Aurora Store? It is a FOSS Google Play Store alternative that has every app that the Play Store has! (Y/n)\n"
-        )
-        if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
-            verboseClear()
-        elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
-            verboseClear()
-            print("\nGrabbing Aurora APK From Web!")
-            url = "https://f-droid.org/repo/com.aurora.store_76.apk"
-            file = "auroraStore.apk"
-            urllib.request.urlretrieve(url, file)
-
-            print("\nInstalling Aurora Store!")
-            if args.verbose:
-                subprocess.run(
-                    [
-                        "adb",
-                        "-s",
-                        deviceChoice,
-                        "install",
-                        "-r",
-                        "auroraStore.apk"
-                    ],
-                )
-            else:
-                subprocess.run(
-                    [
-                        "adb",
-                        "-s",
-                        deviceChoice,
-                        "install",
-                        "-r",
-                        "auroraStore.apk"
-                    ],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
-                verboseClear()
-
-        applist()
-        confirm = input(
+        onfirm = input(
             "\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n"
         )
         if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
@@ -666,9 +626,15 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Droidify APK From Web!")
-            url = "https://github.com/Droid-ify/client/releases/download/v0.7.8/app-release.apk"
+            api_url = "https://api.github.com/repos/Droid-ify/client/releases/latest"
+            
+            apk_url = next(
+                    asset["browser_download_url"]
+                    for assrt in release["assets"]
+                    if asset["name"].endswith(".apk")
+            )
             file = "Droidify.apk"
-            urllib.request.urlretrieve(url, file)
+            urllib.request.urlretrieve(apk_url, file)
 
             print("\nInstalling Droidify!")
             if args.verbose:
@@ -706,9 +672,17 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Haven APK From Web!")
-            url = "https://github.com/GlassHaven/Haven/releases/download/v5.89.14/haven-5.89.12-arm64-release.apk"
+            api_url = "https://api.github.com/repos/GlassHaven/Haven/releases/latest"
+            with urllib.request.urlopen(api_url) as response:
+                release = json.load(response)
+
+            apk_url = next(
+                    asset["browser_download_url"]
+                    for asset in release["assets"]
+                    if asset["name"].endswith("-arm64-release.apk")
+            )
             file = "Haven.apk"
-            urllib.request.urlretrieve(url, file)
+            urllib.request.urlretrieve(apk_url, file)
 
             print("\nInstalling Haven!")
             if args.verbose:
@@ -744,9 +718,15 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing ArchiveTune APK From Web!")
-            url = "https://github.com/rukamori/ArchiveTune/releases/download/v15.1.0/app-gms-mobile-arm64-release.apk"
+            api_url = "https://api.github.com/repos/rukamori/ArchiveTune/releases/latest"
+            
+            apk_url = next(
+                    asset["browser_download_url"]
+                    for asset in release["assets"]
+                    if asset["name"].endswith("gms-mobile-arm64-release.apk")
+            )
             file_name = "ArchiveTune.apk"
-            urllib.request.urlretrieve(url, file_name)
+            urllib.request.urlretrieve(apk_url, file_name)
 
             print("\nInstalling ArchiveTune!")
             if args.verbose:
@@ -784,9 +764,17 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Localsend APK From Web!")
-            url = "https://github.com/localsend/localsend/releases/download/v1.18.2/LocalSend-1.18.2-android-arm64v8.apk"
+            url = "https://api.github.com/repos/localsend/localsend/releases/latest"
+            with urllib.request.urlopen(api_url) as response:
+                release = json.load(response)
+            
+            apk_url = next(
+                    asset["browser_download_url"]
+                    for asset in release["assets"]
+                    if asset["name"].endswith("-android-arm64v8.apk")
+            )
             file = "Localsend.apk"
-            urllib.request.urlretrieve(url, file)
+            urllib.request.urlretrieve(apk_url, file)
 
             print("\nInstalling Localsend!")
             if args.verbose:
@@ -825,9 +813,14 @@ def main():
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verboseClear()
                 print("\nGrabbing Magisk APK From Web!")
-                url = "https://github.com/topjohnwu/Magisk/releases/download/v31.0/Magisk-v31.0.apk"
+                url = "https://api.github.com/repos/topjohnwu/Magisk/releases/latest"
+                apk_url = next(
+                        asset["browser_download_url"]
+                        for asset in release["assets"]
+                        if asset["name"].startswith("Magisk-v") and asset["name"].endswith(".apk")
+                )
                 file = "Magisk.Apk"
-                urllib.request.urlretrieve(url, file)
+                urllib.request.urlretrieve(apk_url, file)
 
                 print("\nInstalling Magisk!")
             if args.verbose:
@@ -865,9 +858,14 @@ def main():
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verboseClear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
-                url = "https://github.com/bindhosts/bindhosts/releases/download/v2.1.5/bindhosts.zip"
+                url = "https://api.github.com/repos/bindhosts/bindhosts/releases/latest"
+                zip_url = next(
+                        asset["browser_download_url"]
+                        for asset in release["assets"]
+                        if asset["name"].endswith("hosts.zip")
+                )
                 filename = "bindHosts.zip"
-                urllib.request.urlretrieve(url, filename)
+                urllib.request.urlretrieve(zip_url, filename)
                 if args.verbose:
                     subprocess.run(
                         [
