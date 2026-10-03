@@ -593,7 +593,7 @@ def main():
             "moe.rukamori.archivetune": "ArchiveTune",
             "org.localsend.localsend_app": "Localsend",
             "com.topjohnwu.magisk": "Magisk",
-            "com.looker.droidify": "Droidify",
+            "com.looker.droidify": "Droid-ify",
             "sh.haven.app": "Haven SSH Client",
         }
 
@@ -627,10 +627,12 @@ def main():
             verboseClear()
             print("\nGrabbing Droidify APK From Web!")
             api_url = "https://api.github.com/repos/Droid-ify/client/releases/latest"
-            
+            with urllib.request.urlopen(api_url) as response:
+                release = json.load(response)
+
             apk_url = next(
                     asset["browser_download_url"]
-                    for assrt in release["assets"]
+                    for asset in release["assets"]
                     if asset["name"].endswith(".apk")
             )
             file = "Droidify.apk"
@@ -719,7 +721,9 @@ def main():
             verboseClear()
             print("\nGrabbing ArchiveTune APK From Web!")
             api_url = "https://api.github.com/repos/rukamori/ArchiveTune/releases/latest"
-            
+            with urllib.request.urlopen(api_url) as response:
+                release = json.load(response)
+
             apk_url = next(
                     asset["browser_download_url"]
                     for asset in release["assets"]
@@ -813,7 +817,9 @@ def main():
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verboseClear()
                 print("\nGrabbing Magisk APK From Web!")
-                url = "https://api.github.com/repos/topjohnwu/Magisk/releases/latest"
+                api_url = "https://api.github.com/repos/topjohnwu/Magisk/releases/latest"
+                with urllib.request.urlopen(api_url) as response:
+                    release = json.load(response)
                 apk_url = next(
                         asset["browser_download_url"]
                         for asset in release["assets"]
@@ -858,7 +864,10 @@ def main():
             elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                 verboseClear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
-                url = "https://api.github.com/repos/bindhosts/bindhosts/releases/latest"
+                api_url = "https://api.github.com/repos/bindhosts/bindhosts/releases/latest"
+                if urllib.request.urlopen(api_url) as response:
+                    release = json.load(response)
+
                 zip_url = next(
                         asset["browser_download_url"]
                         for asset in release["assets"]
