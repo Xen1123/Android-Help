@@ -573,7 +573,40 @@ def main():
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL,
                             )
-
+        continue = input("Would you like to choose some apps to grab from the web and install, or just stop here? (Y/n)\n")
+        if confirm.lower() in ("y", "", "yes", "ye", "yy", "yeah"):
+            if os.name == "nt":
+                pingCheck = subprocess.run(
+                        [
+                            "ping",
+                            "google.com"
+                        ],
+                        capture_output=True,
+                        text=True,
+                    )
+                if pingCheck.returncode != 0:
+                    input("You have no internet, click to exit!\n")
+                    sys.exit(1)
+                else:
+                    pass
+            else:
+                pingCheck = subprocess.run(
+                        [
+                            "ping",
+                            "-c",
+                            "1",
+                            "google.com"
+                        ],
+                        capture_output=True,
+                        text=True,
+                    )
+                if pingCheck.returncode != 0:
+                    input("You have no internet, click to exit!\n")
+                    sys.exit(1)
+                else:
+                    pass
+        else:
+            sys.exit(0)
         folder = "APK-Holding"
         if os.path.isdir(folder):
             shutil.rmtree("./APK-Holding")
@@ -587,7 +620,6 @@ def main():
         print(f"\nYou Are In {cdir}")
         time.sleep(2)
         verboseClear()
-
         import json
         app_mapping = {
             "moe.rukamori.archivetune": "ArchiveTune",
