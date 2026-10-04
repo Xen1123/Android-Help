@@ -236,6 +236,8 @@ def main():
     def verboseClear():
         if not args.verbose:
             clear()
+        else:
+            pass
 
     gstandard_mapping = {
         "com.google.android.apps.photos": "Google Photos",
@@ -573,17 +575,17 @@ def main():
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL,
                             )
-        continue = input("Would you like to choose some apps to grab from the web and install, or just stop here? (Y/n)\n")
-        if confirm.lower() in ("y", "", "yes", "ye", "yy", "yeah"):
+        keepGoing = input("Would you like to choose some apps to grab from the web and install, or just stop here? (Y/n)\n")
+        if keepGoing.lower() in ("y", "", "yes", "ye", "yy", "yeah"):
             if os.name == "nt":
                 pingCheck = subprocess.run(
                         [
                             "ping",
-                            "google.com"
-                        ],
+                            "1.1.1.1"
+                            ],
                         capture_output=True,
                         text=True,
-                    )
+                )
                 if pingCheck.returncode != 0:
                     input("You have no internet, click to exit!\n")
                     sys.exit(1)
@@ -595,11 +597,11 @@ def main():
                             "ping",
                             "-c",
                             "1",
-                            "google.com"
+                            "1.1.1.1"
                         ],
                         capture_output=True,
                         text=True,
-                    )
+                )
                 if pingCheck.returncode != 0:
                     input("You have no internet, click to exit!\n")
                     sys.exit(1)
@@ -650,7 +652,7 @@ def main():
                     print(f"{display_name} -- {package}")
 
         applist()
-        onfirm = input(
+        confirm = input(
             "\nInstall Droidify? It Is An Open Source App That Is Basically Just A Pretty F-Droid With More Sources. (Y/n)\n"
         )
         if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
@@ -800,10 +802,9 @@ def main():
         elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
             verboseClear()
             print("\nGrabbing Localsend APK From Web!")
-            url = "https://api.github.com/repos/localsend/localsend/releases/latest"
+            api_url = "https://api.github.com/repos/localsend/localsend/releases/latest"
             with urllib.request.urlopen(api_url) as response:
                 release = json.load(response)
-            
             apk_url = next(
                     asset["browser_download_url"]
                     for asset in release["assets"]
@@ -897,7 +898,7 @@ def main():
                 verboseClear()
                 print("\nGrabbing Bind Hosts Zip From Web!")
                 api_url = "https://api.github.com/repos/bindhosts/bindhosts/releases/latest"
-                if urllib.request.urlopen(api_url) as response:
+                with urllib.request.urlopen(api_url) as response:
                     release = json.load(response)
 
                 zip_url = next(
