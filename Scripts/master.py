@@ -919,6 +919,7 @@ def main():
                             "/sdcard/"
                         ],
                     )
+                else:
                     subprocess.run(
                         [
                             "adb",
