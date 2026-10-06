@@ -967,16 +967,7 @@ def main():
                     input("Open Magisk app? (Y/n)\n")
                     if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
                         pass
-                    elif confirm.lower() in (
-                        "y",
-                        "yes",
-                        "ye",
-                        "yeah",
-                        "",
-                        "yess",
-                        "yy",
-                        "ys",
-                    ):
+                    elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
                         subprocess.run(
                             [
                                 "adb",
