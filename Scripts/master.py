@@ -274,6 +274,7 @@ def main():
         "org.lineageos.recorder": "the LineageOS Audio Recorder App",
         "com.google.android.apps.recorder": "Google's Recorder App",
         "com.google.android.apps.pixel.nowplaying": "Google's Now Playing App",
+        "com.google.android.play.games": "Google Play Games App",
     }
 
     def gstandard_choice():
