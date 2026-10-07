@@ -175,12 +175,12 @@ def clear():
 clear()
 
 print("""
- █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ██╗██████╗ 
+ █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ██╗██████╗
 ██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔═══██╗██║██╔══██╗
 ███████║██╔██╗ ██║██║  ██║██████╔╝██║   ██║██║██║  ██║
 ██╔══██║██║╚██╗██║██║  ██║██╔══██╗██║   ██║██║██║  ██║
 ██║  ██║██║ ╚████║██████╔╝██║  ██║╚██████╔╝██║██████╔╝
-╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═════╝ 
+╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═════╝
 """)
 
 
@@ -549,7 +549,7 @@ def main():
                                 [
                                     "adb",
                                     "-s",
-                                    deviceChoice,                                    
+                                    deviceChoice,
                                     "shell",
                                     "pm",
                                     "disable-user",
@@ -955,7 +955,7 @@ def main():
                         "adb",
                         "-s",
                         deviceChoice,
-                        "shell", 
+                        "shell",
                         "pm",
                         "list",
                         "packages",
@@ -1001,14 +1001,6 @@ def main():
         else:
             input("\nFastboot Not Found, It May Not Be Installed Or In Your Path! Click to exit!\n")
             sys.exit(1)
-        print("Rebooting Device Into Fastboot!\n")
-        time.sleep(1)
-        subprocess.run(
-            [
-                "adb",
-                "devices",
-            ],
-        )
         adbd = subprocess.run(
             [
                 "adb",
@@ -1016,336 +1008,197 @@ def main():
             ],
             capture_output=True,
             text=True,
-            check=True,
         )
-        if "device" and "Webcam" not in adbd.stdout.split():
-            input("Device not found! Click to continue!\n")
-            sys.exit(1)
-        else:
-            adbChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
+        if "device" in adbd.stdout.split():
+            subprocess.run(["adb", "devices"])
+            devChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
             subprocess.run(
                 [
                     "adb",
                     "-s",
-                    adbChoice,
+                    devChoice,
                     "shell",
                     "reboot",
                     "bootloader",
                 ],
             )
-        time.sleep(15)
-        subprocess.run(
+        elif "unauthorized" in adbd.stdout.split():
+            input("Your device is unathorized, authorize it first!!\n")
+            sys.exit(1)
+        else:
+            print("ADB device not found, so I'll look at fastboot devices!")
+            time.sleep(2)
+            fastbootd = subprocess.run(
+                [
+                    "fastboot",
+                    "devices",
+                ],
+                capture_output=True,
+                text=True,
+            )
+            if "fastboot" in fastbootd.stdout:
+                subprocess.run(["fastboot", "devices"])
+                devChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
+        blUnlock = subprocess.run(
             [
-                "fastboot",
-                "devices",
-            ],
-        )
-        fastCheck = subprocess.run(
-            [
-                "fastboot",
-                "devices",
-            ],
-            capture_output=True,
-            text=True,
-        )
-        if "fastboot" in fastCheck.stdout:
-            fastbootChoice = input("Please type your device model and click enter (like XDKC158J)\n")
-
-            if args.verbose:
-                subprocess.run(
-                    [
-                        "fastboot",
-                        "-s",
-                        fastbootChoice,
-                        "reboot",
-                        "bootloader",
-                    ],
-                )
-            else:
-                subprocess.run(
-                    [
-                        "fastboot",
-                        "-s",
-                        fastbootChoice,
-                        "reboot",
-                        "bootloader",
-                    ],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
-        time.sleep(15)
-        fastboot_devices = subprocess.run(
-            [
-                "fastboot",
-                "devices",
-            ],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        if fastboot_devices.stdout:
-            print("Fastboot Active!")
-            blUnlock = subprocess.run(
-              [
                 "fastboot",
                 "-s",
-                fastbootChoice,
+                devChoice,
                 "getvar",
                 "all",
-              ],
-              capture_output=True,
-              text=True,
-            )
-            if "unlocked" in blUnlock.stdout:
-              pass
-            else:
-              input("Your device does not have an unlocked bootloader! Please click any key, then enter, to exit!\n")
-              sys.exit(1)
-            if args.verbose:
-                subprocess.run(
-                    [
-                        "fastboot",
-                        "-s",
-                        fastbootChoice,
-                        "--set-active=a",
-                    ],
-                )
-            else:
-                subprocess.run(
-                    [
-                        "fastboot",
-                        "-s",
-                        fastbootChoice,
-                        "--set-active=a",
-                    ],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
-            if args.full:
-                images = [
-                    "boot",
-                    "abl",
-                    "xbl",
-                    "aop",
-                    "aop_config",
-                    "featenabler",
-                    "bluetooth",
-                    "modem",
-                    "cpucp",
-                    "cpucp_dtb",
-                    "devcfg",
-                    "init_boot",
-                    "vendor_boot",
-                    "recovery",
-                    "vbmeta",
-                    "vbmeta_vendor",
-                    "vbmeta_system",
-                    "xbl_ramdump",
-                    "xbl_config",
-                    "dsp",
-                    "dtbo",
-                    "keymaster",
-                    "imagefv",
-                    "tz",
-                    "shrm",
-                    "pvmfw",
-                    "hyp",
-                    "uefi",
-                    "uefisecapp",
-                    "qupfw",
-                    "bootloader",
-                    "radio",
-                    "bl1",
-                    "bl2",
-                    "bl31",
-                    "gsa",
-                    "ldfw",
-                    "pbl",
-                    "tzsw",
-                    "multiimgoem",
-                    "vendor_kernel_boot",
-                ]
-                for part in images:
-                    filePath = Path(f"{part}.img")
-
-                    if args.verbose:
-                        if filePath.is_file():
-                            subprocess.run(
-                                [
-                                    "fastboot",
-                                    "-s",
-                                    fastbootChoice,
-                                    "flash",
-                                    part,
-                                    filePath,
-                                ],
-                            )
-
-                        else:
-                            pass
-                    else:
-                        if filePath.is_file():
-                            print(f"\nFlashing {part}.img")
-                            subprocess.run(
-                                [
-                                    "fastboot",
-                                    "-s",
-                                    fastbootChoice,
-                                    "flash",
-                                    part,
-                                    filePath,
-                                ],
-                                stdout=subprocess.DEVNULL,
-                                stderr=subprocess.DEVNULL,
-                            )
-                        else:
-                            pass
-                time.sleep(2)
-                verboseClear()
-                if args.verbose:
-                    subprocess.run(
-                        [
-                            "fastboot",
-                            "-s",
-                            fastbootChoice,
-                            "reboot",
-                            "fastboot",
-                        ],
-                    )
-                else:
-                    subprocess.run(
-                        [
-                            "fastboot",
-                            "-s",
-                            fastbootChoice,
-                            "reboot",
-                            "fastboot",
-                        ],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
-                logicals_full = [
-                    "product",
-                    "vendor",
-                    "vendor_dlkm",
-                    "system_ext",
-                    "system_dlkm",
-                    "system",
-                    "odm",
-                    "vendor_kernel_boot",
-                ]
-                for log in logicals_full:
-                    filePath = Path(f"{log}.img")
-                    if args.verbose:
-                        if filePath.is_file():
-                            subprocess.run(
-                                [
-                                    "fastboot",
-                                    "-s",
-                                    fastbootChoice,
-                                    "flash",
-                                    log,
-                                    filePath,
-                                ],
-                            )
-                        else:
-                            pass
-                    else:
-                        if filePath.is_file():
-                            print(f"\nFlashing {log}.img")
-                            subprocess.run(
-                                [
-                                    "fastboot",
-                                    "-s",
-                                    fastbootChoice,
-                                    "flash",
-                                    log,
-                                    filePath,
-                                ],
-                                stdout=subprocess.DEVNULL,
-                                stderr=subprocess.DEVNULL,
-                            )
-                        else:
-                            pass
-            if args.logical:
-                if args.verbose:
-                    subprocess.run(
-                        [
-                            "fastboot",
-                            "-s",
-                            fastbootChoice,
-                            "reboot",
-                            "fastboot",
-                        ],
-                    )
-                else:
-                    subprocess.run(
-                        [
-                            "fastboot",
-                            "-s",
-                            fastbootChoice,
-                            "reboot",
-                            "fastboot",
-                        ],
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
-                images = [
-                    "boot",
-                    "dtbo",
-                    "vendor_boot",
-                    "recovery",
-                    "init_boot",
-                    "vbmeta",
-                    "vbmeta_vendor",
-                    "vbmeta_system",
-                    "system",
-                    "product",
-                    "vendor",
-                    "vendor_dlkm",
-                    "system_ext",
-                    "system_dlkm",
-                    "odm",
-                    "vendor_kernel_boot",
-                ]
-                for part in images:
-                    filePath = Path(f"{part}.img")
-                    if args.verbose:
-                        if filePath.is_file():
-                            subprocess.run(
-                                [
-                                    "fastboot",
-                                    "-s",
-                                    fastbootChoice,
-                                    "flash",
-                                    part,
-                                    filePath,
-                                ],
-                            )
-                        else:
-                            pass
-                    else:
-                        if filePath.is_file():
-                            print(f"\nFlashing {part}.img")
-                            subprocess.run(
-                                [
-                                    "fastboot",
-                                    "-s",
-                                    fastbootChoice,
-                                    "flash",
-                                    part,
-                                    filePath,
-                                ],
-                                stdout=subprocess.DEVNULL,
-                                stderr=subprocess.DEVNULL,
-                            )
-                        else:
-                            pass
-            time.sleep(2)
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if "(bootloader) unlocked:yes" in blUnlock.stderr:
+            pass
         else:
-            verboseClear()
-            input("\nFastboot Not Active!\n")
+            input("Your device's bootloader is not unlocked! Please enter to exit.\n")
             sys.exit(1)
+        if args.verbose:
+            subprocess.run(["fastboot", "-s", devChoice, "--set-active=a"])
+        else:
+            subprocess.run(["fastboot", "-s", devChoice, "--set-active=a"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if args.full:
+            images = [
+                "boot",
+                "abl",
+                "xbl",
+                "aop",
+                "aop_config",
+                "featenabler",
+                "bluetooth",
+                "modem",
+                "cpucp",
+                "cpucp_dtb",
+                "devcfg",
+                "init_boot",
+                "vendor_boot",
+                "recovery",
+                "vbmeta",
+                "vbmeta_vendor",
+                "vbmeta_system",
+                "xbl_ramdump",
+                "xbl_config",
+                "dsp",
+                "dtbo",
+                "keymaster",
+                "imagefv",
+                "tz",
+                "shrm",
+                "pvmfw",
+                "hyp",
+                "uefi",
+                "uefisecapp",
+                "qupfw",
+                "bootloader",
+                "radio",
+                "bl1",
+                "bl2",
+                "bl31",
+                "gsa",
+                "ldfw",
+                "pbl",
+                "tzsw",
+                "multiimgoem",
+                "vendor_kernel_boot",
+            ]
+            for part in images:
+                filePath = Path(f"{part}.img")
+                if args.verbose:
+                    if filePath.is_file():
+                        subprocess.run(["fastboot", "-s", devChoice, "flash", part, filePath])
+                    else:
+                        pass
+                else:
+                    if filePath.is_file():
+                        print(f"\nFlashing {part}.img")
+                        subprocess.run(["fastboot", "-s", devChoice, "flash", part, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    else:
+                        pass
+            time.sleep(2)
+            verboseClear()
+            if args.verbose:
+                subprocess.run(["fastboot", "-s", devChoice, "reboot", "fastboot"])
+            else:
+                print("Rebooting to Fastbootd!\n")
+                subprocess.run(["fastboot", "-s", devChoice, "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            time.sleep(15)
+            logicals_full = [
+                "product",
+                "vendor",
+                "vendor_dlkm",
+                "system_ext",
+                "system_dlkm",
+                "system",
+                "odm",
+                "vendor_kernel_boot",
+            ]
+            for log in logicals_full:
+                filePath = Path(f"{log}.img")
+                if args.verbose:
+                    if filePath.is_file():
+                        subprocess.run(["fastboot", "-s", devChoice, "flash", log, filePath])
+                    else:
+                        pass
+                else:
+                    if filePath.is_file():
+                        print(f"\nFlashing {log}.img")
+                        subprocess.run(["fastboot", "-s", devChoice, "flash", log, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    else:
+                        pass
+        if args.logical:
+            if args.verbose:
+                subprocess.run(["fastboot", "-s", devChoice, "reboot", "fastboot"])
+            else:
+                print("Rebooting to Fastbootd!\n")
+                subprocess.run(["fastboot", "-s", devChoice, "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            images = [
+                "boot",
+                "dtbo",
+                "vendor_boot",
+                "recovery",
+                "init_boot",
+                "vbmeta",
+                "vbmeta_vendor",
+                "vbmeta_system",
+                "system",
+                "product",
+                "vendor",
+                "vendor_dlkm",
+                "system_ext",
+                "system_dlkm",
+                "odm",
+                "vendor_kernel_boot",
+            ]
+            for part in images:
+                filePath = Path(f"{part}.img")
+                if args.verbose:
+                    if filePath.is_file():
+                        subprocess.run(
+                            [
+                                "fastboot",
+                                "-s",
+                                devChoice,
+                                "flash",
+                                part,
+                                filePath,
+                            ],
+                        )
+                    else:
+                        pass
+                else:
+                    if filePath.is_file():
+                        print(f"\nFlashing {part}.img")
+                        subprocess.run(["fastboot", "-s", devChoice, "flash", part, filePath], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    else:
+                        pass
+        time.sleep(2)
+    else:
+        verboseClear()
+        input("\nFastboot Not Active!\n")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
+
