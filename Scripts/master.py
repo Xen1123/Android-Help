@@ -969,7 +969,7 @@ def main():
                     text=True,
                 )
                 if "package:com.topjohnwu.magisk" in magiskCheck.stdout:
-                    input("Open Magisk app? (Y/n)\n")
+                    confirm = input("Open Magisk app? (Y/n)\n")
                     if confirm.lower() in ("n", "no", "nah", "nope", "nn", "noo"):
                         pass
                     elif confirm.lower() in ("y", "yes", "ye", "yeah", "", "yess", "yy", "ys"):
@@ -1128,7 +1128,11 @@ def main():
             else:
                 print("Rebooting to Fastbootd!\n")
                 subprocess.run(["fastboot", "-s", devChoice, "reboot", "fastboot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            time.sleep(15)
+            for _ in range(60):
+                check = subprocess.run(["fastboot", "devices"], capture_output=True, text=True)
+                if "fastboot" in check.stdout:
+                    break
+                time.sleep(1)
             logicals_full = [
                 "product",
                 "vendor",
