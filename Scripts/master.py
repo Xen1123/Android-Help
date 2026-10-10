@@ -909,6 +909,22 @@ def main():
                 )
                 filename = "bindHosts.zip"
                 urllib.request.urlretrieve(zip_url, filename)
+                bindCheck = subprocess.run(
+                        [
+                            "adb",
+                            "-s",
+                            deviceChoice,
+                            "shell",
+                            "ls",
+                            "/sdcard",
+                        ]
+                        capture_output=True,
+                        text=True,
+                    )
+                if "bindHosts.zip" in bindCheck:
+                    subprocess.run(["adb", "-s", deviceChoice, "shell", "rm", "bindHosts.zip"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                else:
+                    pass
                 if args.verbose:
                     subprocess.run(
                         [
@@ -933,18 +949,6 @@ def main():
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
-                bindCheck = subprocess.run(
-                    [
-                        "adb",
-                        "-s",
-                        deviceChoice,
-                        "shell",
-                        "ls",
-                        "/sdcard",
-                    ],
-                    capture_output=True,
-                    text=True,
-                )
                 if "bindHosts.zip" in bindCheck.stdout:
                     applist()
                     print("Bind Hosts -- /sdcard/bindHosts.zip\n")
