@@ -917,11 +917,11 @@ def main():
                             "shell",
                             "ls",
                             "/sdcard",
-                        ]
+                        ],
                         capture_output=True,
                         text=True,
                     )
-                if "bindHosts.zip" in bindCheck:
+                if "bindHosts.zip" in bindCheck.stdout:
                     subprocess.run(["adb", "-s", deviceChoice, "shell", "rm", "bindHosts.zip"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 else:
                     pass
@@ -1199,11 +1199,6 @@ def main():
                     else:
                         pass
         time.sleep(2)
-    else:
-        verboseClear()
-        input("\nFastboot Not Active!\n")
-        sys.exit(1)
-
 if __name__ == "__main__":
     main()
 
