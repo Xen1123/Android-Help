@@ -20,7 +20,6 @@ installed_apps_choice = [
 ]
 
 apps = [
-    "com.android.bips",
     "com.miui.analytics",
     "com.miui.msa.global",
     "com.miui.msa",
@@ -65,13 +64,6 @@ apps = [
     "com.samsung.android.galaxy",
     "com.sec.android.app.sbrowser",
     "com.samsung.android.email.provider",
-    "android.overlay.gms.region.all",
-    "android.overlay.gms.region.row",
-    "com.android.microdroid.empty_payload",
-    "com.android.providers.partnerbooks",
-    "com.android.settings.overlay.turbo",
-    "com.android.setupwizard.overlay",
-    "com.android.systemui.overlay.gms",
     "com.aura.oobe.solutions",
     "com.goodfix.fingerprint.setting",
     "com.google.ambient.streaming",
@@ -87,13 +79,9 @@ apps = [
     "com.google.android.keep",
     "com.google.android.ondevicepersonalization.services",
     "com.google.android.onetimeinitializer",
-    "com.google.android.overlay.gmsconfig.healthconnect",
-    "com.google.android.overlay.gmsconfig.tetheringentitlement",
     "com.google.android.videos",
     "com.google.mainline.adservices",
     "com.nothing.agreement",
-    "com.nt.android.overlay.gmsconfig.settings",
-    "com.nt.android.overlay.gmsconfig.settingsprovider",
     "com.nt.diagswitch",
     "com.google.android.odad",
     "com.microsoft.appmanager",
@@ -110,23 +98,18 @@ apps = [
     "com.sec.android.mimage.avatarstickers",
     "io.chaldeaprjkt.gamespace",
     "com.google.android.apps.betterbug",
-    "com.android.yadayada",
     "com.google.android.safetycore",
     "com.google.android.contactkeys",
     "com.google.android.apps.walletnfcrel",
     "com.fitbit.FitbitMobile",
     "com.google.android.apps.adm",
     "com.google.ar.core",
-    "com.google.pixel.livewallpaper",
-    "com.google.android.apps.healthdata",
     "com.google.android.apps.tips",
     "com.google.android.apps.chromecast.app",
     "com.google.android.apps.subscriptions.red",
     "com.google.android.apps.magazines",
     "com.google.android.apps.docs.editors.docs",
-    "uk.akane.accord",
     "com.google.android.apps.work.cloudpc",
-    "com.google.android.apps.safetyhub",
     "com.google.android.marvin.talkback",
     "com.google.android.apps.emojiwallpaper",
     "com.google.android.apps.aiwallpapers",
@@ -136,10 +119,6 @@ apps = [
     "com.google.android.apps.pixel.relationships",
     "com.google.android.apps.pixel.support",
     "com.android.adservices.api",
-    "com.android.providers.telephony.auto_generated_characteristics_rro",
-    "com.android.providers.settings.auto_generated_rro_vendor__",
-]
-
 gFULL = [
     "com.android.vending",
     "com.google.android.gms",
@@ -240,6 +219,9 @@ def main():
             pass
 
     gstandard_mapping = {
+        "com.google.android.apps.safetyhub": "Safetyhub"
+        "io.chaldeaprjkt.gamespace": "the Gamespace app"
+        "uk.akane.accord": "the Accord music player"
         "com.google.android.apps.photos": "Google Photos",
         "com.google.android.apps.nbu.files": "Files by Google",
         "com.google.android.calendar": "Google Calendar",
