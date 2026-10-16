@@ -35,7 +35,6 @@ apps = [
     "com.motorola.actions",
     "com.motorola.moto",
     "com.samsung.sree",
-    "com.chiller3.bcr",
     "com.samsung.kidsplay",
     "com.samsung.android.kidsinstaller",
     "com.samsung.android.homemade",
@@ -219,9 +218,10 @@ def main():
             pass
 
     gstandard_mapping = {
-        "com.google.android.apps.safetyhub": "Safetyhub"
-        "io.chaldeaprjkt.gamespace": "the Gamespace app"
-        "uk.akane.accord": "the Accord music player"
+        "com.chiller3.bcr": "Basic Call Recorder",
+        "com.google.android.apps.safetyhub": "Safetyhub",
+        "io.chaldeaprjkt.gamespace": "the Gamespace app",
+        "uk.akane.accord": "the Accord music player",
         "com.google.android.apps.photos": "Google Photos",
         "com.google.android.apps.nbu.files": "Files by Google",
         "com.google.android.calendar": "Google Calendar",
