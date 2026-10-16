@@ -217,7 +217,7 @@ def main():
         else:
             pass
 
-    gstandard_mapping = {
+    confirming_mapping = {
         "com.chiller3.bcr": "Basic Call Recorder",
         "com.google.android.apps.safetyhub": "Safetyhub",
         "io.chaldeaprjkt.gamespace": "the Gamespace app",
@@ -259,8 +259,8 @@ def main():
         "com.google.android.play.games": "Google Play Games App",
     }
 
-    def gstandard_choice():
-        for package, display_name in gstandard_mapping.items():
+    def confirm_choice():
+        for package, display_name in confirm_mapping.items():
             if package in installed_apps_choice:
                 confirm = input(f"Remove {display_name}? (y/N)\n")
                 if confirm.lower() != "y":
@@ -424,7 +424,7 @@ def main():
                         pass
                 verboseClear()
 
-                gstandard_choice()
+                confirm_choice()
 
                 verboseClear()
                 confirm = input(
@@ -515,7 +515,7 @@ def main():
                     pass
             verboseClear()
 
-            gstandard_choice()
+            confirm_choice()
 
             verboseClear()
             confirm = input(
