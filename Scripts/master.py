@@ -99,7 +99,6 @@ apps = [
     "com.google.android.apps.betterbug",
     "com.google.android.safetycore",
     "com.google.android.contactkeys",
-    "com.google.android.apps.walletnfcrel",
     "com.fitbit.FitbitMobile",
     "com.google.android.apps.adm",
     "com.google.ar.core",
@@ -218,6 +217,7 @@ def main():
             pass
 
     confirming_mapping = {
+        "com.google.android.apps.walletnfcrel": "the Google Wallet",
         "com.chiller3.bcr": "Basic Call Recorder",
         "com.google.android.apps.safetyhub": "Safetyhub",
         "io.chaldeaprjkt.gamespace": "the Gamespace app",
