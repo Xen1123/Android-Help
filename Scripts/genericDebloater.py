@@ -42,9 +42,11 @@ elif confirm.lower() == "y":
             sys.exit(1)
         deviceCheck = subprocess.run(["adb", "devices"], capture_output=True, text=True)
         if not "device" in deviceCheck.stdout:
-            print("Your device was not detected! Please make sure USB Debugging is enabled and allowed, your cable may also just not be connecting to the phone/tablet!")
-            time.sleep(3)
-            sys.exit(1)
+            if "Webcam" in deviceCheck.stdout:
+                pass
+            else:
+                input("Your device was not detected! Please make sure USB Debugging is enabled and allowed, your cable may also just not be connecting to the phone/tablet!\n")
+                sys.exit(1)
         elif "unauthorized" in deviceCheck.stdout:
             print("Device is unauthorized! Please make sure your device has accepted your computer!")
             time.sleep(2)
