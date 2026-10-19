@@ -117,6 +117,7 @@ apps = [
     "com.google.android.apps.pixel.relationships",
     "com.google.android.apps.pixel.support",
     "com.android.adservices.api",
+]
 gFULL = [
     "com.android.vending",
     "com.google.android.gms",
@@ -216,7 +217,7 @@ def main():
         else:
             pass
 
-    confirming_mapping = {
+    confirm_mapping = {
         "com.google.android.apps.walletnfcrel": "the Google Wallet",
         "com.chiller3.bcr": "Basic Call Recorder",
         "com.google.android.apps.safetyhub": "Safetyhub",
@@ -346,7 +347,7 @@ def main():
             check=True,
         )
         if "device" not in result.stdout.split():
-            if "Webcam" in result.stdout():
+            if "Webcam" in result.stdout:
                 pass
             else:
                 input("\nNo Device! Click to continue!\n")
@@ -1187,4 +1188,3 @@ def main():
         time.sleep(2)
 if __name__ == "__main__":
     main()
-
