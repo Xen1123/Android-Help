@@ -98,8 +98,8 @@ if not shutil.which("adb") or not shutil.which("fastboot"):
             os.system("sudo pkg_add android-tools")
     else:
         print("Your OS Is NOT Supported, Grabbing The SDK Tools Zip Now!")
-        url = "https://raw.githubusercontent.com/Xen1123/Android-Help/main/ADB_Fastboot_Tools.zip"
-        file = "ADB_Fastboot_Tools.zip"
+        url = "https://raw.githubusercontent.com/Xen1123/Android-Help/main/Platform%20Tools.tar.gz"
+        file = "Platform_Tools.tar.gz"
         urllib.request.urlretrieve(url, file)
         sys.exit(1)
 else:
