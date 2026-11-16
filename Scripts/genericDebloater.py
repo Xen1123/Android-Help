@@ -1,4 +1,4 @@
-import shutil, subprocess, argparse, time, sys
+import shutil, subprocess, argparse, time, sys, os,
 
 def clear():
     print("\033[2J]\033[3J]\033[1;1H")
@@ -84,7 +84,33 @@ elif confirm.lower() == "y":
                         else:
                             pass
                 else:
-                    sys.exit(1)
+                  rootConf = input("Would you like to root your device? (y/N)\n")
+                  if rootConf.lower() in ("y", "", "ye", "ys", "yeah", "yeah", "yy", "yeas"):
+                      if os.name == "nt":
+                          pingCheck = subprocess.run(["ping", "1.1.1.1"])
+                      else:
+                          pingCheck = subprocess.run(["ping", "-c", "1", "1.1.1.1"])
+                      if pingCheck.returncode != 0:
+                          input("You have no internet, which is needed to grab the APK!\n")
+                          sys.exit(1)
+                      else:
+                          pass
+                      import json, urllib.request
+                      print("\nGrabbing Magisk APK From Web!")
+                      api_url = "https://api.github.com/repos/topjohnwu/Magisk/releases/latest"
+                      with urllib.request.urlopen(api_url) as response:
+                          release = json.load(response)
+                      apk_url = next(
+                              asset["browser_download_url"]
+                              for asset in release["assets"]
+                              if asset["name"].startswith("Magisk-v") and asset["name"].endswith(".apk")
+                      )
+                      file = "Magisk.apk"
+                      urllib.request.urlretrieve(apk_url, file)
+                      print("Installing Magisk!\n")
+                      subprocess.run(["adb", "install", "-r", "Magisk.apk"])
+                    
 
 if __name__ == "__main__":
     main()
+

@@ -11,5 +11,6 @@
 
 ### Links
 - [Master Script](./master.py)
-- [ADB & Fastboot Tools](https://raw.githubusercontent.com/Xen1123/Android-Help/main/ADB_Fastboot_Tools.zip)
+- [ADB & Fastboot Tools](https://raw.githubusercontent.com/Xen1123/Android-Help/main/Platform%20Tools.tar.gz)
 - [ADB & Fastboot Installer (installs directly to PATH)](./Android-Tools.py)
+

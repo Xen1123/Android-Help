@@ -106,3 +106,4 @@ else:
     print("\033[2J\033[3J\033[1;1H")
     print("ADB & Fastboot Are Already Installed! :)")
     sys.exit(1)
+

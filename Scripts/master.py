@@ -40,6 +40,7 @@ apps = [
     "com.samsung.android.homemade",
     "com.samsung.aasaservice",
     "com.samsung.android.app.updatecenter",
+    "com.samsung.android.app.tips",
     "com.samsung.android.mapsagent",
     "com.samsung.android.bbc.bbcagent",
     "android.autoinstalls.config.samsung",
@@ -62,6 +63,7 @@ apps = [
     "com.microsoft.office.officehubrow",
     "com.samsung.android.galaxy",
     "com.sec.android.app.sbrowser",
+    "com.samsung.android.dbsc",
     "com.samsung.android.email.provider",
     "com.aura.oobe.solutions",
     "com.goodfix.fingerprint.setting",
@@ -85,15 +87,14 @@ apps = [
     "com.google.android.odad",
     "com.microsoft.appmanager",
     "com.microsoft.skydrive",
+    "com.samsung.android.app.sketchbook",
     "com.samsung.android.beaconmanager",
     "com.samsung.android.app.omcagent",
     "com.samsung.android.app.reminder",
     "com.sec.android.app.billing",
     "com.samsung.android.app.spage",
-    "com.samsung.android.samsungpass",
     "com.google.android.game.gamehome",
     "com.samsung.android.aremoji",
-    "com.samsung.android.samsungpassautofill",
     "com.sec.android.mimage.avatarstickers",
     "io.chaldeaprjkt.gamespace",
     "com.google.android.apps.betterbug",
@@ -258,6 +259,12 @@ def main():
         "com.google.android.apps.recorder": "Google's Recorder App",
         "com.google.android.apps.pixel.nowplaying": "Google's Now Playing App",
         "com.google.android.play.games": "Google Play Games App",
+        "com.facebook.katana": "Facebook",
+        "com.samsung.android.oneconnect": "Samsung SmartThings",
+        "com.sec.android.easyMover": "Samsung Smart Switch",
+        "com.samsung.android.bixby.agent": "Samsung Bixby",
+        "com.linkedin.android": "LinkedIn",
+        "com.microsoft.office.outlook": "Microsoft Outlook",
     }
 
     def confirm_choice():
@@ -367,7 +374,7 @@ def main():
                     "devices",
                 ],
             )
-            deviceChoice = input("Choose your device by typing out the model name, then pressing enter. (like XYZ789)\n")
+            deviceChoice = input("Choose your device by typing out the serial number, then pressing enter. (like XYZ789)\n")
         rootResult = subprocess.run(
             [
                 "adb",
@@ -842,7 +849,7 @@ def main():
                         for asset in release["assets"]
                         if asset["name"].startswith("Magisk-v") and asset["name"].endswith(".apk")
                 )
-                file = "Magisk.Apk"
+                file = "Magisk.apk"
                 urllib.request.urlretrieve(apk_url, file)
 
                 print("\nInstalling Magisk!")
@@ -999,7 +1006,7 @@ def main():
         )
         if "device" in adbd.stdout.split():
             subprocess.run(["adb", "devices"])
-            devChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
+            devChoice = input("Please type in your serial number to continue! Press enter when ready! (example: YXEK89HD)\n")
             subprocess.run(
                 [
                     "adb",
@@ -1026,7 +1033,7 @@ def main():
             )
             if "fastboot" in fastbootd.stdout:
                 subprocess.run(["fastboot", "devices"])
-                devChoice = input("Please type in your device ID to continue! Press enter when ready! (example: YXEK89HD)\n")
+                devChoice = input("Please type in your serial number to continue! Press enter when ready! (example: YXEK89HD)\n")
         blUnlock = subprocess.run(
             [
                 "fastboot",
@@ -1188,3 +1195,4 @@ def main():
         time.sleep(2)
 if __name__ == "__main__":
     main()
+
