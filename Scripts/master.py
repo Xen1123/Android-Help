@@ -1,10 +1,4 @@
-import argparse
-import os
-import shutil
-import subprocess
-import sys
-import time
-import urllib.request
+import argparse, os, shutil, subprocess, sys, time, urllib.request
 from pathlib import Path
 
 adbPath1 = shutil.which("adb")
