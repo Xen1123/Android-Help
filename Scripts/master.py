@@ -12,13 +12,6 @@ if not adbPath1:
     input("ADB NOT AVAILABLE ")
     sys.exit(1)
 
-result_choice = subprocess.run(
-    ["adb", "shell", "pm", "list", "packages"], capture_output=True, text=True
-)
-installed_apps_choice = [
-    line.replace("package:", "").strip() for line in result_choice.stdout.splitlines()
-]
-
 apps = [
     "com.miui.analytics",
     "com.miui.msa.global",
@@ -269,7 +262,7 @@ def main():
 
     def confirm_choice():
         for package, display_name in confirm_mapping.items():
-            if package in installed_apps_choice:
+            if package in installed_apps:
                 confirm = input(f"Remove {display_name}? (y/N)\n")
                 if confirm.lower() != "y":
                     verboseClear()
